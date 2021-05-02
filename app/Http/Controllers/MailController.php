@@ -12,7 +12,7 @@ class MailController extends Controller
         $details = ['title'=>'Mail from Time Tracker',
             'body'=> 'This is first testing'];
 
-        Mail::to("alex.neville@icloud.com")->send(new WelcomeMail($details));
+        Mail::to("vykethees@gmail.com")->send(new WelcomeMail($details));
         return "Email Sent";
     }
 }
