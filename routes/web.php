@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CountryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,6 +58,7 @@ Route::get('/session/get', [SessionController::class,'getSessionData'])->name('s
 Route::get('/session/set', [SessionController::class,'storeSessionData'])->name('session.store');
 Route::get('/session/remove', [SessionController::class,'deleteSessionData'])->name('session.delete');
 Route::get('tests', [UserController::class,'profile'])->name('profile');
-
+Route::get('/citytest', [CountryController::class,'index']);
+Route::get('/getCities/{id}', [RegisterController::class,'getCities']);
 //Email;
 Route::get('/send-email', [MailController::class,'sendEmail']);

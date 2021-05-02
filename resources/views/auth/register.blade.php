@@ -6,9 +6,9 @@
             <h1><i class="fa fa-clock-o"></i>Time Tracker</h1>
             <section class="login_content">
                 <b class="boldContent">Start Tracking Time Today</b><br>Free Account. Cancel Anytime
-                <x-forms.register/>
-                <button type="submit" class="btn btn-lg btn-success font-size-16 mt-xlg-4 mt-md-3 mb-2" href="index.html">Start Time Tracking</button>
-                <p class="text-center term-text font-size-14 mt-3">By submitting this form you accept our <a target="_blank" href="https://www.boomr.com/terms"> <strong>Terms of Service</strong></a></p>
+                <x-forms.register :countryData="$countryData"/>
+                {{--<button type="submit" class="btn btn-lg btn-success font-size-16 mt-xlg-4 mt-md-3 mb-2" href="index.html">Start Time Tracking</button>--}}
+                <p class="text-center term-text font-size-14 mt-3">Our<a target="_blank" href="https://www.boomr.com/terms"> <strong>Terms and Conditions</strong></a> for the service</p>
                 <p class="change_link">Already have an account?<br>
                     <a class="reset_pass" href="login">Sign-In</a>
                 </p>
@@ -27,6 +27,15 @@
 @section('scripts')
     {{--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="{{ asset('assets/js/custom.min.js') }}"></script>--}}
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
+    <script type="text/javascript">
+        // Material Select Initialization
+        $(document).ready(function() {
+            $('.mdb-select').materialSelect();
+        });
+    </script>
+
     <script type="text/javascript">
         var currentTab = 0; // Current tab is set to be the first tab (0)
         showTab(currentTab); // Display the current tab
@@ -79,9 +88,9 @@
                 // If a field is empty...
                 if (y[i].value == "") {
                     // add an "invalid" class to the field:
-                    //y[i].className += " invalid";
+                    y[i].className += " invalid";
                     // and set the current valid status to false
-                    valid = true;
+                    valid = false;
                 }
             }
             // If the valid status is true, mark the step as finished and valid:
@@ -115,5 +124,47 @@
                 }
             }
         }
+    </script>
+    <script type='text/javascript'>
+
+        $(document).ready(function(){
+
+            // Country Change
+            $('#sel_country').change(function(){
+
+                // Country id
+                var id = $(this).val();
+
+                // Empty the dropdown
+                $('#sel_city').find('option').not(':first').remove();
+
+                // AJAX request
+                $.ajax({
+                    url: 'getCities/'+id,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(response){
+
+                        var len = 0;
+                        if(response['data'] != null){
+                            len = response['data'].length;
+                        }
+
+                        if(len > 0){
+                            // Read data and create <option >
+                            for(var i=0; i<len; i++){
+                                var id = response['data'][i].id;
+                                var name = response['data'][i].name;
+                                var option = "<option value='"+id+"'>"+name+"</option>";
+                                $("#sel_city").append(option);
+                            }
+                        }
+
+                    }
+                });
+            });
+
+        });
+
     </script>
 @endsection

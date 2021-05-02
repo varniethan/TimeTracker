@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\User;
+use App\Models\City;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -14,13 +16,29 @@ class RegisterController extends Controller
 {
     public function create()
     {
-        return view('auth.register');
+        //Fetch Countries
+        $countryData['data'] = Country::orderby("name", "asc")
+            ->select('id','name')
+            ->get();
+        //Load index view
+        return view('auth.register')->with("countryData", $countryData);
+    }
+
+    //Fetch records
+    public function getCities($countryId = 0)
+    {
+        //Fetch Cities by CountryID
+        $cityData['data'] = City::orderby("name","asc")
+            ->select('id','name')
+            ->where('country_id', $countryId)
+            ->get();
+        return response()->json($cityData);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'first_name',
+            /*'first_name',
             'last_name',
             'dob',
             'gender',
@@ -39,15 +57,15 @@ class RegisterController extends Controller
             'hourly_rate' ,
             'branch' ,
             'username',
-            'password',
-            /*'name' => 'required|string|max:32',
+            'password',*/
+            'name' => 'required|string|max:32',
             'email' => 'required|string|email|max:32',
             'password' => 'required|string|min:8',
             'first_name' => 'required|string|max:32',
             'last_name' => 'required|string|max:32',
             'dob' => 'required',
             'gender' => 'required',
-            'mobile_number' => 'required',
+            'mobile_number' => 'required|min:5',
             'land_number' => 'required',
             'email' => 'required|string|email|max:32',
             'postal_code' => 'required|string|max:32|',
@@ -60,9 +78,9 @@ class RegisterController extends Controller
             'id' => 'required|string|max:32|',
             'basic_salary' => 'required',
             'hourly_rate' => 'required',
-            'branch' => 'required|string|max:32|',
-            'username' => 'required|string|max:32|',
-            'password' => 'required|string|max:256|',*/
+            'branch' => 'string|max:32|',
+            'user_name' => 'required|string|max:32|',
+            'password' => 'required|string|max:256|',
         ]);
         $request->merge(['password' => Hash::make($request->password)]);
         $user = User:: create($request->all());

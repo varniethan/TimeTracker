@@ -18,5 +18,4 @@
         <span class="color: red" >@error('password'){{$message}}@enderror</span>
     </div>
     <button type="submit" class="btn btn-lg btn-success font-size-16 mt-xlg-4 mt-md-3 mb-2" href="index.html">Login</button>
-    <p class="text-center term-text font-size-14 mt-3">By submitting this form you accept our <a target="_blank" href="https://www.boomr.com/terms"> <strong>Terms of Service</strong></a></p>
 </form>

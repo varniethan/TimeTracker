@@ -9,6 +9,7 @@
                 <h1><i class="fa fa-clock-o"></i>Time Tracker</h1>
                 <section class="login_content">
                     <x-forms.login/>
+                    <p class="text-center term-text font-size-14 mt-3">Our<a target="_blank" href="https://www.boomr.com/terms"> <strong>Terms and Conditions</strong></a> for the service</p>
                     <p class="change_link">Need help with login? <br>
                         <a class="reset_pass" href="reset">Reset your password</a>
                     </p>

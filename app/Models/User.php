@@ -35,7 +35,7 @@ class User extends Authenticatable
         'basic_salary',
         'hourly_rate',
         'branch',
-        'username',
+        'user_name',
         'password'
     ];
     /**
