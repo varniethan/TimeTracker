@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->string('username')->unique();
+            $table->string('user_name')->unique();
             $table->string('password');
             $table->string('email', 64)->unique();
             $table->string('first_name');
@@ -36,6 +36,7 @@ class CreateUsersTable extends Migration
             $table->float('basic_salary')->nullable();
             $table->float('hourly_rate')->nullable();
             $table->integer('branch')->nullable();
+            $table->tinyInteger('status')->default('1');
             $table->integer('role');
             $table->foreign('role')->references('id')->on('roles');
             $table->timestamp('email_verified_at')->nullable();
