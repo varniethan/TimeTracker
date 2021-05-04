@@ -26,7 +26,7 @@
                 <label class="col-form-label col-3 col-md-2 text-left">D.O.B</label>
             </div>
             <div class="col-5">
-                <input type="date" name="last_name"   class="form-control col-9 col-md-10 date" value="{{old('last_name')}}">
+                <input type="date" name="dob"   class="form-control col-9 col-md-10 date" value="{{old('dob')}}">
             </div>
         </div>
         <span class="color: red" >@error("last_name"){{$message}}@enderror</span>
@@ -158,7 +158,7 @@
                 <label class="col-form-label col-3 col-md-2 text-left">User Name</label>
             </div>
             <div class="col-10">
-                <input type="text" name="username"   class="form-control col-9 col-md-10" placeholder="User Name"  value="{{old('username')}}">
+                <input type="text" name="user_name"   class="form-control col-9 col-md-10" placeholder="User Name"  value="{{old('username')}}">
             </div>
         </div>
         <span class="color: red" >@error("username"){{$message}}@enderror</span>

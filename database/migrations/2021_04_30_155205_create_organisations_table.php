@@ -27,7 +27,7 @@ class CreateOrganisationsTable extends Migration
             $table->double('latitude')->nullable();
             $table->double('longitde')->nullable();
             $table->double('city');
-            $table->date('status');
+            $table->tinyInteger('status')->nullable();
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users');
             $table->integer('updated_by')->nullable();
