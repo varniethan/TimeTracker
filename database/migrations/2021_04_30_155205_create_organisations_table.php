@@ -17,8 +17,10 @@ class CreateOrganisationsTable extends Migration
             $table->integer('id', true);
             $table->string('name', 64)->unique();
             $table->string('display_name', 32);
+            $table->string('sector');
             $table->integer('owner');
             $table->foreign('owner')->references('id')->on('users');
+            $table->string('email', 64)->unique();
             $table->string('mobile_number', 13);
             $table->string('land_number', 13)->nullable();
             $table->string('address_1', 128);
@@ -27,7 +29,7 @@ class CreateOrganisationsTable extends Migration
             $table->double('latitude')->nullable();
             $table->double('longitde')->nullable();
             $table->double('city');
-            $table->tinyInteger('status')->nullable();
+            $table->tinyInteger('status')->default(1);
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users');
             $table->integer('updated_by')->nullable();

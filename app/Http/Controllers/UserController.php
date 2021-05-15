@@ -38,27 +38,27 @@ class UserController extends Controller
         $data = $this->userData();
         $position = Session('position');
 
-        if($position == 1)
+        if($position == 0)
         {
             return view('admin.admin_edit_profile', ['employer'=>$data]);
         }
-        elseif($position == 2)
+        elseif($position == 1)
         {
             return view('employer.employer_edit_profile', ['employer'=>$data]);
         }
-        elseif($position == 3)
+        elseif($position == 2)
         {
             return view('MD.MD_edit_profile', ['employer'=>$data]);
         }
-        elseif($position == 4)
+        elseif($position == 3)
         {
             return view('branch_manager.branch_manager_edit_profile', ['employer'=>$data]);
         }
-        elseif($position == 5)
+        elseif($position == 4)
         {
             return view('shift_manager.shift_manager_edit_profile', ['employer'=>$data]);
         }
-        elseif($position == 6)
+        elseif($position == 5)
         {
             return view('employee.employee_edit_profile', ['employer'=>$data]);
         }

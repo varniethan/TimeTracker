@@ -6,7 +6,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Employer_Dashboard;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\OrganisationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,35 +24,31 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//auth for all
-Route::group(['middleware'=> ['auth']],function(){
+//Auth for all
+Route::group(['middleware' => ['auth']], function() {
     Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+    Route::get('/logout', [LoginController::class, 'destroy']) ->name('logout');
+    Route::get('/dashboard/profile', [UserController::class,'profile'])->name('profile');
+    Route::get('/dashboard/profile/edit', [UserController::class,'getEditProfile'])->name('edit_profile');
+    Route::post('/profile_edit', [UserController::class,'update']);
+    Route::get('/dashboard/company', [OrganisationController::class,'viewCompany']);
+    /*Route::get('/dashboard/company/add', [OrganisationController::class,'create'])->name('register');*/
+    Route::get('/add', [OrganisationController::class,'create'])->name('register');
+
+    Route::post('/company_add', [OrganisationController::class,'add']);
 });
 
-Route::get('/register', [RegisterController::class, 'create'])
-    ->middleware('guest')
-    ->name('register');
-
-Route::post('/register', [RegisterController::class, 'store'])
-    ->middleware('guest');
-
-Route::get('/login', [LoginController::class, 'create'])
-    ->middleware('guest')
-    ->name('login');
-
-Route::post('/login', [LoginController::class, 'store'])
-    ->middleware('guest');
-
-Route::get('/logout', [LoginController::class, 'destroy'])
-    ->middleware('auth')
-    ->name('logout');
-
-Route::get('/dashboard/profile', [UserController::class,'profile'])->name('profile')->middleware(['auth']);
+//Guest for all
+Route::group(['middleware' => ['guest']], function() {
+    Route::get('/register', [RegisterController::class, 'create'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store']);
+    Route::get('/login', [LoginController::class, 'create'])->name('login');
+    Route::post('/login', [LoginController::class, 'store']);
+});
 
 
-//Edit Profile
-Route::get('/dashboard/profile/edit', [UserController::class,'getEditProfile'])->name('edit_profile');
-Route::post('/edit', [UserController::class,'update'])->middleware(['auth']);
+//APIs and AJAX Calls
+Route::get('/getCities/{id}', [CountryController::class,'getCities']);
 
 //Tests:
 Route::view('/timeoff','tracker.timeoff');
@@ -58,7 +56,8 @@ Route::get('/session/get', [SessionController::class,'getSessionData'])->name('s
 Route::get('/session/set', [SessionController::class,'storeSessionData'])->name('session.store');
 Route::get('/session/remove', [SessionController::class,'deleteSessionData'])->name('session.delete');
 Route::get('tests', [UserController::class,'profile'])->name('profile');
+Route::get('/org', [Employer_Dashboard::class,'index'])->name('profile');
 Route::get('/citytest', [CountryController::class,'index']);
-Route::get('/getCities/{id}', [RegisterController::class,'getCities']);
+
 //Email;
 Route::get('/send-email', [MailController::class,'sendEmail']);

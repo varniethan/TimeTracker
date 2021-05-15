@@ -24,17 +24,6 @@ class RegisterController extends Controller
         return view('auth.register')->with("countryData", $countryData);
     }
 
-    //Fetch records
-    public function getCities($countryId = 0)
-    {
-        //Fetch Cities by CountryID
-        $cityData['data'] = City::orderby("name","asc")
-            ->select('id','name')
-            ->where('country_id', $countryId)
-            ->get();
-        return response()->json($cityData);
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -43,7 +32,7 @@ class RegisterController extends Controller
             'dob' => 'required',
             'gender' => 'required',
             'password' => 'required|min:8',
-            'mobile_number' => 'required|min:5',
+            'mobile_number' => 'required|min:10',
             'land_number' => 'required',
             'email' => 'required|email|max:64',
             'postal_code' => 'required|max:64',
@@ -51,7 +40,7 @@ class RegisterController extends Controller
             'address_2' => 'required|max:64',
             'city' => 'required',
             'ni_number' => 'required|max:32|',
-            'basic_salary' => 'required',
+            'basic_salary' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             'role',
             'user_name' => 'required|string|max:32|',
             'password' => 'required_with:password_confirmation|same:password_confirmation|max:256|',
