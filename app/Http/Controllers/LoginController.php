@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Organisation;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -21,10 +22,15 @@ class LoginController extends Controller
     {
         $request->authenticate();
         $user = User::where('email','=',$request->email)->first();
+        $organisation = Organisation::where('owner','=',$user->id)->first();
         $request->session()->put('user_id', $user->id);
         $request->session()->put('email', $user->email);
         $request->session()->put('user_name', $user->user_name);
         $request->session()->put('position', $user->position);
+        if ($user->position = 1 and $organisation != null)
+        {
+            $request->session()->put('org_id', $organisation->id);
+        }
         return redirect()->intended(RouteServiceProvider::HOME);
 
     }

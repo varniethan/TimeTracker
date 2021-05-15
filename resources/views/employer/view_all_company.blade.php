@@ -8,8 +8,8 @@
             <!-- page content -->
             <div class="right_col" role="main">
                 <div>
-                    <x-employer.edit_profile :employer="$employer"/>
                 </div>
+                <x-employer.view_all_company :organisation="$organisation"/>
             </div>
             <!-- /page content -->
 

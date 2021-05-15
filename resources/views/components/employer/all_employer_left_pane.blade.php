@@ -42,14 +42,16 @@
                 <ul class="nav side-menu">
                     <li><a><i class="fa fa-cogs"></i> Manage <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="employeeProfile.html">View Company</a></li>
-                            <li><a href="projects.html">Add Company</a></li>
+                            <li><a href="{{url('/dashboard/company')}}">View Company</a></li>
+                            <li><a href="{{url('dashboard/company/add')}}">Add Company</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
-            <x-navbars.track/>
-            <x-navbars.reports/>
+            @if(session()->has('org_id'))
+                <x-navbars.track/>
+                <x-navbars.reports/>
+            @endif
         </div>
         <!-- /sidebar menu -->
 
