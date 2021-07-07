@@ -41,7 +41,9 @@ class CreateUsersTable extends Migration
             $table->foreign('role')->references('id')->on('roles');
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('created_by')->nullable();
+            $table->foreign('created_by')->references('id')->on('users');
             $table->integer('updated_by')->nullable();
+            $table->foreign('updated_by')->references('id')->on('users');
             $table->rememberToken();
             $table->timestamps();
         });

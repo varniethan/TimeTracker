@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRolesTable extends Migration
+class CreateShiftBreaksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-//        For the overall app - set by the developers but positions can be made by the organisation it self - shift, branch managers...etc
-        Schema::create('roles', function (Blueprint $table) {
-            $table->integer('id', true);
-            $table->string('name')->unique();
-            $table->text('description')->nullable();
-            $table->tinyInteger('status');
+        Schema::create('shift_breaks', function (Blueprint $table) {
+            $table->integer('id', 'true');
+            $table->integer('shift_id');
+            $table->foreign('shift_id')->references('id')->on('shifts');// need to create  shifts table
+            $table->integer('break_id');
+            $table->foreign('break_id')->references('id')->on('breaks');
+            $table->time('start');
+            $table->time('end');
+            $table->tinyInteger('status')->default('1');
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users');
             $table->integer('updated_by')->nullable();
@@ -34,6 +37,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('shift_breaks');
     }
 }

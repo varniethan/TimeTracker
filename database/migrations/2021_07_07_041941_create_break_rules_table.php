@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExpenseCategoryTable extends Migration
+class CreateBreakRulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,20 @@ class CreateExpenseCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('expense_category', function (Blueprint $table) {
+        Schema::create('break_rules', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->string('name', 64)->unique();
-            $table->text('description');
             $table->integer('organisation');
             $table->foreign('organisation')->references('id')->on('organisations');
-            $table->decimal('maximum_amount', 9, 3);
-            /*$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'))->nullable();
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))->nullable();*/
+            $table->string('name', 64)->unique();
+            $table->string('description', 256)->nullable();
+            $table->smallInteger('type');
+            $table->integer('hours');
+            $table->integer('mins');
+            $table->smallInteger('can_end_earlier')->default('0')->nullable();
+            $table->smallInteger('send_reminder')->default('0')->nullable();
+            $table->smallInteger('prompt_when_hrs')->default('0')->nullable();
+            $table->smallInteger('prompt_when_mins')->default('0')->nullable();
+            $table->smallInteger('status')->default('1')->nullable();
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users');
             $table->integer('updated_by')->nullable();
@@ -37,6 +42,6 @@ class CreateExpenseCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('expense_category');
+        Schema::dropIfExists('break_rules');
     }
 }

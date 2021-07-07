@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBranchesTable extends Migration
+class CreateUserBreaksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,14 @@ class CreateBranchesTable extends Migration
      */
     public function up()
     {
-        Schema::create('branches', function (Blueprint $table) {
+        Schema::create('user_breaks', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->string('name', 64)->unique();
-            $table->string('display_name', 32);
-            $table->integer('organisation');
-            $table->string('mobile_number');
-            $table->string('land_number')->nullable();
-            $table->string('address_1', 128);
-            $table->string('address_2', 128)->nullable();
-            $table->string('postal_code', 6);
-            $table->double('latitude');
-            $table->double('logitude');
-            $table->integer('city');
-            $table->tinyInteger('status');
+            $table->integer('break_id');
+            $table->foreign('break_id')->references('id')->on('break_rules');
+            $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('hours');
+            $table->integer('mins');
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users');
             $table->integer('updated_by')->nullable();
@@ -42,6 +36,6 @@ class CreateBranchesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('branches');
+        Schema::dropIfExists('user_breaks');
     }
 }
