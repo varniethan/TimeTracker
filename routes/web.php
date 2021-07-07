@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Employer_Dashboard;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\OrganisationController;
+use App\Http\Controllers\EmployeeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,8 +35,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/dashboard/company', [OrganisationController::class,'viewCompany']);
     /*Route::get('/dashboard/company/add', [OrganisationController::class,'create'])->name('register');*/
     Route::get('/add', [OrganisationController::class,'create'])->name('register');
-
     Route::post('/company_add', [OrganisationController::class,'add']);
+
+    Route::get('/employee/create', [EmployeeController::class,'create'])->name('register');
+    Route::post('/employee/', [EmployeeController::class,'add']);
 });
 
 //Guest for all
@@ -46,12 +49,18 @@ Route::group(['middleware' => ['guest']], function() {
     Route::post('/login', [LoginController::class, 'store']);
 });
 
-
 //APIs and AJAX Calls
 Route::get('/getCities/{id}', [CountryController::class,'getCities']);
 
+//Resources - perform the same sets of actions against each resource in your application.Because of this common use case, Laravel resource routing assigns the typical create, read, update, and delete ("CRUD") routes to a controller with a single line of code.
+/*Route::group(['middleware' => ['auth']],resources([
+    'employee' => EmployeeController::class,
+//    'posts' => PostController::class,
+]));*/
+
 //Tests:
-Route::view('/timeoff','tracker.timeoff');
+/*Route::view('/timeoff','tracker.timeoff');*/
+Route::view('/timeoff','employee.add_employee');
 Route::get('/session/get', [SessionController::class,'getSessionData'])->name('session.get');
 Route::get('/session/set', [SessionController::class,'storeSessionData'])->name('session.store');
 Route::get('/session/remove', [SessionController::class,'deleteSessionData'])->name('session.delete');
@@ -61,3 +70,7 @@ Route::get('/citytest', [CountryController::class,'index']);
 
 //Email;
 Route::get('/send-email', [MailController::class,'sendEmail']);
+
+
+//DB Tests
+Route::get('/dbtest', [CountryController::class,'getCountry']);

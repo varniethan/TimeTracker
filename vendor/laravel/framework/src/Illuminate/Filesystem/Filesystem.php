@@ -117,6 +117,8 @@ class Filesystem
      * @param  string  $path
      * @param  array  $data
      * @return mixed
+     *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function requireOnce($path, array $data = [])
     {
@@ -180,10 +182,10 @@ class Filesystem
      * @param  bool  $lock
      * @return int|bool
      */
-     public function put($path, $contents, $lock = false)
- {
-     return file_put_contents($path, $contents, 0);
- }
+    public function put($path, $contents, $lock = false)
+    {
+        return file_put_contents($path, $contents, $lock ? LOCK_EX : 0);
+    }
 
     /**
      * Write the contents of a file, replacing it atomically if it already exists.
@@ -326,6 +328,8 @@ class Filesystem
      * @param  string  $target
      * @param  string  $link
      * @return void
+     *
+     * @throws \RuntimeException
      */
     public function relativeLink($target, $link)
     {
@@ -389,6 +393,8 @@ class Filesystem
      *
      * @param  string  $path
      * @return string|null
+     *
+     * @throws \RuntimeException
      */
     public function guessExtension($path)
     {

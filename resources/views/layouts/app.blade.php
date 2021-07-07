@@ -69,6 +69,8 @@
 <script src="{{ asset('assets/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}"></script>
 <!-- bootstrap-daterangepicker -->
 <script src="{{ asset('assets/vendors/moment/min/moment.min.js') }}"></script>
+<!-- SmartWizard -->
+<script src="{{ asset('assets/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js') }}"></script>
 {{--    <script src="{{ asset('assets/vendors/bootstrap-daterangepicker/daterangepicker.js) }}"></script>--}}
 
 <!-- Custom Theme Scripts -->

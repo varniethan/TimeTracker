@@ -6,14 +6,15 @@ use Illuminate\View\Component;
 
 class register extends Component
 {
+    public $countryData;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($countryData)
     {
-        //
+        $this->countryData = $countryData;
     }
 
     /**
