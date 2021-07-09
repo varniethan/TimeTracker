@@ -37,8 +37,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/add', [OrganisationController::class,'create'])->name('register');
     Route::post('/company_add', [OrganisationController::class,'add']);
 
-    Route::get('/employee/create', [EmployeeController::class,'create'])->name('register');
-    Route::post('/employee/', [EmployeeController::class,'add']);
+//    Route::get('/employee/create', [EmployeeController::class,'create'])->name('register');
+//    Route::post('/employee/', [EmployeeController::class,'add']);
 });
 
 //Guest for all
@@ -53,10 +53,9 @@ Route::group(['middleware' => ['guest']], function() {
 Route::get('/getCities/{id}', [CountryController::class,'getCities']);
 
 //Resources - perform the same sets of actions against each resource in your application.Because of this common use case, Laravel resource routing assigns the typical create, read, update, and delete ("CRUD") routes to a controller with a single line of code.
-/*Route::group(['middleware' => ['auth']],resources([
+Route::resources([
     'employee' => EmployeeController::class,
-//    'posts' => PostController::class,
-]));*/
+]);
 
 //Tests:
 /*Route::view('/timeoff','tracker.timeoff');*/
@@ -74,3 +73,6 @@ Route::get('/send-email', [MailController::class,'sendEmail']);
 
 //DB Tests
 Route::get('/dbtest', [CountryController::class,'getCountry']);
+Route::get('/test1', function () {
+    return view('employee.index');
+});

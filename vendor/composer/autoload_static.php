@@ -550,6 +550,7 @@ class ComposerStaticInit799bbe3e8fef590ed90041a526852a38
         'App\\View\\Components\\timeoff\\approve_timeoff' => __DIR__ . '/../..' . '/app/View/Components/timeoff/approve_timeoff.php',
         'App\\View\\Components\\timeoff\\timeoff_table' => __DIR__ . '/../..' . '/app/View/Components/timeoff/timeoff_table.php',
         'App\\View\\Components\\timeoff\\unapprove_timeoff' => __DIR__ . '/../..' . '/app/View/Components/timeoff/unapprove_timeoff.php',
+        'App\\View\\Components\\view\\all_employee_profile' => __DIR__ . '/../..' . '/app/View/Components/view/all_employee_profile.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/CorsService.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',

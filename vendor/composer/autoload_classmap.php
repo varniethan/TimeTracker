@@ -56,6 +56,7 @@ return array(
     'App\\View\\Components\\timeoff\\approve_timeoff' => $baseDir . '/app/View/Components/timeoff/approve_timeoff.php',
     'App\\View\\Components\\timeoff\\timeoff_table' => $baseDir . '/app/View/Components/timeoff/timeoff_table.php',
     'App\\View\\Components\\timeoff\\unapprove_timeoff' => $baseDir . '/app/View/Components/timeoff/unapprove_timeoff.php',
+    'App\\View\\Components\\view\\all_employee_profile' => $baseDir . '/app/View/Components/view/all_employee_profile.php',
     'Asm89\\Stack\\Cors' => $vendorDir . '/asm89/stack-cors/src/Cors.php',
     'Asm89\\Stack\\CorsService' => $vendorDir . '/asm89/stack-cors/src/CorsService.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',

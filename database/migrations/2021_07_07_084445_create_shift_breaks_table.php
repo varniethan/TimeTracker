@@ -17,8 +17,10 @@ class CreateShiftBreaksTable extends Migration
             $table->integer('id', 'true');
             $table->integer('shift_id');
             $table->foreign('shift_id')->references('id')->on('shifts');// need to create  shifts table
-            $table->integer('break_id');
-            $table->foreign('break_id')->references('id')->on('breaks');
+            $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('break_type');
+            $table->foreign('break_type')->references('id')->on('break_rules');
             $table->time('start');
             $table->time('end');
             $table->tinyInteger('status')->default('1');

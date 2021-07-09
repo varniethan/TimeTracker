@@ -8,7 +8,7 @@
             <!-- page content -->
             <div class="right_col" role="main">
                 <div>
-                    <x-employer.profile :employer="$employer"/>
+                    <x-view.all_employee_profile/>
                 </div>
             </div>
             <!-- /page content -->
@@ -19,5 +19,3 @@
         </div>
     </div>
 @endsection
-
-≤

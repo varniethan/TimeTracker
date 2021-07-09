@@ -17,17 +17,16 @@ class CreateShiftsTable extends Migration
             $table->integer('id','true');
             $table->integer('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            /*$table->integer('organisation_id');
-            $table->foreign('organisation_id')->references('id')->on('organisations');*/
             $table->integer('branch_id');
             $table->foreign('branch_id')->references('id')->on('branches');
-            $table->integer('job_code');
+            $table->integer('job_code')->nullable();
+            $table->foreign('job_code')->references('id')->on('job_codes');
             $table->date('date');
-            $table->time('from');
-            $table->time('to');
+            $table->time('scheduled_from')->nullable();;
+            $table->time('scheduled_to')->nullable();;
             $table->time('clock_in');
             $table->time('clock_out');
-            $table->tinyInteger('approved')->default('1');
+            $table->tinyInteger('approved')->default('0');
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users');
             $table->integer('updated_by')->nullable();

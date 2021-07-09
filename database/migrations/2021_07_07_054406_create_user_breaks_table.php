@@ -14,6 +14,7 @@ class CreateUserBreaksTable extends Migration
     public function up()
     {
         Schema::create('user_breaks', function (Blueprint $table) {
+//            N.B: This is trasfered to shift breaks
             $table->integer('id', true);
             $table->integer('break_id');
             $table->foreign('break_id')->references('id')->on('break_rules');

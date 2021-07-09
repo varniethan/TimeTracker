@@ -33,8 +33,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-
        /* return view('employee.index', compact('employees'));*/
+       return view('employee.index');
 
     }
 
@@ -62,7 +62,34 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make(
+            $request->all(), [
+                'first_name' => 'required|string|max:64',
+                'last_name' => 'required|string|max:64',
+                'dob' => 'required',
+                'gender' => 'required',
+                'mobile_number' => 'required|min:10',
+                'land_number' => 'required',
+                'email' => 'required|email|max:64',
+                'postal_code' => 'required|max:64',
+                'address_1' => 'required|max:64',
+                'address_2' => 'max:64',
+                'city' => 'required',
+                'ni_number' => 'required|max:32|',
+                'basic_salary' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+                'role',
+                'position',
+                'user_name' => 'required|string|max:32|',
+//              'document.*' => 'image|mimes:jpeg,png,jpg,gif,svg,pdf,doc|max:20480',
+            ]
+        );
+        if($validator->fails())
+        {
+            $messages = $validator->getMessageBag();
+            return redirect()->back()->with('error', $messages->first());
+        }
+        $user = User:: create($request->all());
+        return redirect(RouteServiceProvider::HOME);
     }
 
     /**

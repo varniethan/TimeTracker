@@ -31,11 +31,12 @@ class CreateUsersTable extends Migration
             $table->mediumInteger('city',false, true);
             $table->foreign('city')->references('id')->on('cities');
             $table->string('ni_number');
-            $table->Integer('position');
-            $table->foreign('position')->references('id')->on('positions');
+            $table->Integer('position_id');
+            $table->foreign('position_id')->references('id')->on('positions');
             $table->float('basic_salary')->nullable();
             $table->float('hourly_rate')->nullable();
-            $table->integer('branch')->nullable();
+            $table->integer('organisation_id')->nullable();
+            $table->foreign('organisation_id')->references('id')->on('organisations');
             $table->tinyInteger('status')->default('1');
             $table->integer('role');
             $table->foreign('role')->references('id')->on('roles');
