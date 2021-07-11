@@ -26,8 +26,8 @@ class CountryController extends Controller
                                 ->select('id','name')
                                 ->where('country_id', $countryId)
                                 ->get();
-//        return response()->json($cityData);
-        return $cityData['data'];
+        return response()->json($cityData);
+//        return $cityData['data'];
     }
 
     public function getCountryId($cityId)

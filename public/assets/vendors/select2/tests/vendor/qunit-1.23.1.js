@@ -4314,7 +4314,7 @@ QUnit.diff = ( function() {
 			pointer++;
 		}
 
-		// If shifts were made, the diff needs reordering and another shift sweep.
+		// If shift were made, the diff needs reordering and another shift sweep.
 		if ( changes ) {
 			this.diffCleanupMerge( diffs );
 		}

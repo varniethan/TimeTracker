@@ -46,7 +46,7 @@ while shift_date_ts < end_ts: #From 1st Jan 2018 to today
     if shift_date.weekday() < 5 and shift_date not in uk_holidays and random.randint(1,100) > absentee_rate:
         #Executing the query
         print(f"INSERT INTO shifts values (NULL,{user_id},{branch_id},NULL,'{shift_date.year}/{shift_date.month:02}/{shift_date.day:02}','{sheduled_clock_in_time.time()}', '{sheduled_clock_out_time.time()}', '{real_clock_in_time.time()}', '{real_clock_out_time.time()}', '1', '{user_id}', '{user_id}', '{now}', 'NULL')")
-        cursor.execute(f"INSERT INTO shifts values (NULL,{user_id},{branch_id},NULL,'{shift_date.year}/{shift_date.month:02}/{shift_date.day:02}','{sheduled_clock_in_time.time()}', '{sheduled_clock_out_time.time()}', '{real_clock_in_time.time()}', '{real_clock_out_time.time()}', '1', '{user_id}', '{user_id}', '{now}', '{now}')")
+        cursor.execute(f"INSERT INTO shifts values (NULL,'{user_id}','{branch_id}',NULL,'{shift_date.year}/{shift_date.month:02}/{shift_date.day:02}','{sheduled_clock_in_time.time()}', '{sheduled_clock_out_time.time()}', '{real_clock_in_time.time()}', '{real_clock_out_time.time()}', '1', '{user_id}', '{user_id}', '{now}', '{now}')")
         # print(f"INSERT INTO test_time_data values (NULL,{user_id},{branch_id},NULL,'{shift_date.year}/{shift_date.month:02}/{shift_date.day:02}',{sheduled_clock_in_time.time()}, {sheduled_clock_out_time.time()}, {real_clock_in_time.time()}, {real_clock_out_time.time()}, '1', {user_id}, {user_id}, {now}, {now})")
         #Commiting the current transaction
         cnx.commit()

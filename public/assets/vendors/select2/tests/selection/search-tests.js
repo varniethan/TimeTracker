@@ -138,7 +138,7 @@ test('updating selection does not shift the focus', function (assert) {
   );
 });
 
-test('the focus event shifts the focus', function (assert) {
+test('the focus event shift the focus', function (assert) {
   // Check for IE 8, which triggers a false negative during testing
   if (window.attachEvent && !window.addEventListener) {
     // We must expect 0 assertions or the test will fail

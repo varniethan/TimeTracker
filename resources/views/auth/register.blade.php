@@ -6,7 +6,7 @@
             <h1><i class="fa fa-clock-o"></i>Time Tracker</h1>
             <section class="login_content">
                 <b class="boldContent">Start Tracking Time Today</b><br>Free Account. Cancel Anytime
-                <x-forms.register :countryData="$countryData"/>
+                <x-form.register :countryData="$countryData"/>
                 {{--<button type="submit" class="btn btn-lg btn-success font-size-16 mt-xlg-4 mt-md-3 mb-2" href="index.html">Start Time Tracking</button>--}}
                 <p class="text-center term-text font-size-14 mt-3">Our<a target="_blank" href="https://www.boomr.com/terms"> <strong>Terms and Conditions</strong></a> for the service</p>
                 <p class="change_link">Already have an account?<br>
@@ -25,8 +25,6 @@
 @endsection
 
 @section('scripts')
-    {{--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script src="{{ asset('assets/js/custom.min.js') }}"></script>--}}
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"></script>
     <script type="text/javascript">

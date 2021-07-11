@@ -16,7 +16,7 @@ describe('angular easypiechart directive', function() {
         expect(element.isolateScope().percent).toBe(0);
     });
 
-    it('inserts the element with a canvas element', function() {
+    it('insert the element with a canvas element', function() {
         scope.percent = -45;
         scope.options = {};
         var element = angular.element('<div easypiechart percent="percent" options="options"></div>');

@@ -42,7 +42,7 @@
             url             : 'invalid URL',
             number          : 'not a number',
             email           : 'email address is invalid',
-            email_repeat    : 'emails do not match',
+            email_repeat    : 'email do not match',
             date            : 'invalid date',
             time            : 'invalid time',
             password_repeat : 'passwords do not match',

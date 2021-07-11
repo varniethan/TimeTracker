@@ -4693,7 +4693,7 @@ function deflate_stored(s, flush) {
 /* ===========================================================================
  * Compress as much as possible from the input stream, return the current
  * block state.
- * This function does not perform lazy evaluation of matches and inserts
+ * This function does not perform lazy evaluation of matches and insert
  * new strings in the dictionary only for unmatched strings or for short
  * matches. It is used only for the fast compression options.
  */

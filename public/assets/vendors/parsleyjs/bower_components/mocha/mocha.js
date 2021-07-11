@@ -12030,7 +12030,7 @@ var exec = require('child_process').exec
 function which(name) {
   var paths = process.env.PATH.split(':');
   var loc;
-  
+
   for (var i = 0, len = paths.length; i < len; ++i) {
     loc = path.join(paths[i], name);
     if (exists(loc)) return loc;
@@ -12145,7 +12145,7 @@ exports.version = '1.4.1'
  * Examples:
  *
  *   growl('New email')
- *   growl('5 new emails', { title: 'Thunderbird' })
+ *   growl('5 new email', { title: 'Thunderbird' })
  *   growl('Email sent', function(){
  *     // ... notification sent
  *   })

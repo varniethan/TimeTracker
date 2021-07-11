@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '5d5d4a2923187a8182d03c937a2cb5f25110a47d',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -114,6 +114,13 @@
       array (
       ),
       'reference' => '3c921a1cdba35b68a7f0ccffc6dffc1995b18267',
+    ),
+    'facebook/webdriver' => 
+    array (
+      'replaced' => 
+      array (
+        0 => '*',
+      ),
     ),
     'fakerphp/faker' => 
     array (
@@ -420,6 +427,15 @@
         0 => '*',
       ),
     ),
+    'laravel/dusk' => 
+    array (
+      'pretty_version' => 'v6.15.1',
+      'version' => '6.15.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '6978f331f526e84f06b803ed4407d372a6db065f',
+    ),
     'laravel/framework' => 
     array (
       'pretty_version' => 'v8.49.0',
@@ -431,12 +447,12 @@
     ),
     'laravel/laravel' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '5d5d4a2923187a8182d03c937a2cb5f25110a47d',
     ),
     'laravel/sail' => 
     array (
@@ -574,6 +590,15 @@
       array (
       ),
       'reference' => 'bae7c545bef187884426f042434e561ab1ddb182',
+    ),
+    'php-webdriver/webdriver' => 
+    array (
+      'pretty_version' => '1.11.1',
+      'version' => '1.11.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'da16e39968f8dd5cfb7d07eef91dc2b731c69880',
     ),
     'phpdocumentor/reflection-common' => 
     array (

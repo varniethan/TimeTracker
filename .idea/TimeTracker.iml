@@ -113,6 +113,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/environment" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/resource-operations" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/global-state" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/php-webdriver/webdriver" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/dusk" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.9 (tt_venv)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

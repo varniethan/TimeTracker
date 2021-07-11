@@ -29,6 +29,6 @@ class WelcomeMail extends Mailable
     public function build()
     {
         //return $this->view('view.name');
-        return $this->subject('Test Mail From Time Tracker')->view('emails.welcome_email');
+        return $this->subject("Time Tracker is different. Here's what you need to know")->view('email.welcome');
     }
 }

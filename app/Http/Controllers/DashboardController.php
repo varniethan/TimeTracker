@@ -8,35 +8,44 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+
     public function index()
     {
         /*$data = session()->all();
         var_dump($data);*/
-        $position = Session('position');
-
-        if($position == 0)
+        $role_id = Session('role_id');
+        if($role_id == 0)
         {
-            return view('admin.admin_dashboard');
+            return view('dashboard.super_admin');
         }
-        elseif($position == 1)
+        elseif($role_id == 1)
         {
-            return view('employer.all_employer_dashboard');
+            return view('dashboard.dashboard');
         }
-        elseif($position == 2)
+        elseif($role_id == 2)
         {
-            return view('MD.MD_dashboard');
+            return view('dashboard.dashboard');
         }
-        elseif($position == 3)
+        elseif($role_id == 3)
         {
-            return view('branch_manager.branch_manager_dashboard');
+            return view('dashboard.dashboard');
         }
-        elseif($position == 4)
+        elseif($role_id == 4)
         {
-            return view('shift_manager.shift_manager_dashboard');
+            return view('dashboard.dashboard');
         }
-        elseif($position == 5)
+        elseif($role_id == 5)
         {
-            return view('employee.employee_dashboard');
+            return view('dashboard.dashboard');
+        }
+        elseif($role_id == 6)
+        {
+            return view('dashboard.dashboard');
         }
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\City;
 
 class User extends Authenticatable
 {
@@ -30,12 +31,12 @@ class User extends Authenticatable
         'city',
         'state',
         'ni_number',
-        'position',
+        'position_id',
+        'role_id',
         'id',
         'basic_salary',
         'hourly_rate',
         'branch',
-        'role',
         'user_name',
         'password'
     ];
@@ -57,4 +58,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function getUser($user)
+    {
+        $user = User::where('id','=',$user)->first();
+        return $user;
+    }
+
+    public static function getCountry($city)
+    {
+        $city = City::where('id','=',$city);
+        return $city;
+    }
 }

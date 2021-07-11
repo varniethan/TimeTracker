@@ -9,4 +9,12 @@ class Country extends Model
 {
     use HasFactory;
     protected $table = "countries";
+
+    public static function getAllCountryNames()
+    {//Fetch Countries
+        $countries = Country::orderby("name", "asc")
+                ->select('id', 'name')
+                ->get();
+        return $countries;
+    }
 }
