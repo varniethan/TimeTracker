@@ -19,6 +19,7 @@ class CreateBranchesTable extends Migration
             $table->string('display_name', 32);
             $table->integer('organisation_id');
             $table->foreign('organisation_id')->references('id')->on('organisation');
+            $table->string('email', 64)->unique();
             $table->string('mobile_number');
             $table->string('land_number')->nullable();
             $table->string('address_1', 128);

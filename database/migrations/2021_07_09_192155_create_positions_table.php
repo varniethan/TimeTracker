@@ -22,6 +22,7 @@ class CreatePositionsTable extends Migration
             $table->tinyInteger('status');
             $table->float('basic_salary');
             $table->float('overtime');
+            $table->float('pay_type');
             $table->integer('created_by')->nullable();
             //$table->foreign('created_by')->references('id')->on('users');
             $table->integer('updated_by')->nullable();

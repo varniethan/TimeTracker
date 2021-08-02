@@ -1,0 +1,29 @@
+<?php
+
+namespace App\View\Components\index;
+
+use Illuminate\View\Component;
+
+class positions extends Component
+{
+    public $positionData;
+    /**
+     * Create a new component instance.
+     *
+     * @return void
+     */
+    public function __construct($positionData)
+    {
+        $this->positionData = $positionData;
+    }
+
+    /**
+     * Get the view / contents that represent the component.
+     *
+     * @return \Illuminate\Contracts\View\View|\Closure|string
+     */
+    public function render()
+    {
+        return view('components.index.positions');
+    }
+}

@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
+use App\Models\Organisation;
 use Illuminate\Http\Request;
+use App\Models\Branch;
+use App\Http\Controllers\View;
 
 class BranchController extends Controller
 {
@@ -13,7 +17,19 @@ class BranchController extends Controller
      */
     public function index()
     {
-        //
+        $org_id = Session('org_id');
+        $seeAllBranches = array(1 ,2, 3);
+        $seeBranch = array(4 , 5);
+        if (in_array( Session('role_id'), $seeAllBranches))
+        {
+            $branchData = Branch::getBrachesOfOrganisations(session('org_id'));
+            return view('branch.index', compact('branchData'));
+        }
+        elseif (in_array( Session('role_id'), $seeBranch))
+        {
+            $branchData = Branch::getBranchesOfManagerByUserId(session('user_id')); //Returns all the branches that the branch/ shift manager is in
+            return view('branch.index', compact('branchData'));
+        }
     }
 
     /**
@@ -23,7 +39,8 @@ class BranchController extends Controller
      */
     public function create()
     {
-        //
+        $countryData = Country::getAllCountryNames();
+        return view('branch.create')->with('countryData',$countryData);
     }
 
     /**
@@ -34,7 +51,20 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|max:64',
+            'display_name' => 'required',
+            'email' => 'required|email|max:64',
+            'mobile_number' => 'required|min:10',
+            'land_number' => 'required',
+            'postal_code' => 'required',
+            'address_1' => 'required',
+            'address_2' => 'required',
+            'city' => 'required',
+        ]);
+        $organisationData = Organisation::getEmployerAllOrganisations(Session('user_id'));
+        $branchData = Branch:: create($request->all() + ['organisation_id'=>$organisationData['id']]);
+        return redirect('/branch');
     }
 
     /**
@@ -45,7 +75,11 @@ class BranchController extends Controller
      */
     public function show($id)
     {
-        //
+        // get the branch
+        $branchData = Branch::find($id);
+        $organisationData = Organisation::getBranchOrganisation($branchData['organisation_id']);
+        // show the view and pass the branch to it
+        return view('branch.show', compact('branchData', 'organisationData'));
     }
 
     /**
@@ -56,7 +90,10 @@ class BranchController extends Controller
      */
     public function edit($id)
     {
-        //
+        $branchData= Branch::find($id);
+        $organisationData= Organisation::find($branchData['organisation_id']);
+        $countryData = Country::getAllCountryNames();
+        return view('branch.edit', compact('branchData','organisationData', 'countryData'));
     }
 
     /**
@@ -68,7 +105,18 @@ class BranchController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $branchData = Branch::findOrFail($id);
+        $this->validate($request,[
+            'mobile_number' => 'required|min:10',
+            'land_number' => 'required',
+            'postal_code' => 'required',
+            'address_1' => 'required',
+            'address_2' => 'required',
+            'city' => 'required',
+        ]);
+        $input = $request->all();
+        $branchData->fill($input)->save();
+        return redirect()->route('branch.index');
     }
 
     /**

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container body">
         <div class="main_container">
-            <x-navbar.left-pane/>
+            <x-navbar.account-pane/>
             <x-navbar.top-pane/>
             <!-- page content -->
             <div class="right_col" role="main">

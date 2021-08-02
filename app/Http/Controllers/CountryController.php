@@ -18,7 +18,7 @@ class CountryController extends Controller
         return view('test')->with("countryData", $countryData);
     }
 
-    //Fetch records
+    //Fetch records JSON
     public function getCities($countryId)
     {
         //Fetch Cities by CountryID
@@ -27,8 +27,19 @@ class CountryController extends Controller
                                 ->where('country_id', $countryId)
                                 ->get();
         return response()->json($cityData);
-//        return $cityData['data'];
     }
+
+    //Fetch records - NOT JSON
+    public function getCitiesNotJson($countryId)
+    {
+        //Fetch Cities by CountryID
+        $cityData['data'] = City::orderby("name","asc")
+            ->select('id','name')
+            ->where('country_id', $countryId)
+            ->get();
+        return $cityData['data'];
+    }
+
 
     public function getCountryId($cityId)
     {
@@ -40,5 +51,4 @@ class CountryController extends Controller
         /*return response()->json($countryId);*/
         return $countryId;
     }
-
 }

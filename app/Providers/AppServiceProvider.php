@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
+use View;
+use App\Models\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+//        $userData = User::getUser(Session('user_id'));
     }
 
     /**
@@ -23,6 +26,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::composer(['*'], function ($view)
+        {
+            $view->with('userData', User::getUser(Session('user_id')));
+        });
+        Paginator::useBootstrap();
     }
 }

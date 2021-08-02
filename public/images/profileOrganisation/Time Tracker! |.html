@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html class=" " lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/ico" href="http://localhost/timeTracker/public/assets/images/favicon.ico">
+    <title>Time Tracker! | </title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="Time%20Tracker!%20|_files/bootstrap.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="Time%20Tracker!%20|_files/font-awesome.css">
+    <!-- NProgress -->
+    <link rel="stylesheet" href="Time%20Tracker!%20|_files/nprogress.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="Time%20Tracker!%20|_files/green.css">
+    <!-- bootstrap-progressbar -->
+    <link rel="stylesheet" href="Time%20Tracker!%20|_files/bootstrap-progressbar-3.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="Time%20Tracker!%20|_files/jqvmap.css">
+    <!-- bootstrap-daterangepicker -->
+    <link rel="stylesheet" href="Time%20Tracker!%20|_files/daterangepicker.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="Time%20Tracker!%20|_files/animate.css">
+    <!-- Custom Theme Style -->
+    <link rel="stylesheet" href="Time%20Tracker!%20|_files/bootstrap_002.css">
+    <link rel="stylesheet" href="Time%20Tracker!%20|_files/custom.css">
+    <!-- AJAX -->
+    <script src="Time%20Tracker!%20|_files/jquery.js"></script>
+</head>
+<body class="nav-md footer_fixed">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+    <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+            <a href="http://localhost/timeTracker/public/organisation/index.html" class="site_title"><i class="fa fa-clock-o"></i> <span>Time Tracker!</span></a>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <!-- menu profile quick info -->
+        <div class="profile clearfix">
+            <div class="profile_pic">
+                <img src="Time%20Tracker!%20|_files/img.jpg" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+                <span>Welcome,</span>
+                <h2>User Name</h2>
+            </div>
+        </div>
+        <!-- /menu profile quick info -->
+
+        <br>
+
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+                <h3>General</h3>
+                <ul class="nav side-menu">
+                    <li><a href="http://localhost/timeTracker/public/dashboard"><i class="fa fa-home"></i>Launchpad</a></li>
+                    <li><a><i class="fa fa-user"> </i> Profile <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="http://localhost/timeTracker/public/profile"> View Profile</a></li>
+                            <li><a href="http://localhost/timeTracker/public/edit-profile">Edit Profile</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="http://localhost/chatter/public"><i class="fa fa-wechat"></i>We Chat</a></li>
+                </ul>
+            </div>
+
+
+                <div class="menu_section">
+                    <h3>Organisations</h3>
+                    <ul class="nav side-menu">
+                        <li><a><i class="fa fa-cogs"></i> Manage <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="http://localhost/timeTracker/public/organisation">View Organisations</a></li>
+                                                                <li><a href="http://localhost/timeTracker/public/edit-organisation">Edit Organisations</a></li>
+                                <li><a href="http://localhost/timeTracker/public/organisation/creation">Add Organisations</a></li>
+                                                            </ul>
+
+
+
+
+
+                        </li>
+                    </ul>
+                </div>
+                
+            <div class="menu_section">
+    <h3>Track</h3>
+    <ul class="nav side-menu">
+        <li><a><i class="fa fa-history"> </i> Shifts <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+                <li><a href="http://localhost/timeTracker/public/organisation/project_detail.html">Punch In and Out</a></li>
+                <li><a href="http://localhost/timeTracker/public/organisation/projects.html">Full Shifts</a></li>
+                <li><a href="http://localhost/timeTracker/public/organisation/e_commerce.html">Open Shift</a></li>
+            </ul>
+        </li>
+        <li><a href="http://localhost/timeTracker/public/organisation/index.html"><i class="fa fa-rocket"></i>Time Off</a></li>
+        <li><a href="http://localhost/timeTracker/public/organisation/index.html"><i class="fa fa-money"></i>Expense</a></li>
+    </ul>
+</div>
+            <div class="menu_section">
+    <h3>All-in-one Report</h3>
+    <ul class="nav side-menu">
+        <li><a href="http://localhost/timeTracker/public/organisation/index.html"><i class=" fa fa-tachometer"></i>Time Sheets</a></li>
+        <li><a href="http://localhost/timeTracker/public/organisation/index.html"><i class="fa fa-pencil-square"></i>Payroll</a></li>
+        <li><a href="http://localhost/timeTracker/public/organisation/index.html"><i class="fa fa-line-chart"></i>Overtime</a></li>
+        <li><a href="http://localhost/timeTracker/public/organisation/index.html"><i class="fa fa-tags"></i>Time Offs</a></li>
+        <li><a href="http://localhost/timeTracker/public/organisation/index.html"><i class="fa fa-ticket"></i>Expenses</a></li>
+    </ul>
+</div>
+        </div>
+        <!-- /sidebar menu -->
+
+        <!-- /menu footer buttons -->
+        <div class="sidebar-footer hidden-small">
+            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="" href="http://localhost/timeTracker/public/logout" data-original-title="Logout">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </a>
+        </div>
+        <!-- /menu footer buttons -->
+    </div>
+</div>
+            <!-- top navigation -->
+<div class="top_nav">
+    <div class="nav_menu">
+        <div class="nav toggle">
+            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+        </div>
+        <nav class="nav navbar-nav">
+            
+        </nav>
+    </div>
+</div>
+<!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main" style="min-height: 1226px;">
+                <div>
+                </div>
+                <div class="page-title"><div class="title_left"><h3>Organisation Profile</h3></div></div>
+<div class="clearfix"></div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Add <small>your Organisation details</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Settings 1</a>
+                            <a class="dropdown-item" href="#">Settings 2</a>
+                        </div>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <form class="" method="POST" action="http://localhost/timeTracker/public/organisation">
+                    <input type="hidden" name="_token" value="A39NZ6MrPW7sL7j4VZpBkGkudFsoECrymgiUDf9q">                    <span class="section">Organisation Info</span>
+                    <div class="field item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3  label-align">Organisation Name<span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6" data-children-count="1">
+                            <input class="form-control" placeholder="Alphabet Inc." required="required">
+                        </div>
+                    </div>
+                    <div class="field item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3  label-align">Display Name<span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6" data-children-count="1">
+                            <input class="form-control" placeholder="Google LLC" required="required">
+                        </div>
+                    </div>
+                    <div class="field item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3  label-align">Mobile Number<span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6" data-children-count="1">
+                            <input type="text" name="mobile_number" class="form-control" placeholder="Mobile Number" data-kwimpalastatus="alive" data-kwimpalaid="1626069345423-0">
+                        </div>
+                    </div>
+                    <span class="color: red"></span>
+                    <div class="field item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3  label-align">Land Number<span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6" data-children-count="1">
+                            <input type="text" name="land_number" class="form-control" placeholder="Land Number">
+                        </div>
+                    </div>
+                    <span class="color: red"></span>
+                    <div class="field item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3  label-align">Email<span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6" data-children-count="1">
+                            <input type="email" name="email" class="form-control" placeholder="Email" data-kwimpalastatus="alive" data-kwimpalaid="1626069345423-1">
+                        </div>
+                    </div>
+                    <span class="color: red"></span>
+                    <div class="field item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3  label-align">Postal Code<span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6" data-children-count="1">
+                            <input type="text" name="postal_code" class="form-control" placeholder="Poste Code" data-kwimpalastatus="alive" data-kwimpalaid="1626069345423-2">
+                        </div>
+                    </div>
+                    <span class="color: red"></span>
+                    <div class="field item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3  label-align">Address 1<span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6" data-children-count="1">
+                            <input type="text" name="address_1" class="form-control" placeholder="Address 1" data-kwimpalastatus="alive" data-kwimpalaid="1626069345423-3">
+                        </div>
+                    </div>
+                    <span class="color: red"></span>
+                    <div class="field item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3  label-align">Address 2<span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6" data-children-count="1">
+                            <input type="text" name="address_2" class="form-control" placeholder="Address 2" data-kwimpalastatus="alive" data-kwimpalaid="1626069345423-4">
+                        </div>
+                    </div>
+                    <span class="color: red"></span>
+                    <div class="field item form-group" data-children-count="1">
+                        <label class="col-form-label col-md-3 col-sm-3  label-align">Country<span class="required" data-children-count="0">*</span></label>
+                        <select class="form-select col-md-6 col-sm-6" id="sel_country" name="country" aria-label=".form-select-sm example">
+                                                            <option value="1" selected="selected">Afghanistan</option>
+                                                            <option value="2">Aland Islands</option>
+                                                            <option value="3">Albania</option>
+                                                            <option value="4">Algeria</option>
+                                                            <option value="5">American Samoa</option>
+                                                            <option value="6">Andorra</option>
+                                                            <option value="7">Angola</option>
+                                                            <option value="8">Anguilla</option>
+                                                            <option value="9">Antarctica</option>
+                                                            <option value="10">Antigua And Barbuda</option>
+                                                            <option value="11">Argentina</option>
+                                                            <option value="12">Armenia</option>
+                                                            <option value="13">Aruba</option>
+                                                            <option value="14">Australia</option>
+                                                            <option value="15">Austria</option>
+                                                            <option value="16">Azerbaijan</option>
+                                                            <option value="17">Bahamas The</option>
+                                                            <option value="18">Bahrain</option>
+                                                            <option value="19">Bangladesh</option>
+                                                            <option value="20">Barbados</option>
+                                                            <option value="21">Belarus</option>
+                                                            <option value="22">Belgium</option>
+                                                            <option value="23">Belize</option>
+                                                            <option value="24">Benin</option>
+                                                            <option value="25">Bermuda</option>
+                                                            <option value="26">Bhutan</option>
+                                                            <option value="27">Bolivia</option>
+                                                            <option value="155">Bonaire, Sint Eustatius and Saba</option>
+                                                            <option value="28">Bosnia and Herzegovina</option>
+                                                            <option value="29">Botswana</option>
+                                                            <option value="30">Bouvet Island</option>
+                                                            <option value="31">Brazil</option>
+                                                            <option value="32">British Indian Ocean Territory</option>
+                                                            <option value="33">Brunei</option>
+                                                            <option value="34">Bulgaria</option>
+                                                            <option value="35">Burkina Faso</option>
+                                                            <option value="36">Burundi</option>
+                                                            <option value="37">Cambodia</option>
+                                                            <option value="38">Cameroon</option>
+                                                            <option value="39">Canada</option>
+                                                            <option value="40">Cape Verde</option>
+                                                            <option value="41">Cayman Islands</option>
+                                                            <option value="42">Central African Republic</option>
+                                                            <option value="43">Chad</option>
+                                                            <option value="44">Chile</option>
+                                                            <option value="45">China</option>
+                                                            <option value="46">Christmas Island</option>
+                                                            <option value="47">Cocos (Keeling) Islands</option>
+                                                            <option value="48">Colombia</option>
+                                                            <option value="49">Comoros</option>
+                                                            <option value="50">Congo</option>
+                                                            <option value="51">Congo The Democratic Republic Of The</option>
+                                                            <option value="52">Cook Islands</option>
+                                                            <option value="53">Costa Rica</option>
+                                                            <option value="54">Cote D'Ivoire (Ivory Coast)</option>
+                                                            <option value="55">Croatia (Hrvatska)</option>
+                                                            <option value="56">Cuba</option>
+                                                            <option value="249">Curaçao</option>
+                                                            <option value="57">Cyprus</option>
+                                                            <option value="58">Czech Republic</option>
+                                                            <option value="59">Denmark</option>
+                                                            <option value="60">Djibouti</option>
+                                                            <option value="61">Dominica</option>
+                                                            <option value="62">Dominican Republic</option>
+                                                            <option value="63">East Timor</option>
+                                                            <option value="64">Ecuador</option>
+                                                            <option value="65">Egypt</option>
+                                                            <option value="66">El Salvador</option>
+                                                            <option value="67">Equatorial Guinea</option>
+                                                            <option value="68">Eritrea</option>
+                                                            <option value="69">Estonia</option>
+                                                            <option value="70">Ethiopia</option>
+                                                            <option value="71">Falkland Islands</option>
+                                                            <option value="72">Faroe Islands</option>
+                                                            <option value="73">Fiji Islands</option>
+                                                            <option value="74">Finland</option>
+                                                            <option value="75">France</option>
+                                                            <option value="76">French Guiana</option>
+                                                            <option value="77">French Polynesia</option>
+                                                            <option value="78">French Southern Territories</option>
+                                                            <option value="79">Gabon</option>
+                                                            <option value="80">Gambia The</option>
+                                                            <option value="81">Georgia</option>
+                                                            <option value="82">Germany</option>
+                                                            <option value="83">Ghana</option>
+                                                            <option value="84">Gibraltar</option>
+                                                            <option value="85">Greece</option>
+                                                            <option value="86">Greenland</option>
+                                                            <option value="87">Grenada</option>
+                                                            <option value="88">Guadeloupe</option>
+                                                            <option value="89">Guam</option>
+                                                            <option value="90">Guatemala</option>
+                                                            <option value="91">Guernsey and Alderney</option>
+                                                            <option value="92">Guinea</option>
+                                                            <option value="93">Guinea-Bissau</option>
+                                                            <option value="94">Guyana</option>
+                                                            <option value="95">Haiti</option>
+                                                            <option value="96">Heard Island and McDonald Islands</option>
+                                                            <option value="97">Honduras</option>
+                                                            <option value="98">Hong Kong S.A.R.</option>
+                                                            <option value="99">Hungary</option>
+                                                            <option value="100">Iceland</option>
+                                                            <option value="101">India</option>
+                                                            <option value="102">Indonesia</option>
+                                                            <option value="103">Iran</option>
+                                                            <option value="104">Iraq</option>
+                                                            <option value="105">Ireland</option>
+                                                            <option value="106">Israel</option>
+                                                            <option value="107">Italy</option>
+                                                            <option value="108">Jamaica</option>
+                                                            <option value="109">Japan</option>
+                                                            <option value="110">Jersey</option>
+                                                            <option value="111">Jordan</option>
+                                                            <option value="112">Kazakhstan</option>
+                                                            <option value="113">Kenya</option>
+                                                            <option value="114">Kiribati</option>
+                                                            <option value="115">Korea North</option>
+                                                            <option value="116">Korea South</option>
+                                                            <option value="248">Kosovo</option>
+                                                            <option value="117">Kuwait</option>
+                                                            <option value="118">Kyrgyzstan</option>
+                                                            <option value="119">Laos</option>
+                                                            <option value="120">Latvia</option>
+                                                            <option value="121">Lebanon</option>
+                                                            <option value="122">Lesotho</option>
+                                                            <option value="123">Liberia</option>
+                                                            <option value="124">Libya</option>
+                                                            <option value="125">Liechtenstein</option>
+                                                            <option value="126">Lithuania</option>
+                                                            <option value="127">Luxembourg</option>
+                                                            <option value="128">Macau S.A.R.</option>
+                                                            <option value="129">Macedonia</option>
+                                                            <option value="130">Madagascar</option>
+                                                            <option value="131">Malawi</option>
+                                                            <option value="132">Malaysia</option>
+                                                            <option value="133">Maldives</option>
+                                                            <option value="134">Mali</option>
+                                                            <option value="135">Malta</option>
+                                                            <option value="136">Man (Isle of)</option>
+                                                            <option value="137">Marshall Islands</option>
+                                                            <option value="138">Martinique</option>
+                                                            <option value="139">Mauritania</option>
+                                                            <option value="140">Mauritius</option>
+                                                            <option value="141">Mayotte</option>
+                                                            <option value="142">Mexico</option>
+                                                            <option value="143">Micronesia</option>
+                                                            <option value="144">Moldova</option>
+                                                            <option value="145">Monaco</option>
+                                                            <option value="146">Mongolia</option>
+                                                            <option value="147">Montenegro</option>
+                                                            <option value="148">Montserrat</option>
+                                                            <option value="149">Morocco</option>
+                                                            <option value="150">Mozambique</option>
+                                                            <option value="151">Myanmar</option>
+                                                            <option value="152">Namibia</option>
+                                                            <option value="153">Nauru</option>
+                                                            <option value="154">Nepal</option>
+                                                            <option value="156">Netherlands The</option>
+                                                            <option value="157">New Caledonia</option>
+                                                            <option value="158">New Zealand</option>
+                                                            <option value="159">Nicaragua</option>
+                                                            <option value="160">Niger</option>
+                                                            <option value="161">Nigeria</option>
+                                                            <option value="162">Niue</option>
+                                                            <option value="163">Norfolk Island</option>
+                                                            <option value="164">Northern Mariana Islands</option>
+                                                            <option value="165">Norway</option>
+                                                            <option value="166">Oman</option>
+                                                            <option value="167">Pakistan</option>
+                                                            <option value="168">Palau</option>
+                                                            <option value="169">Palestinian Territory Occupied</option>
+                                                            <option value="170">Panama</option>
+                                                            <option value="171">Papua new Guinea</option>
+                                                            <option value="172">Paraguay</option>
+                                                            <option value="173">Peru</option>
+                                                            <option value="174">Philippines</option>
+                                                            <option value="175">Pitcairn Island</option>
+                                                            <option value="176">Poland</option>
+                                                            <option value="177">Portugal</option>
+                                                            <option value="178">Puerto Rico</option>
+                                                            <option value="179">Qatar</option>
+                                                            <option value="180">Reunion</option>
+                                                            <option value="181">Romania</option>
+                                                            <option value="182">Russia</option>
+                                                            <option value="183">Rwanda</option>
+                                                            <option value="184">Saint Helena</option>
+                                                            <option value="185">Saint Kitts And Nevis</option>
+                                                            <option value="186">Saint Lucia</option>
+                                                            <option value="187">Saint Pierre and Miquelon</option>
+                                                            <option value="188">Saint Vincent And The Grenadines</option>
+                                                            <option value="189">Saint-Barthelemy</option>
+                                                            <option value="190">Saint-Martin (French part)</option>
+                                                            <option value="191">Samoa</option>
+                                                            <option value="192">San Marino</option>
+                                                            <option value="193">Sao Tome and Principe</option>
+                                                            <option value="194">Saudi Arabia</option>
+                                                            <option value="195">Senegal</option>
+                                                            <option value="196">Serbia</option>
+                                                            <option value="197">Seychelles</option>
+                                                            <option value="198">Sierra Leone</option>
+                                                            <option value="199">Singapore</option>
+                                                            <option value="250">Sint Maarten (Dutch part)</option>
+                                                            <option value="200">Slovakia</option>
+                                                            <option value="201">Slovenia</option>
+                                                            <option value="202">Solomon Islands</option>
+                                                            <option value="203">Somalia</option>
+                                                            <option value="204">South Africa</option>
+                                                            <option value="205">South Georgia</option>
+                                                            <option value="206">South Sudan</option>
+                                                            <option value="207">Spain</option>
+                                                            <option value="208">Sri Lanka</option>
+                                                            <option value="209">Sudan</option>
+                                                            <option value="210">Suriname</option>
+                                                            <option value="211">Svalbard And Jan Mayen Islands</option>
+                                                            <option value="212">Swaziland</option>
+                                                            <option value="213">Sweden</option>
+                                                            <option value="214">Switzerland</option>
+                                                            <option value="215">Syria</option>
+                                                            <option value="216">Taiwan</option>
+                                                            <option value="217">Tajikistan</option>
+                                                            <option value="218">Tanzania</option>
+                                                            <option value="219">Thailand</option>
+                                                            <option value="220">Togo</option>
+                                                            <option value="221">Tokelau</option>
+                                                            <option value="222">Tonga</option>
+                                                            <option value="223">Trinidad And Tobago</option>
+                                                            <option value="224">Tunisia</option>
+                                                            <option value="225">Turkey</option>
+                                                            <option value="226">Turkmenistan</option>
+                                                            <option value="227">Turks And Caicos Islands</option>
+                                                            <option value="228">Tuvalu</option>
+                                                            <option value="229">Uganda</option>
+                                                            <option value="230">Ukraine</option>
+                                                            <option value="231">United Arab Emirates</option>
+                                                            <option value="232">United Kingdom</option>
+                                                            <option value="233">United States</option>
+                                                            <option value="234">United States Minor Outlying Islands</option>
+                                                            <option value="235">Uruguay</option>
+                                                            <option value="236">Uzbekistan</option>
+                                                            <option value="237">Vanuatu</option>
+                                                            <option value="238">Vatican City State (Holy See)</option>
+                                                            <option value="239">Venezuela</option>
+                                                            <option value="240">Vietnam</option>
+                                                            <option value="241">Virgin Islands (British)</option>
+                                                            <option value="242">Virgin Islands (US)</option>
+                                                            <option value="243">Wallis And Futuna Islands</option>
+                                                            <option value="244">Western Sahara</option>
+                                                            <option value="245">Yemen</option>
+                                                            <option value="246">Zambia</option>
+                                                            <option value="247">Zimbabwe</option>
+                                                    </select>
+                    </div>
+                    <div class="field item form-group" data-children-count="1">
+                        <label class="col-form-label col-md-3 col-sm-3  label-align">City<span class="required" data-children-count="0">*</span></label>
+                        <select class="form-select col-md-6 col-sm-6" id="sel_city" name="city" aria-label=".form-select-sm example">
+                            <option value="0" selected="selected">-- Select City --</option>
+                        </select>
+                    </div>
+                    <span class="color: red"></span>
+                    <div class="ln_solid">
+                        <div class="form-group">
+                            <div class="col-md-6 offset-md-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="reset" class="btn btn-success">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+            <!-- /page content -->
+
+            <!-- footer content -->
+            <!-- footer content -->
+<footer>
+    <div class="pull-right">
+        ©2021 All Rights Reserved. Time Tracker! by <a href="https://colorlib.com/">Varniethan.</a> <a href="https://colorlib.com/">Privacy and Terms</a>
+    </div>
+    <div class="clearfix"></div>
+</footer>
+<!-- /footer content -->
+            <!-- /footer content -->
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+
+            // Country Change
+            $('#sel_country').change(function(){
+
+                // Country id
+                var id = $(this).val();
+
+                // Empty the dropdown
+                $('#sel_city').find('option').not(':first').remove();
+
+                // AJAX request
+                $.ajax({
+                    url: 'public/getCities/'+id,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(response){
+
+                        var len = 0;
+                        if(response['data'] != null){
+                            len = response['data'].length;
+                        }
+
+                        if(len > 0){
+                            // Read data and create <option >
+                            for(var i=0; i<len; i++){
+                                var id = response['data'][i].id;
+                                var name = response['data'][i].name;
+                                var option = "<option value='"+id+"'>"+name+"</option>";
+                                $("#sel_city").append(option);
+                            }
+                        }
+
+                    }
+                });
+            });
+
+        });
+
+    </script>
+<!-- jQuery -->
+<script src="Time%20Tracker!%20|_files/jquery_012.js"></script>
+<!-- Bootstrap -->
+<script src="Time%20Tracker!%20|_files/bootstrap.js"></script>
+<!-- FastClick -->
+<script src="Time%20Tracker!%20|_files/fastclick.js"></script>
+<!-- NProgress -->
+<script src="Time%20Tracker!%20|_files/nprogress.js"></script>
+<!-- Chart.js -->
+<script src="Time%20Tracker!%20|_files/Chart.js"></script>
+<!-- gauge.js -->
+<script src="Time%20Tracker!%20|_files/gauge.js"></script>
+<!-- bootstrap-progressbar -->
+<script src="Time%20Tracker!%20|_files/bootstrap-progressbar.js"></script>
+<!-- iCheck -->
+<script src="Time%20Tracker!%20|_files/icheck.js"></script>
+<!-- Skycons -->
+<script src="Time%20Tracker!%20|_files/skycons.js"></script>
+<!-- Flot -->
+<script src="Time%20Tracker!%20|_files/jquery_003.js"></script>
+<script src="Time%20Tracker!%20|_files/jquery_008.js"></script>
+<script src="Time%20Tracker!%20|_files/jquery_004.js"></script>
+<script src="Time%20Tracker!%20|_files/jquery_009.js"></script>
+<script src="Time%20Tracker!%20|_files/jquery_011.js"></script>
+<!-- Flot plugins -->
+<script src="Time%20Tracker!%20|_files/jquery_002.js"></script>
+<script src="Time%20Tracker!%20|_files/jquery_006.js"></script>
+<script src="Time%20Tracker!%20|_files/curvedLines.js"></script>
+<!-- DateJS -->
+<script src="Time%20Tracker!%20|_files/date.js"></script>
+<!-- JQVMap -->
+<script src="Time%20Tracker!%20|_files/jquery.html"></script>
+<script src="Time%20Tracker!%20|_files/jquery_010.js"></script>
+<script src="Time%20Tracker!%20|_files/jquery_005.js"></script>
+<!-- bootstrap-daterangepicker -->
+<script src="Time%20Tracker!%20|_files/moment.js"></script>
+<!-- SmartWizard -->
+<script src="Time%20Tracker!%20|_files/jquery_007.js"></script>
+
+
+<!-- Custom Theme Scripts -->
+<script src="Time%20Tracker!%20|_files/custom.js"></script>
+<script src="Time%20Tracker!%20|_files/custom.html"></script>
+
+
+
+</body></html>

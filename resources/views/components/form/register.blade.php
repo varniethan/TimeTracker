@@ -80,10 +80,10 @@
                 <label class="col-form-label col-3 col-md-2 text-left">Postal Code</label>
             </div>
             <div class="col-10">
-                <input type="text" name="postal_code"   class="form-control col-9 col-md-10" placeholder="Poste Code"  value="{{old('postal_code')}}">
+                <input type="text" name="post_code"   class="form-control col-9 col-md-10" placeholder="Poste Code"  value="{{old('postal_code')}}">
             </div>
         </div>
-        <span class="color: red" >@error("postal_code"){{$message}}@enderror</span>
+        <span class="color: red" >@error("post_code"){{$message}}@enderror</span>
         <div class="form-group row">
             <div class="col-2">
                 <label class="col-form-label col-3 col-md-2 text-left">Address-1</label>

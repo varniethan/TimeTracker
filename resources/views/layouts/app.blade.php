@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/nprogress/nprogress.css')}}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('assets/vendors/iCheck/skins/flat/green.css')}}">
+    <!-- jQuery custom content scroller -->
+    <link rel="stylesheet" href="{{ asset('assets/endors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}">
     <!-- bootstrap-progressbar -->
     <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}">
     <!-- JQVMap -->
@@ -70,10 +72,11 @@
 <!-- SmartWizard -->
 <script src="{{ asset('assets/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js') }}"></script>
 {{--    <script src="{{ asset('assets/vendors/bootstrap-daterangepicker/daterangepicker.js) }}"></script>--}}
-
+<!-- morris.js -->
+<script src="{{ asset('assets/vendors/raphael/raphael.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/morris.js/morris.min.js') }}"></script>
 <!-- Custom Theme Scripts -->
 <script src="{{ asset('assets/js/custom.min.js') }}"></script>
 <script src="{{ asset('assets/js/custom.my.js') }}"></script>
 </body>
 </html>
-

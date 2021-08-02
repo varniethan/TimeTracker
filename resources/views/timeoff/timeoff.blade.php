@@ -3,25 +3,18 @@
 @section('content')
     <div class="container body">
         <div class="main_container">
-            <x-navbars.left_pane/>
-            <x-navbars.top_pane/>
+            <x-navbar.left_pane/>
+            <x-navbar.top_pane/>
             <!-- page content -->
             <div class="right_col" role="main">
                 <div>
-                    <div>
-                        <x-timeoff.timeoff_categories/>
-                        <x-timeoff.add_timeoff/>
-                        <x-timeoff.approve_timeoff/>
-                        <x-timeoff.unapprove_timeoff/>
-                        <x-buttons.remove/>
-                    </div>
-                    <x-timeoff.timeoff_table/>
+                    <x-index.timeoff/>
                 </div>
             </div>
             <!-- /page content -->
 
             <!-- footer content -->
-            <x-navbars.footer/>
+            <x-navbar.footer/>
             <!-- /footer content -->
         </div>
     </div>

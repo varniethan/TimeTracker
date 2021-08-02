@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('gender');
             $table->string('mobile_number')->unique();
             $table->string('land_number')->nullable();;
-            $table->string('postal_code');
+            $table->string('post_code');
             $table->string('address_1');
             $table->string('address_2')->nullable();
             $table->mediumInteger('city',false, true);

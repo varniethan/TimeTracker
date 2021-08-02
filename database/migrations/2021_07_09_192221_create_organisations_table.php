@@ -20,9 +20,12 @@ class CreateOrganisationsTable extends Migration
             $table->string('sector');
             $table->integer('owner');
             //$table->foreign('owner')->references('id')->on('users');
+            $table->integer('MD')->nullable();
+            //$table->foreign('MD')->references('id')->on('users');
             $table->string('email', 64)->unique();
             $table->string('mobile_number', 13);
             $table->string('land_number', 13)->nullable();
+            $table->string('website')->nullable();
             $table->string('address_1', 128);
             $table->string('address_2', 128)->nullable();
             $table->string('postal_code', 6);

@@ -1,10 +1,28 @@
-<div class="page-title"><div class="title_left"><h3>Employer Profile</h3></div></div>
+<div class="page-title"><div class="title_left">
+        <h3>
+            @if(Session::get('role_id') == 0)
+                Super Admin Profile
+            @elseif(Session::get('role_id') == 1)
+                Admin Profile
+            @elseif(Session::get('role_id') == 2)
+                Employer Profile
+            @elseif(Session::get('role_id') == 3)
+                Managing Director Profile
+            @elseif(Session::get('role_id') == 4)
+                Branch Manager Profile
+            @elseif(Session::get('role_id') == 5)
+                Shift Manager Profile
+            @elseif(Session::get('role_id') == 6)
+                Empoyee Profile
+            @endif
+        </h3>
+</div></div>
 <div class="clearfix"></div>
 
 <div class="row">
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
-            <div class="x_title"><h2>User Profile <small>View Details</small></h2><ul class="nav navbar-right panel_toolbox"><li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li></ul><div class="clearfix"></div></div>
+            <div class="x_title"><h2>User Profile <small>Edit Details</small></h2><ul class="nav navbar-right panel_toolbox"><li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li></ul><div class="clearfix"></div></div>
             <div class="x_content">
                 <div class="row">
                     <span class="section">{{$userData['first_name']}} {{$userData['last_name']}}</span>
@@ -14,14 +32,14 @@
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Email<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input type="email" name="email"  class="form-control" placeholder="Email"  value="{{$userData['email']}}">
+                                    <input type="email" name="email"  class="form-control" placeholder="Email"  value="{{$userData['email']}}" disabled>
                                 </div>
                             </div>
                             <span class="color: red" >@error("email"){{$message}}@enderror</span>
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">User Name<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input class="form-control"  name="user_name" placeholder="User Name" value="{{$userData['user_name']}}" required="required" />
+                                    <input class="form-control"  name="user_name" placeholder="User Name" value="{{$userData['user_name']}}" required="required" disabled/>
                                 </div>
                             </div>
                             <span class="color: red" >@error("user_name"){{$message}}@enderror</span>
@@ -56,17 +74,17 @@
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Postal Code<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input type="text" name="postal_code" class="form-control" placeholder="Postal Code"  value="{{$userData['postal_code']}}">
+                                    <input type="text" name="post_code" class="form-control" placeholder="Postal Code"  value="{{$userData['post_code']}}">
                                 </div>
                             </div>
-                            <span class="color: red" >@error("postal_code"){{$message}}@enderror</span>
+                            <span class="color: red" >@error("post_code"){{$message}}@enderror</span>
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Address 1<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <input type="text" name="address_1"   class="form-control" placeholder="Address 1"  value="{{$userData['address_1']}}">
                                 </div>
                             </div>
-                            <span class="color: red" >@error("postal_code"){{$message}}@enderror</span>
+                            <span class="color: red" >@error("address_1"){{$message}}@enderror</span>
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Address 2<span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
@@ -85,6 +103,7 @@
                             <div class="field item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3  label-align">City<span class="required">*</span></label>
                                 <select class="form-select col-md-6 col-sm-6" id='sel_city' name='city' aria-label=".form-select-sm example">
+                                    <option value='{{$userData['city']}}'>{{\App\Models\City::getCityName($userData['city'])}}</option>
                                     <option value='0'>-- Select City --</option>
                                 </select>
                             </div>

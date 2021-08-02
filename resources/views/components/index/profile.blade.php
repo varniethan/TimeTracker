@@ -1,4 +1,22 @@
-<div class="page-title"><div class="title_left"><h3>Employer Profile</h3></div></div>
+<div class="page-title"><div class="title_left">
+        <h3>
+            @if(Session::get('role_id') == 0)
+                Super Admin Profile
+            @elseif(Session::get('role_id') == 1)
+                Admin Profile
+            @elseif(Session::get('role_id') == 2)
+                Employer Profile
+            @elseif(Session::get('role_id') == 3)
+                Managing Director Profile
+            @elseif(Session::get('role_id') == 4)
+                Branch Manager Profile
+            @elseif(Session::get('role_id') == 5)
+                Shift Manager Profile
+            @elseif(Session::get('role_id') == 6)
+                Empoyee Profile
+            @endif
+        </h3>
+</div></div>
 <div class="clearfix"></div>
 
 <div class="row">
@@ -146,15 +164,15 @@
                                             <b>City</b>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
-                                            <b>State or County</b>
+                                            <b>State or City</b>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-6  form-group has-feedback">
-                                        <input type="email" class="form-control has-feedback-left" id="inputSuccess4" readonly="readonly" placeholder="{{$userData['city']}}">
+                                        <input type="email" class="form-control has-feedback-left" id="inputSuccess4" readonly="readonly" placeholder="{{\App\Models\City::getCityName($userData['city'])}}">
                                         <span class="fa fa-building form-control-feedback left" aria-hidden="true"></span>
                                     </div>
                                     <div class="col-md-6 col-sm-6  form-group has-feedback">
-                                        <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{$userData['state']}}">
+                                        <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{\App\Models\City::getStateName($userData['city'])}}">
                                         <span class="fa fa-building form-control-feedback right" aria-hidden="true"></span>
                                     </div>
                                 </form>

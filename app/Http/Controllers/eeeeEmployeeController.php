@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use phpDocumentor\Reflection\Types\True_;
 
-class EmployeeController extends Controller
+class eeeeEmployeeController extends Controller
 {
     public function OrganisationData()
     {

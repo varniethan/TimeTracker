@@ -35,7 +35,7 @@ class RegisterController extends Controller
             'mobile_number' => 'required|min:10',
             'land_number' => 'required',
             'email' => 'required|email|max:64',
-            'postal_code' => 'required|max:64',
+            'post_code' => 'required|max:64',
             'address_1' => 'required|max:64',
             'address_2' => 'required|max:64',
             'city' => 'required',
