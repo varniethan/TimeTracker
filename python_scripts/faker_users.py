@@ -35,6 +35,7 @@ maximum_basic_salary = int(input("Maximum Basic Salary:"))
 minimum_basic_salary = int(input("Minimum Basic Salary:"))
 hourly_rate = int(input("Houry rate"))
 Faker.seed(0)
+counter = 1
 for _ in range(no_of_users):
     user_name = fake_data.user_name()
     password = '$2y$10$jFuZKjk6RCM814bhMFeIeerlqZRtSFCihU5ONUiF.LxYz8PgeGB.m'
@@ -56,8 +57,8 @@ for _ in range(no_of_users):
     status = 1
     role = 2
     print(f"INSERT INTO users values (NULL,'{user_name}','{password}','{email}','{first_name}','{last_name}','{dob}','{gender}','{mobile_number}','{land_number}','{postal_code}', '{address_1}', '{address_2}', '{city_id}', '{ni_number}','{position_id}','{basic_salary}','{hourly_rate}','{organisation_id}','{status}','{role}',NULL,NULL,'{now_time}','{now_time}')")
-    cursor.execute(f"INSERT INTO users values (NULL,'{user_name}','{password}','{email}','{first_name}','{last_name}','{dob}','{gender}','{mobile_number}','{land_number}','{postal_code}', '{address_1}', '{address_2}', '{city_id}', '{ni_number}','{position_id}','{role}','{basic_salary}','{hourly_rate}','{organisation_id}','{status}',NULL,NULL,'0',NULL,'{now_time}',NULL)")
+    cursor.execute(f"INSERT INTO users values ('{counter}','{user_name}','{password}','{email}','{first_name}','{last_name}','{dob}','{gender}','{mobile_number}','{land_number}','{postal_code}', '{address_1}', '{address_2}', '{city_id}', '{ni_number}','{position_id}','{role}','{basic_salary}','{hourly_rate}','{organisation_id}','{status}',NULL,NULL,'0',NULL,'{now_time}',NULL)")
     cnx.commit()
-
+    counter += 1
 cnx.close()
 cursor.close()

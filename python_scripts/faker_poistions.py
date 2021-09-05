@@ -20,6 +20,7 @@ basic_salary = random.randint(minimum_basic_salary, maximum_basic_salary)
 over_time = random.randint(0,1)
 Faker.seed(0)
 generated_counter = 1
+counter = 1
 for _ in range(number_of_positions):
     id = generated_counter
     name = fake_data.job()
@@ -27,9 +28,10 @@ for _ in range(number_of_positions):
     descriptions = fake_data.job()
     created_by = generated_counter
     if generated_counter > 16:
-        print(f"INSERT INTO positions values ('{id}','{name}','{organisation}','{descriptions}','1','{basic_salary}','{over_time}','0',NULL,'{now_time}',NULL)")
-        cursor.execute(f"INSERT INTO positions values ('{id}','{name}','{organisation}','{descriptions}','1','{basic_salary}','{over_time}','0',NULL,'{now_time}',NULL)")
+        print(f"INSERT INTO positions values ('{name}','{organisation}','{descriptions}','1','{basic_salary}','{over_time}','0',NULL,NULL,'{now_time}',NULL)")
+        cursor.execute(f"INSERT INTO positions values ('{counter}','{name}','{organisation}','{descriptions}','1','{basic_salary}','{over_time}','0',2,NULL,'{now_time}',NULL)")
         cnx.commit()
+        counter += 1
     generated_counter += 1
 cnx.close()
 cursor.close()

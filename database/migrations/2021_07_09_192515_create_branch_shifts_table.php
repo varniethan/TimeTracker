@@ -16,7 +16,7 @@ class CreateBranchShiftsTable extends Migration
         Schema::create('branch_shifts', function (Blueprint $table) {
             $table->integer('id',true);
             $table->integer('branch_id');
-            $table->foreign('branch_id')->references('id')->on('branch');
+            $table->foreign('branch_id')->references('id')->on('branches');
             $table->integer('shift_type_id');
             $table->foreign('shift_type_id')->references('id')->on('shiftType');
             $table->tinyInteger('status')->default(1);

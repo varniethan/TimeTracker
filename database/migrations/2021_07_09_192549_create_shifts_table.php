@@ -13,7 +13,7 @@ class CreateShiftsTable extends Migration
      */
     public function up()
     {
-        Schema::create('shift', function (Blueprint $table) {
+        Schema::create('fullShifts', function (Blueprint $table) {
             $table->integer('id','true');
             $table->integer('user_id');
             $table->foreign('user_id')->references('id')->on('users');
@@ -42,6 +42,6 @@ class CreateShiftsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shift');
+        Schema::dropIfExists('fullShifts');
     }
 }

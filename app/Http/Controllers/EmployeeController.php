@@ -92,7 +92,7 @@ class EmployeeController extends Controller
             'basic_salary' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             'user_name' => 'required|string|max:32|',
         ]);
-        User::create($request->all()  + ['organisation_id'=>session('org_id')] + ['created_by'=>session('user_id')]);
+        User::create($request->all()  + ['organisation_id'=>session('o          rg_id')] + ['created_by'=>session('user_id')]);
         $NewEmployee = new MailController;
         $NewEmployee->sendEmployeeCreatedEmail($request->first_name, $request->last_name,$request->email, $request->password);
         return redirect('/employee');

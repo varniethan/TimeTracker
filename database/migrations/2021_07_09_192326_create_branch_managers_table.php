@@ -18,7 +18,7 @@ class CreateBranchManagersTable extends Migration
             $table->integer('branch_id');
             $table->foreign('branch_id')->references('id')->on('branches');
             $table->integer('branch_manager_id');
-            $table->foreign('branch_manager_id')->references('id')->on('users');
+            $table->foreign('branch_manager_id')->references('id')->on('users') ;
             $table->tinyInteger('status')->default(1);
             $table->integer('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users');

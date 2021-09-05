@@ -27,7 +27,7 @@ class BranchController extends Controller
         }
         elseif (in_array( Session('role_id'), $seeBranch))
         {
-            $branchData = Branch::getBranchesOfManagerByUserId(session('user_id')); //Returns all the branches that the branch/ shift manager is in
+            $branchData = Branch::getBranchesOfManagerByUserId(session('user_id')); //Returns all the branches that the branch/ fullShifts manager is in
             return view('branch.index', compact('branchData'));
         }
     }

@@ -11,13 +11,17 @@ class CreatePositionsTable extends Migration
      *
      * @return void
      */
+    //php artisan migrate --path=/database/migrations/2021_07_09_192155_create_positions_table.php
+// php artisan migrate --path=/database/migrations/2021_07_09_192221_create_organisations_table.php
+//php artisan migrate --path=/database/migrations/2021_07_09_192234_create_roles_table.php
+//php artisan migrate --path=/database/migrations/2021_07_09_192250_create_users_table.php
     public function up()
     {
         Schema::create('positions', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('name');
             $table->integer('organisation');
-            $table->foreign('organisation')->references('id')->on('organisation');
+//            $table->foreign('organisation')->references('id')->on('organisation');
             $table->text('description');
             $table->tinyInteger('status');
             $table->float('basic_salary');
@@ -41,3 +45,5 @@ class CreatePositionsTable extends Migration
         Schema::dropIfExists('positions');
     }
 }
+
+

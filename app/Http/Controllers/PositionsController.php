@@ -23,8 +23,6 @@ class PositionsController extends Controller
 //            'basic_salary' => 'required',
 //            'pay_type' => 'required',
 //        ]);
-//        echo "Hi";
-//        exit();
         Position::create($request->all() + ['organisation'=>session('org_id')] +['created_by'=>session('user_id')]);
         return redirect('/dashboard/account/positions');
     }

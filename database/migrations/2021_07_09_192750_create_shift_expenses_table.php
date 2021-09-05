@@ -16,7 +16,7 @@ class CreateShiftExpensesTable extends Migration
         Schema::create('shift_expenses', function (Blueprint $table) {
             $table->integer('id', 'true');
             $table->integer('shift_id');
-            $table->foreign('shift_id')->references('id')->on('shift');
+            $table->foreign('shift_id')->references('id')->on('fullShifts');
             $table->integer('expense_type_id');
             $table->foreign('expense_type_id')->references('id')->on('expenseType');
             $table->timestamp('time')->nullable();

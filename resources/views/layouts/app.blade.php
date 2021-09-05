@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/jqvmap/dist/jqvmap.min.css')}}">
     <!-- bootstrap-daterangepicker -->
     <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-daterangepicker/daterangepicker.css')}}">
+    <!-- bootstrap-datetimepicker -->
+    <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-daterangepicker/build/css/bootstrap-datetimepicker.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/cropper/dist/cropper.min.css')}}">
     <!-- Animate.css -->
     <link rel="stylesheet" href="{{ asset('assets/vendors/animate.css/animate.min.css') }}">
     <!-- Custom Theme Style -->
@@ -63,6 +66,11 @@
 <script src="{{ asset('assets/vendors/flot.curvedlines/curvedLines.js') }}"></script>
 <!-- DateJS -->
 <script src="{{ asset('assets/vendors/DateJS/build/date.js') }}"></script>
+<!-- bootstrap-daterangepicker -->
+<script src="{{ asset('assets/vendors/moment/min/moment.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+<!-- bootstrap-datetimepicker -->
+<script src="{{ asset('assets/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')}}"></script>
 <!-- JQVMap -->
 <script src="{{ asset('vendors/jqvmap/dist/jquery.vmap.js') }}"></script>
 <script src="{{ asset('assets/vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
@@ -72,6 +80,17 @@
 <!-- SmartWizard -->
 <script src="{{ asset('assets/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js') }}"></script>
 {{--    <script src="{{ asset('assets/vendors/bootstrap-daterangepicker/daterangepicker.js) }}"></script>--}}
+<!-- morris.js -->
+<script src="{{ asset('assets/vendors/raphael/raphael.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/morris.js/morris.min.js') }}"></script>
+<!-- Bootstrap Colorpicker -->
+<script src="{{ asset('assets/vendors/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
+<!-- jquery.inputmask -->
+<script src="{{ asset('assets/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') }}"></script>
+<!-- jQuery Knob -->
+<script src="{{ asset('assets/vendors/jquery-knob/dist/jquery.knob.min.js') }}"></script>
+<!-- Cropper -->
+{{--<script src="{{ asset('assets/vendors/cropper/dist/cropper.min.js') }}"></script>--}}
 <!-- morris.js -->
 <script src="{{ asset('assets/vendors/raphael/raphael.min.js') }}"></script>
 <script src="{{ asset('assets/vendors/morris.js/morris.min.js') }}"></script>

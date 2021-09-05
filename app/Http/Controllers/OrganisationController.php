@@ -75,7 +75,7 @@ class OrganisationController extends Controller
         ]);
         $userData = User::getUser(Session('user_id'));
         $request->session()->put('org_id', $userData['organisation_id']);
-        $organisationData = Organisation:: create($request->all() + ['owner'=>$userData['id']]);
+        $organisationData = Organisation:: create($request->all() + ['owner'=>$userData['id']] + ['created_by'=>$userData['id']]);
         $userData->organisation_id = $organisationData['id'];
         $userData->save();
         $request->session()->push('org_id',$userData->organisation_id);

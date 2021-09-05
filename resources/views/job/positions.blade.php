@@ -20,4 +20,11 @@
 
 
 @section('scripts')
+    @if (count($errors) > 0)
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                $('#openTab').modal('show');
+            });
+        </script>
+    @endif
 @endsection

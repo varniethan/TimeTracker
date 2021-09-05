@@ -16,9 +16,11 @@ generated_counter = 1
 for _ in range(number_of_organisations):
     id = generated_counter
     name = fake_data.company()
-    display_name = fake_data.company()
+    display_name = name[0:5]
+    website = fake_data.domain_name()
     sector = fake_data.bs()
     owner = random.randint(0,number_of_organisations)
+    MD = random.randint(0,number_of_organisations)
     email = fake_data.email()
     mobile_number = random.randint(99999999, 9999999999)
     land_number = random.randint(99999999, 9999999999)
@@ -30,8 +32,9 @@ for _ in range(number_of_organisations):
     city = random.randint(0,146156)
     created_by = generated_counter
     created_at = now_time
-    print(f"INSERT INTO organisations values ('{id}','{name}','{display_name}','{sector}','{owner}','{email}','{mobile_number}','{land_number}', '{address_1}','{address_2}', '{postal_code}','{latitude}', '{longitude}', '{city}','1','{generated_counter}',NULL,'{now_time}',NULL)")
-    cursor.execute(f"INSERT INTO organisations values ('{id}','{name}','{display_name}','{sector}','{owner}','{email}','{mobile_number}','{land_number}', '{address_1}','{address_2}', '{postal_code}','{latitude}', '{longitude}', '{city}', '1','{generated_counter}',NULL,'{now_time}',NULL)")
+    print(f"INSERT INTO organisations values ('{id}','{name}','{display_name}','{sector}','{owner}','{MD}','{email}','{mobile_number}','{land_number}','{website}', '{address_1}','{address_2}', '{postal_code}','{latitude}', '{longitude}', '{city}','1','{generated_counter}',NULL,'{now_time}',NULL)")
+    cursor.execute(f"INSERT INTO organisations values ('{id}','{name}','{display_name}','{sector}','{owner}','{MD}','{email}','{mobile_number}','{land_number}','{website}', '{address_1}','{address_2}', '{postal_code}','{latitude}', '{longitude}', '{city}','1','{generated_counter}',NULL,'{now_time}',NULL)")
+    # cursor.execute(f"INSERT INTO organisations values ('{id}','{name}','{display_name}','{sector}','{owner}','{email}','{mobile_number}','{land_number}', '{address_1}','{address_2}', '{postal_code}','{latitude}', '{longitude}', '{city}', '1','{generated_counter}',NULL,'{now_time}',NULL)")
     cnx.commit()
     generated_counter += 1
 cnx.close()

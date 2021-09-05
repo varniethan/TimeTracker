@@ -68,7 +68,18 @@
                             <ul class="nav child_menu">
                                 @if (Session::has('org_id'))
                                     <li><a href="{{url('/dashboard/account/positions')}}">Position Codes</a></li>
-                                    <li><a href="{{url('/account/shift_designations')}}">Shift Codes</a></li>
+                                    <li><a href="{{url('/dashboard/account/shift_designations')}}">Shift Codes</a></li>
+                                    <li><a href="{{url('/dashboard/account/branch_shift_designations')}}">Branch Shift Codes</a></li>
+                                    <li><a href="{{url('/dashboard/account/expenses')}}">Expense Codes</a></li>
+                                @endif
+                            </ul>
+                        </li>
+
+                        <li><a><i class="fa fa-gamepad"></i>Break & Holidays<span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                @if (Session::has('org_id'))
+                                    <li><a href="{{url('/dashboard/account/positions')}}">Breaks</a></li>
+                                    <li><a href="{{url('/dashboard/account/holiday_type')}}">Holidays</a></li>
                                 @endif
                             </ul>
                         </li>

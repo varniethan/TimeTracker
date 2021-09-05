@@ -23,6 +23,7 @@ class Organisation extends Model
         'latitude',
         'logitude',
         'city',
+        'created_by',
     ];
 
     public static function getEmployerAllOrganisations($owner)
@@ -37,6 +38,7 @@ class Organisation extends Model
         $organisationData = Organisation::where('MD','=',$user)->first();
         return $organisationData;
     }
+
     public static function getEmployeeOrganisation($user)
     {
         $organisation_id = User::where('id','=',$user)->pluck('organisation_id');

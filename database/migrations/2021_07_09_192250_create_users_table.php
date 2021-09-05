@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('address_1');
             $table->string('address_2')->nullable();
             $table->mediumInteger('city',false, true);
-            $table->foreign('city')->references('id')->on('cities');
+//            $table->foreign('city')->references('id')->on('cities');
             $table->string('ni_number');
             $table->Integer('position_id'); #Position is organisation specific
             $table->foreign('position_id')->references('id')->on('positions');
@@ -37,7 +37,7 @@ class CreateUsersTable extends Migration
             $table->float('basic_salary')->nullable();
             $table->float('hourly_rate')->nullable();
             $table->integer('organisation_id')->nullable();
-            $table->foreign('organisation_id')->references('id')->on('organisation');
+//            $table->foreign('organisation_id')->references('id')->on('organisations');
             $table->tinyInteger('status')->default('1');
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('created_by')->nullable();

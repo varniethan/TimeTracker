@@ -16,7 +16,7 @@ class CreateShiftBreakTable extends Migration
         Schema::create('shift_break', function (Blueprint $table) {
             $table->integer('id', 'true');
             $table->integer('shift_id');
-            $table->foreign('shift_id')->references('id')->on('shift');
+            $table->foreign('shift_id')->references('id')->on('fullShifts');
             $table->integer('break_type_id');
             $table->foreign('break_type_id')->references('id')->on('break_types');
             $table->time('start');

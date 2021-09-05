@@ -1,5 +1,5 @@
 <div>
-    <button type="button" class="btn btn-success" data-toggle="modal" data-backdrop="static" data-target="#timeoff_categories" data-whatever="@getbootstrap">Add Positions Code</button>
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#timeoff_categories" data-whatever="@getbootstrap">Add Positions Code</button>
     <div class="modal fade" id="timeoff_categories" tabindex="-1" role="dialog" aria-labelledby="timeoffCategoriesLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -36,7 +36,7 @@
                         <div class="form-group">
                             <label for="message-text" class="col-form-label col-form-label col-md-3 col-sm-3">Pay Type</label>
                             <div id="gender" class="btn-group" data-toggle="buttons">
-                                <select name="gender" id="inputState" class="form-control">
+                                <select name="pay_type" id="inputState" class="form-control">
                                     <option name="pay_type" value="1">Fixed Amount</option>
                                     <option name="pay_type" value="2">Hourly</option>
                                     <option name="pay_type" value="3">No Pay</option>
@@ -46,7 +46,7 @@
                         </div>
                         <br>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="overtime" value="" id="defaultCheck1">
+                                <input class="form-check-input" type="checkbox" name="overtime" value="1" id="defaultCheck1">
                                 <label class="form-check-label" for="defaultCheck1">Exclude from overtime calculations</label>
                                 <span class="color: red" >@error("overtime"){{$message}}@enderror</span>
                             </div>

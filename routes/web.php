@@ -11,6 +11,11 @@ use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\PositionsController;
+use App\Http\Controllers\ShiftTypeController;
+use App\Http\Controllers\FullShiftsController;
+use App\Http\Controllers\HolidayController;
+use App\Http\Controllers\OpenShiftsController;
+use App\Http\Controllers\ExpenseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,19 +39,49 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/dashboard/account/positions',[PositionsController::class, 'index']);
     Route::post('/positions',[PositionsController::class, 'store']);
-    Route::get('/edit-profile', [UserController::class,'showEditProfile'])->name('edit-profile');
-    Route::post('/edit-profile', [UserController::class,'edit']);
+
+    Route::get('/dashboard/account/shift_designations',[ShiftTypeController::class, 'index']);
+    Route::post('/shift_designations',[ShiftTypeController::class, 'store']);
+
+//Full Shifts
+    Route::post('/full_shifts_filter',[FullShiftsController::class, 'index']);
+    Route::get('/full_shifts/approve/{id}',[FullShiftsController::class, 'approve']);
+    Route::get('/full_shifts/unapprove/{id}',[FullShiftsController::class, 'unapprove']);
+    Route::delete('/full_shifts/delete-selected-shifts',[FullShiftsController::class, 'destroyCheckedShifts'])->name('full_shifts.deleteSelected');
+    Route::put('/full_shifts/approve-selected-shifts',[FullShiftsController::class, 'approveCheckedShifts'])->name('full_shifts.approveSelected');
+    Route::put('/full_shifts/unapprove-selected-shifts',[FullShiftsController::class, 'unapproveCheckedShifts'])->name('full_shifts.unapproveSelected');
+
+//Open Shifts
+    Route::post('/open_shifts_filter',[OpenShiftsController::class, 'index']);
+    Route::get('/open_shifts/approve/{id}',[OpenShiftsController::class, 'approve']);
+    Route::get('/open_shifts/unapprove/{id}',[OpenShiftsController::class, 'unapprove']);
+    Route::get('/open_shifts/endshift/{id}',[OpenShiftsController::class, 'end']);
+    Route::delete('/open_shifts/delete-selected-shifts',[OpenShiftsController::class, 'destroyCheckedShifts'])->name('open_shifts.deleteSelected');
+    Route::put('/open_shifts/approve-selected-shifts',[OpenShiftsController::class, 'approveCheckedShifts'])->name('open_shifts.approveSelected');
+    Route::put('/open_shifts/unapprove-selected-shifts',[OpenShiftsController::class, 'unapproveCheckedShifts'])->name('open_shifts.unapproveSelected');
+    Route::put('/open_shifts/end-selected-shifts',[OpenShiftsController::class, 'endCheckedShifts'])->name('open_shifts.endSelected');
+
+//Holiday
+    Route::get('/dashboard/account/holiday_type',[HolidayController::class, 'holiday_type_index']);
+    Route::post('/holiday_type',[HolidayController::class, 'storeType'])->name('holiday_type');
+    Route::post('/holiday_filter',[HolidayController::class, 'index']);
+    Route::get('/holiday/approve/{id}',[HolidayController::class, 'approve']);
+    Route::get('/holiday/unapprove/{id}',[HolidayController::class, 'unapprove']);
+    Route::delete('/holiday/delete-selected-shifts',[HolidayController::class, 'destroyCheckedShifts'])->name('holiday.deleteSelected');
+    Route::put('/holiday/approve-selected-shifts',[HolidayController::class, 'approveCheckedShifts'])->name('holiday.approveSelected');
+    Route::put('/holiday/unapprove-selected-shifts',[HolidayController::class, 'unapproveCheckedShifts'])->name('holiday.unapproveSelected');
+
+
+    Route::get('/dashboard/account/branch_shift_designations',[ShiftTypeController::class, 'branch_index']);
+    Route::post('/branch_shift_designations',[ShiftTypeController::class, 'store']);
+
+
+
     Route::get('/profile', [UserController::class,'profile'])->name('profile');
     Route::get('/edit-profile', [UserController::class,'showEditProfile'])->name('edit-profile');
     Route::post('/edit-profile', [UserController::class,'edit']);
 
-
-    Route::get('/dashboard/company', [OLDOrganisationController::class,'viewCompany']);
-    /*Route::get('/dashboard/company/add', [OLDOrganisationController::class,'create'])->name('register');*/
-    Route::get('/add', [OLDOrganisationController::class,'create'])->name('register');
-    Route::post('/company_add', [OLDOrganisationController::class,'add']);
-//    Route::get('/employee/create', [OldEmployeeController::class,'create'])->name('register');
-//    Route::post('/employee/', [OldEmployeeController::class,'add']);
+    Route::get('/dashboard/full_shifts', [OFullShiftsController::class,'index']);
 });
 
 //Guest for all
@@ -54,6 +89,7 @@ Route::group(['middleware' => ['guest']], function() {
     Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'Register']);
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'authenticate']);
     Route::post('/login', [LoginController::class, 'authenticate']);
 });
 
@@ -65,6 +101,10 @@ Route::resources([
     'organisation' => OrganisationController::class,
     'branch' => BranchController::class,
     'employee' => EmployeeController::class,
+    'full_shifts' => FullShiftsController::class,
+    'open_shifts' => OpenShiftsController::class,
+    'holiday' => HolidayController::class,
+    'expense' => ExpenseController::class,
 ]);
 
 //Tests:
@@ -76,7 +116,6 @@ Route::get('/session/remove', [SessionController::class,'deleteSessionData'])->n
 Route::get('tests', [UserController::class,'profile'])->name('profile');
 Route::get('/org', [Employer_Dashboard::class,'index'])->name('profile');
 Route::get('/citytest', [CountryController::class,'index']);
-
 
 //DB Tests
 Route::get('/dbtest', [CountryController::class,'getCountry']);

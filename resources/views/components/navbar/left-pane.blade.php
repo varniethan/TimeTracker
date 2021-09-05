@@ -31,6 +31,7 @@
             </div>
             <x-navbar.track/>
             @if ((Session::get('role_id') == 1 or Session::get('role_id') == 2) and Session::has('org_id'))
+                <x-navbar.optimisation/>
                 <x-navbar.reports/>
             @endif
         </div>

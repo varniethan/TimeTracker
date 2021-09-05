@@ -18,7 +18,7 @@ class CreateShiftTypesTable extends Migration
             $table->integer('organisation_id');
             $table->foreign('organisation_id')->references('id')->on('organisation');
             $table->integer('branch_id');
-            $table->foreign('branch_id')->references('id')->on('branch');
+            $table->foreign('branch_id')->references('id')->on('branches');
             $table->string('name','32');
             $table->tinyInteger('pay_type')->default('0');
             $table->tinyInteger('exclude_from_over_time')->default('0');
