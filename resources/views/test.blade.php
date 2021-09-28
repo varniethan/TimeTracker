@@ -12,7 +12,6 @@
 
 <!-- Script -->
 <script type='text/javascript'>
-
     $(document).ready(function(){
             console.log("Ready");
             let bi_api_url = 'http://' + window.location.hostname + ':5000/workforce';
@@ -26,7 +25,6 @@
                     'auth_token':'123456',
                 },
                 success: function(response) {
-
                     $('#returned_data').html(response['orgID'] + '<br>' + response['profit']);
                 }
 

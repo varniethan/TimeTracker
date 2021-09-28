@@ -22,6 +22,7 @@ class Shift extends Model
         'clock_in',
         'clock_out',
         'approved',
+        'shift_note',
         'status',
         'created_by',
         'updated_by',
@@ -34,6 +35,17 @@ class Shift extends Model
             ->where('organisation_id', '=', $org_id)
             ->whereNotNull('clock_out')
             ->where('status', '=', 1)
+            ->get();
+        return $fullShifts;
+    }
+
+    public static function getTodayUserShifts($userid, $date, $branch)
+    {
+        $fullShifts = DB:: table('shifts')
+            ->where('date','=', $date)
+            ->where('user_id','=', $userid)
+            ->where('status','=','1')
+            ->where('branch_shift_id','=',$branch)
             ->get();
         return $fullShifts;
     }
@@ -62,6 +74,5 @@ class Shift extends Model
             ->where('status', '=', 1)
             ->get();
         return $openShifts;
-
     }
 }

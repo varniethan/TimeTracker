@@ -13,6 +13,7 @@ class Branch extends Model
     protected $fillable = [
         'name',
         'display_name',
+        'qr_token',
         'organisation_id',
         'email',
         'mobile_number',
@@ -37,6 +38,20 @@ class Branch extends Model
         return $branch;
     }
 
+    public static function checkBranchInOrganisation($qr_token, $org_id)
+    {
+        $branch = Branch::where('qr_token','=',$qr_token)->first();
+        if ($branch->organisation_id == $org_id)
+        {
+            return $branch;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
     public static function getBranchesOfManagerByUserId($user_id)
     {
         $branches = DB::table('branch_managers')
@@ -56,6 +71,15 @@ class Branch extends Model
             ->get();
         return $branches;
     }
+
+    public static function updateQrToken($old_qr_token)
+    {
+        $new_qr_token = bin2hex(random_bytes(8));
+        DB::table('branches')
+            ->where('qr_token', '=', $old_qr_token)
+            ->update(['qr_token' => $new_qr_token]);
+    }
+
 
     public static function getBranchOfManager($user_id)
     {

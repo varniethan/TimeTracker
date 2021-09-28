@@ -31,15 +31,17 @@
                     </div>
                 </div>
             </div>
-            <form class="" method="POST" action="{{url('/full_shifts_filter')}}">
+            <form class="" method="get" action="{{ route('full-shifts-filter') }}">
+                @csrf
     {{--            From Row--}}
+
                 <style>.row-margin-05 { margin-top: 2.5em; }</style>
                 <div class="row  row-margin-05">
                     <div class="col-md-2">
                         <label class="col-form-label text-left"><b>From</b></label>
                     </div>
                     <div class="col-md-10">
-                        <input type="date" name="dob"   class="form-control date" value="{{old('dob')}}">
+                        <input type="date" name="from_date"   class="form-control date" value="{{old('from_date')}}">
                     </div>
                 </div>
     {{--            To Row--}}
@@ -49,7 +51,7 @@
                         <label class="col-form-label text-left"><b>To</b></label>
                     </div>
                     <div class="col-md-10">
-                        <input type="date" name="dob"   class="form-control date" value="{{old('dob')}}">
+                        <input type="date" name="to_date"   class="form-control date" value="{{old('to_date')}}">
                     </div>
                 </div>
     {{--            Branch Row--}}
@@ -123,6 +125,7 @@
                                 </div>
                             @else
                                 <select class="form-select" name='position_id' aria-label=".form-select-sm example">
+                                    <option value='0'>{{"All Position Type"}}</option>
                                     @foreach($positionData as $position)
                                         <option value='{{$position['id']}}'>{{$position['name']}}</option>
                                     @endforeach
@@ -137,7 +140,7 @@
                         <label class="col-form-label text-left"><b>Shift Type </b></label>
                     </div>
                     <div class="col-md-10">
-                        <select class="form-select" name='user_id' aria-label=".form-select-sm example">
+                        <select class="form-select" name='shift_type_id' aria-label=".form-select-sm example">
                             <option value='0'>{{"All Shift Type"}}</option>
                             @foreach($shiftTypeData as $shiftType)
                                 <option value="{{$shiftType->id}}">{{$shiftType->name}}</option>
@@ -275,6 +278,18 @@
                                                                     <span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row form-group row-margin-05">
+                                                    <div class="col-md-2">
+                                                        <label class="col-form-label text-left" name="shift_note"><b>Notes</b></label>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="form-group">
+                                                            <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                            <label for="exampleFormControlTextarea1">Add Note for the employee working on the shift....etc</label>
                                                         </div>
                                                     </div>
                                                 </div>

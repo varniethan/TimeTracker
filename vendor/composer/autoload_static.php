@@ -20,9 +20,9 @@ class ComposerStaticInit799bbe3e8fef590ed90041a526852a38
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
-        'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
@@ -31,6 +31,7 @@ class ComposerStaticInit799bbe3e8fef590ed90041a526852a38
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
+        '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
         '9cdd7b9056abc3081735233ba9dd9c7f' => __DIR__ . '/..' . '/facade/flare-client-php/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '2a3c2110e8e0295330dc3d11a4cbc4cb' => __DIR__ . '/..' . '/php-webdriver/webdriver/lib/Exception/TimeoutException.php',
@@ -96,6 +97,7 @@ class ComposerStaticInit799bbe3e8fef590ed90041a526852a38
         ),
         'P' => 
         array (
+            'Pusher\\' => 7,
             'Psy\\' => 4,
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
@@ -168,6 +170,7 @@ class ComposerStaticInit799bbe3e8fef590ed90041a526852a38
         'C' => 
         array (
             'Cron\\' => 5,
+            'Chatify\\' => 8,
             'Carbon\\' => 7,
         ),
         'B' => 
@@ -328,6 +331,10 @@ class ComposerStaticInit799bbe3e8fef590ed90041a526852a38
         'Ramsey\\Collection\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
+        ),
+        'Pusher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pusher/pusher-php-server/src',
         ),
         'Psy\\' => 
         array (
@@ -499,6 +506,10 @@ class ComposerStaticInit799bbe3e8fef590ed90041a526852a38
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
         ),
+        'Chatify\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/munafio/chatify/src',
+        ),
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
@@ -552,6 +563,7 @@ class ComposerStaticInit799bbe3e8fef590ed90041a526852a38
         'App\\Http\\Controllers\\OpenShiftsController' => __DIR__ . '/../..' . '/app/Http/Controllers/OpenShiftsController.php',
         'App\\Http\\Controllers\\OrganisationController' => __DIR__ . '/../..' . '/app/Http/Controllers/OrganisationController.php',
         'App\\Http\\Controllers\\PositionsController' => __DIR__ . '/../..' . '/app/Http/Controllers/PositionsController.php',
+        'App\\Http\\Controllers\\QrCodeController' => __DIR__ . '/../..' . '/app/Http/Controllers/QrCodeController.php',
         'App\\Http\\Controllers\\SessionController' => __DIR__ . '/../..' . '/app/Http/Controllers/SessionController.php',
         'App\\Http\\Controllers\\ShiftCodeController' => __DIR__ . '/../..' . '/app/Http/Controllers/ShiftCodeController.php',
         'App\\Http\\Controllers\\ShiftTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/ShiftTypeController.php',
@@ -576,6 +588,7 @@ class ComposerStaticInit799bbe3e8fef590ed90041a526852a38
         'App\\Models\\Branch' => __DIR__ . '/../..' . '/app/Models/Branch.php',
         'App\\Models\\City' => __DIR__ . '/../..' . '/app/Models/City.php',
         'App\\Models\\Country' => __DIR__ . '/../..' . '/app/Models/Country.php',
+        'App\\Models\\Expense' => __DIR__ . '/../..' . '/app/Models/Expense.php',
         'App\\Models\\Holiday' => __DIR__ . '/../..' . '/app/Models/Holiday.php',
         'App\\Models\\Organisation' => __DIR__ . '/../..' . '/app/Models/Organisation.php',
         'App\\Models\\Position' => __DIR__ . '/../..' . '/app/Models/Position.php',
@@ -607,6 +620,7 @@ class ComposerStaticInit799bbe3e8fef590ed90041a526852a38
         'App\\View\\Components\\index\\branch_shift_type' => __DIR__ . '/../..' . '/app/View/Components/index/branch_shift_type.php',
         'App\\View\\Components\\index\\employee' => __DIR__ . '/../..' . '/app/View/Components/index/employee.php',
         'App\\View\\Components\\index\\expense' => __DIR__ . '/../..' . '/app/View/Components/index/expense.php',
+        'App\\View\\Components\\index\\expense_type' => __DIR__ . '/../..' . '/app/View/Components/index/expense_type.php',
         'App\\View\\Components\\index\\fullShifts' => __DIR__ . '/../..' . '/app/View/Components/index/fullShifts.php',
         'App\\View\\Components\\index\\holiday' => __DIR__ . '/../..' . '/app/View/Components/index/holiday.php',
         'App\\View\\Components\\index\\holiday_type' => __DIR__ . '/../..' . '/app/View/Components/index/holiday_type.php',
@@ -621,6 +635,7 @@ class ComposerStaticInit799bbe3e8fef590ed90041a526852a38
         'App\\View\\Components\\navbar\\optimisation' => __DIR__ . '/../..' . '/app/View/Components/navbar/optimisation.php',
         'App\\View\\Components\\navbar\\top-pane' => __DIR__ . '/../..' . '/app/View/Components/navbar/top-pane.php',
         'App\\View\\Components\\navbar\\topPane' => __DIR__ . '/../..' . '/app/View/Components/navbar/topPane.php',
+        'App\\View\\Components\\qr\\full_shifts' => __DIR__ . '/../..' . '/app/View/Components/qr/full_shifts.php',
         'App\\View\\Components\\show\\branch' => __DIR__ . '/../..' . '/app/View/Components/show/branch.php',
         'App\\View\\Components\\show\\employee' => __DIR__ . '/../..' . '/app/View/Components/show/employee.php',
         'App\\View\\Components\\show\\organisation' => __DIR__ . '/../..' . '/app/View/Components/show/organisation.php',
@@ -760,6 +775,12 @@ class ComposerStaticInit799bbe3e8fef590ed90041a526852a38
         'Carbon\\Traits\\Units' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Units.php',
         'Carbon\\Traits\\Week' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Week.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
+        'Chatify\\ChatifyMessenger' => __DIR__ . '/..' . '/munafio/chatify/src/ChatifyMessenger.php',
+        'Chatify\\ChatifyServiceProvider' => __DIR__ . '/..' . '/munafio/chatify/src/ChatifyServiceProvider.php',
+        'Chatify\\Console\\InstallCommand' => __DIR__ . '/..' . '/munafio/chatify/src/Console/InstallCommand.php',
+        'Chatify\\Console\\PublishCommand' => __DIR__ . '/..' . '/munafio/chatify/src/Console/PublishCommand.php',
+        'Chatify\\Facades\\ChatifyMessenger' => __DIR__ . '/..' . '/munafio/chatify/src/Facades/ChatifyMessenger.php',
+        'Chatify\\Http\\Controllers\\MessagesController' => __DIR__ . '/..' . '/munafio/chatify/src/Http/Controllers/MessagesController.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
@@ -4404,6 +4425,13 @@ class ComposerStaticInit799bbe3e8fef590ed90041a526852a38
         'Psy\\VersionUpdater\\GitHubChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/GitHubChecker.php',
         'Psy\\VersionUpdater\\IntervalChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/IntervalChecker.php',
         'Psy\\VersionUpdater\\NoopChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/NoopChecker.php',
+        'Pusher\\ApiErrorException' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/ApiErrorException.php',
+        'Pusher\\Pusher' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/Pusher.php',
+        'Pusher\\PusherCrypto' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherCrypto.php',
+        'Pusher\\PusherException' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherException.php',
+        'Pusher\\PusherInstance' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherInstance.php',
+        'Pusher\\PusherInterface' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherInterface.php',
+        'Pusher\\Webhook' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/Webhook.php',
         'Ramsey\\Collection\\AbstractArray' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractArray.php',
         'Ramsey\\Collection\\AbstractCollection' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractCollection.php',
         'Ramsey\\Collection\\AbstractSet' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractSet.php',

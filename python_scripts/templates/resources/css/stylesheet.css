@@ -1,0 +1,17 @@
+html, body {
+
+    font-family: sans-serif;
+    font-size: 24px;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin: 0px;
+
+}
+
+.error {
+
+    color: red;
+
+}
+

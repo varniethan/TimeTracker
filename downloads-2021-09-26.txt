@@ -1,0 +1,25 @@
+.
+├── README.md
+├── app
+├── artisan
+├── bootstrap
+├── composer.json
+├── composer.lock
+├── config
+├── database
+├── downloads-2021-09-26.txt
+├── env.dusk.local
+├── package.json
+├── phpunit.xml
+├── public
+├── python_scripts
+├── qr
+├── resources
+├── routes
+├── server.php
+├── storage
+├── tests
+├── vendor
+└── webpack.mix.js
+
+12 directories, 10 files

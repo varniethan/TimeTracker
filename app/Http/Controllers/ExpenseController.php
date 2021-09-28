@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Branch;
+use App\Models\Expense;
 use App\Models\Organisation;
 use App\Models\Position;
 use App\Models\Shift;
@@ -27,6 +28,12 @@ class ExpenseController extends Controller
         $positionData = Position::getPositionOrganisations($Organisationdata['id']);
         $shiftData = Shift::getOpenShiftOfOrganisations(session('org_id'));
         return view('expense.index',compact('branchData', 'positionData','employeeData', 'shiftTypeData', 'shiftData'));
+    }
+
+    public function expense_type_index()
+    {
+        $expenseTypeData = Expense::getExpenseTypesOfOrganisations(session('org_id'));
+        return view('expense.expense_type',compact('expenseTypeData'));
     }
 
     /**

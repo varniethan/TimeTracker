@@ -46,8 +46,9 @@ class BranchController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function store(Request $request)
     {
@@ -62,8 +63,9 @@ class BranchController extends Controller
             'address_2' => 'required',
             'city' => 'required',
         ]);
+        $bytes = random_bytes(8);
         $organisationData = Organisation::getEmployerAllOrganisations(Session('user_id'));
-        $branchData = Branch:: create($request->all() + ['organisation_id'=>$organisationData['id']]);
+        $branchData = Branch:: create($request->all() + ['organisation_id'=>$organisationData['id']] + ['qr_token'=>bin2hex($bytes)]);
         return redirect('/branch');
     }
 

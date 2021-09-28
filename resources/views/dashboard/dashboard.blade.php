@@ -18,6 +18,9 @@
                                     <p class="mb-0">Got to <code>Manage Companies</code> in your profile - Manage Accounts section to add all of your Organisations</p>
                                 </div>
                             @endif
+                                @if(Session::has('message'))
+                                    <p class="alert {{ Session::get('alert-class', 'alert-sucess') }}">{{ Session::get('message') }}</p>
+                                @endif
                         </div>
                     </div>
                 </div>

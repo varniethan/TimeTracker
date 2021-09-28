@@ -16,6 +16,9 @@ use App\Http\Controllers\FullShiftsController;
 use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\OpenShiftsController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\BreakController;
+use App\Http\Controllers\OptimisationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,16 +43,24 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/dashboard/account/positions',[PositionsController::class, 'index']);
     Route::post('/positions',[PositionsController::class, 'store']);
 
+    Route::get('/dashboard/account/breaks',[BreakController::class, 'index']);
+    Route::post('/breaks',[BreakController::class, 'storeBreakType']);
+
     Route::get('/dashboard/account/shift_designations',[ShiftTypeController::class, 'index']);
     Route::post('/shift_designations',[ShiftTypeController::class, 'store']);
 
 //Full Shifts
-    Route::post('/full_shifts_filter',[FullShiftsController::class, 'index']);
+    Route::get('full-shifts-filter',[FullShiftsController::class, 'index'])->name('full-shifts-filter');
     Route::get('/full_shifts/approve/{id}',[FullShiftsController::class, 'approve']);
     Route::get('/full_shifts/unapprove/{id}',[FullShiftsController::class, 'unapprove']);
     Route::delete('/full_shifts/delete-selected-shifts',[FullShiftsController::class, 'destroyCheckedShifts'])->name('full_shifts.deleteSelected');
     Route::put('/full_shifts/approve-selected-shifts',[FullShiftsController::class, 'approveCheckedShifts'])->name('full_shifts.approveSelected');
     Route::put('/full_shifts/unapprove-selected-shifts',[FullShiftsController::class, 'unapproveCheckedShifts'])->name('full_shifts.unapproveSelected');
+    Route::post('/full_shifts/shifts-break',[BreakController::class, 'addShiftBreak'])->name('full_shifts.addShiftBreak');
+    Route::put('/full_shifts/end-shifts-earley',[BreakController::class, 'endShiftsEarley'])->name('full_shifts.endShiftsEarley');
+
+
+
 
 //Open Shifts
     Route::post('/open_shifts_filter',[OpenShiftsController::class, 'index']);
@@ -62,6 +73,16 @@ Route::group(['middleware' => ['auth']], function() {
     Route::put('/open_shifts/end-selected-shifts',[OpenShiftsController::class, 'endCheckedShifts'])->name('open_shifts.endSelected');
 
 //Holiday
+    Route::get('/dashboard/account/expense_type',[ExpenseController::class, 'expense_type_index']);
+    Route::post('/expense_type',[ExpenseController::class, 'storeType'])->name('holiday_type');
+    Route::post('/expense_filter',[ExpenseController::class, 'index']);
+    Route::get('/expense/approve/{id}',[ExpenseController::class, 'approve']);
+    Route::get('/expense/unapprove/{id}',[ExpenseController::class, 'unapprove']);
+    Route::delete('/expense/delete-selected-shifts',[ExpenseController::class, 'destroyCheckedShifts'])->name('holiday.deleteSelected');
+    Route::put('/expense/approve-selected-shifts',[ExpenseController::class, 'approveCheckedShifts'])->name('holiday.approveSelected');
+    Route::put('/expense/unapprove-selected-shifts',[ExpenseController::class, 'unapproveCheckedShifts'])->name('holiday.unapproveSelected');
+
+//Expense
     Route::get('/dashboard/account/holiday_type',[HolidayController::class, 'holiday_type_index']);
     Route::post('/holiday_type',[HolidayController::class, 'storeType'])->name('holiday_type');
     Route::post('/holiday_filter',[HolidayController::class, 'index']);
@@ -82,6 +103,25 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/edit-profile', [UserController::class,'edit']);
 
     Route::get('/dashboard/full_shifts', [OFullShiftsController::class,'index']);
+
+    //QR Codes
+    Route::get('/qr/{id}', [QrCodeController::class,'fullshift_store']);
+    Route::get('/qr_full_shifts/{id}', [QrCodeController::class,'displayShifts']);
+    Route::get('/open_qr/{id}', [QrCodeController::class,'getCities']);
+
+    //Optimisation
+    Route::get('/optimisation', [OptimisationController::class,'index']);
+
+//Resources - perform the same sets of actions against each resource in your application.Because of this common use case, Laravel resource routing assigns the typical create, read, update, and delete ("CRUD") routes to a controller with a single line of code.
+    Route::resources([
+        'organisation' => OrganisationController::class,
+        'branch' => BranchController::class,
+        'employee' => EmployeeController::class,
+        'full_shifts' => FullShiftsController::class,
+        'open_shifts' => OpenShiftsController::class,
+        'holiday' => HolidayController::class,
+        'expense' => ExpenseController::class,
+    ]);
 });
 
 //Guest for all
@@ -90,22 +130,10 @@ Route::group(['middleware' => ['guest']], function() {
     Route::post('/register', [RegisterController::class, 'Register']);
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'authenticate']);
-    Route::post('/login', [LoginController::class, 'authenticate']);
 });
 
 //APIs and AJAX Calls
 Route::get('/getCities/{id}', [CountryController::class,'getCities']);
-
-//Resources - perform the same sets of actions against each resource in your application.Because of this common use case, Laravel resource routing assigns the typical create, read, update, and delete ("CRUD") routes to a controller with a single line of code.
-Route::resources([
-    'organisation' => OrganisationController::class,
-    'branch' => BranchController::class,
-    'employee' => EmployeeController::class,
-    'full_shifts' => FullShiftsController::class,
-    'open_shifts' => OpenShiftsController::class,
-    'holiday' => HolidayController::class,
-    'expense' => ExpenseController::class,
-]);
 
 //Tests:
 /*Route::view('/timeoff','tracker.timeoff');*/

@@ -20,33 +20,72 @@ class FullShiftsController extends Controller
      */
     public function index(Request $request)
     {
-        $from_date = "";
-        $to_date = "";
-        $branch = "";
+        $date = "";
+        $branch_id = "";
         $user_id = "";
-        $role = "";
-        $position = "";
+        $role_id = "";
+        $position_id = "";
+        $shift_type_id= "";
+//        $branch_id = " AND branches.id=";
+//        $user_id = "  AND users.id= ";
+//        $role_id = " AND roles.id=";
+//        $position_id = " AND positions.id=";
+//        $shift_type_id= " AND shifts_types.id=";
 
-        if ($request->has('branch') and $request->branch != '0')
+        if ($request->has('from_date') and $request->has('to_date'))
         {
-            $branch = ' AND b.id =' + $request->$branch;
+            $date = ' AND between shifts.date ='.$request->from_date.' AND '.$request->to_date;
         }
 
-        if ($request->has('branch') and $request->branch != '0')
+        if ($request->has('branch_id') and $request->branch_id != '0')
         {
-            $branch = ' AND between b.id =' + $request->f;
+            $branch_id = ' AND branches.id ='.$request->branch_id;
         }
 
-        //select...............where status = 1" + $from
+        if ($request->has('user_id') and $request->user_id != '0')
+        {
+            $user_id = ' AND users.id ='.$request->user_id;
+        }
 
+        if ($request->has('role_id') and $request->role_id != '0')
+        {
+            $role_id = ' AND between roles.id ='.$request->role_id;
+        }
+
+        if ($request->has('position_id') and $request->position_id != '0')
+        {
+            $position_id = ' AND between positions.id ='.$request->position_id;
+        }
+
+        if ($request->has('shift_type_id') and $request->shift_type_id != '0')
+        {
+            $shift_type_id = ' AND between shif_types.id ='.$request->shift_type_id;
+        }
+
+        $fullShiftData = DB::select( DB::raw("SELECT * FROM shifts WHERE shifts.status = 1 =:date =:branch_id =:user_id =:role_id =:position_id =:shift_type_id"), array(
+//        $fullShiftData = DB::select( DB::raw(" select shifts.* from shifts, branches, users, roles, positions, shift_types, organisations
+//                                where shifts.user_id = users.id and shifts.branch_shift_id=branches.id and shifts.shift_type_id=shift_types.id
+//                                and shift_types.id = 3 and shifts.status=1 and shifts.organisation_id=11 and users.id = 175 and branches.id = 1 and shifts.full_or_open=1;"),
+//            array(
+            'date' => $date,
+            'branch_id' => $branch_id,
+            'user_id' => $user_id,
+            'role_id' => $role_id,
+            'position_id' => $position_id,
+            'shift_type_id' => $shift_type_id,
+        ));
+//        echo '<pre>';
+//        var_dump($data);
+//        echo '</pre>';
+//        exit();
         $Organisationdata = Organisation::where('id','=', session('org_id'))->first();
         $branchData = Branch::getBrachesOfOrganisations($Organisationdata['id']);
         $employeeData = User::getAllEmployeesByOrgId($Organisationdata['id']);
         $shiftTypeData = ShiftType::getShiftTypeOrganisations(session('org_id'));
-        //Sending Positions that the organisation has to the view
         $positionData = Position::getPositionOrganisations($Organisationdata['id']);
-        $fullShiftData = Shift::getFullShiftOfOrganisations(session('org_id'), $from_date, $to_date, $branch, $user_id, $role, $position);
+//        $fullShiftData = Shift::getFullShiftOfOrganisations(session('org_id'), $from_date, $to_date, $branch_id, $user_id, $role_id, $position_id);
         return view('shifts.full_shifts_index',compact('branchData', 'positionData','employeeData', 'shiftTypeData', 'fullShiftData'));
+//        return view('shifts.full_shifts_index', compact('data'));
     }
 
     /**
@@ -148,7 +187,17 @@ class FullShiftsController extends Controller
      */
     public function show($id)
     {
-        //
+        // get the branch
+        $shiftData = Shift::find($id);
+        $breakTypeData = DB::table('break_types')
+            ->where('organisation_id','=', session('org_id'))
+            ->select('id','name')
+            ->get();
+//        echo $breakTypeData;
+//        exit;
+//        $organisationData = Organisation::getBranchOrganisation($shiftData['organisation_id']);
+        // show the view and pass the branch to it
+        return view('shifts.show', compact('shiftData', 'breakTypeData'));
     }
 
     /**

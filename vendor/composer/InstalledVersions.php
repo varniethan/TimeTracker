@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'd8d961c2e88e0ff1508b8f327dbf38774b07c914',
+    'reference' => '393e092392f69c7008071ef422c17aa162100d28',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -474,7 +474,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'd8d961c2e88e0ff1508b8f327dbf38774b07c914',
+      'reference' => '393e092392f69c7008071ef422c17aa162100d28',
     ),
     'laravel/sail' => 
     array (
@@ -555,6 +555,15 @@ private static $installed = array (
         0 => '^1.0',
       ),
     ),
+    'munafio/chatify' => 
+    array (
+      'pretty_version' => 'v1.2.5',
+      'version' => '1.2.5.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '476d846267be9a1743482548833a92c1f75fe2a1',
+    ),
     'myclabs/deep-copy' => 
     array (
       'pretty_version' => '1.10.2',
@@ -603,6 +612,24 @@ private static $installed = array (
       array (
       ),
       'reference' => '06e2ebd25f2869e54a306dda991f7db58066f7f6',
+    ),
+    'paragonie/random_compat' => 
+    array (
+      'pretty_version' => 'v9.99.100',
+      'version' => '9.99.100.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '996434e5492cb4c3edcb9168db6fbb1359ef965a',
+    ),
+    'paragonie/sodium_compat' => 
+    array (
+      'pretty_version' => 'v1.17.0',
+      'version' => '1.17.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'c59cac21abbcc0df06a3dd18076450ea4797b321',
     ),
     'phar-io/manifest' => 
     array (
@@ -844,6 +871,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'e4573f47750dd6c92dca5aee543fa77513cbd8d3',
+    ),
+    'pusher/pusher-php-server' => 
+    array (
+      'pretty_version' => '7.0.1',
+      'version' => '7.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '7757a09209d20ff95b077ae48dc25f49a6ad94a2',
     ),
     'ralouphie/getallheaders' => 
     array (

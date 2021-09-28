@@ -1,0 +1,513 @@
+.
+├── README.md
+├── app
+│   ├── Console
+│   │   └── Kernel.php
+│   ├── Exceptions
+│   │   └── Handler.php
+│   ├── Http
+│   │   ├── Controllers
+│   │   │   ├── Auth
+│   │   │   │   ├── LoginController.php
+│   │   │   │   └── RegisterController.php
+│   │   │   ├── BranchController.php
+│   │   │   ├── BranchManagerController.php
+│   │   │   ├── BreakController.php
+│   │   │   ├── Controller.php
+│   │   │   ├── CountryController.php
+│   │   │   ├── DashboardController.php
+│   │   │   ├── EmployeeController.php
+│   │   │   ├── ExpenseController.php
+│   │   │   ├── FullShiftsController.php
+│   │   │   ├── HolidayController.php
+│   │   │   ├── HolidayTypeController.php
+│   │   │   ├── JobCodesController.php
+│   │   │   ├── MailController.php
+│   │   │   ├── OFullShiftsController.php
+│   │   │   ├── OpenShiftsController.php
+│   │   │   ├── OptimisationController.php
+│   │   │   ├── OrganisationController.php
+│   │   │   ├── PositionsController.php
+│   │   │   ├── QrCodeController.php
+│   │   │   ├── SessionController.php
+│   │   │   ├── ShiftCodeController.php
+│   │   │   ├── ShiftTypeController.php
+│   │   │   ├── ShiftsController.php
+│   │   │   └── UserController.php
+│   │   ├── Kernel.php
+│   │   ├── Middleware
+│   │   │   ├── Authenticate.php
+│   │   │   ├── EncryptCookies.php
+│   │   │   ├── Login.php
+│   │   │   ├── PreventRequestsDuringMaintenance.php
+│   │   │   ├── RedirectIfAuthenticated.php
+│   │   │   ├── TrimStrings.php
+│   │   │   ├── TrustHosts.php
+│   │   │   ├── TrustProxies.php
+│   │   │   └── VerifyCsrfToken.php
+│   │   ├── Requests
+│   │   │   └── Auth
+│   │   │       └── LoginRequest.php
+│   │   └── Traits
+│   │       └── Shifts.php
+│   ├── Mail
+│   │   ├── EmployeeCreatedMail.php
+│   │   ├── OrganisationCreatedMail.php
+│   │   ├── ProfileUpdateMail.php
+│   │   └── WelcomeMail.php
+│   ├── Models
+│   │   ├── Branch.php
+│   │   ├── ChFavorite.php
+│   │   ├── ChMessage.php
+│   │   ├── City.php
+│   │   ├── Country.php
+│   │   ├── Expense.php
+│   │   ├── Holiday.php
+│   │   ├── Organisation.php
+│   │   ├── Position.php
+│   │   ├── Shift.php
+│   │   ├── ShiftBreak.php
+│   │   ├── ShiftType.php
+│   │   └── User.php
+│   ├── Providers
+│   │   ├── AppServiceProvider.php
+│   │   ├── AuthServiceProvider.php
+│   │   ├── BroadcastServiceProvider.php
+│   │   ├── EventServiceProvider.php
+│   │   ├── RouteServiceProvider.php
+│   │
+│   └── View
+│       └── Components
+│           ├── button
+│           │   ├── edit.php
+│           │   ├── remove.php
+│           │   └── view.php
+│           ├── code
+│           │   ├── branch_shift.php
+│           │   ├── breaks.php
+│           │   ├── expense.php
+│           │   ├── holiday.php
+│           │   ├── position.php
+│           │   └── shift.php
+│           ├── create
+│           │   ├── employee.php
+│           │   ├── organisation.php
+│           │   └── positions.php
+│           ├── dashboard
+│           │   └── account.php
+│           ├── form
+│           │   ├── login.php
+│           │   ├── register.php
+│           │   └── select-country.php
+│           ├── index
+│           │   ├── CORRECT_employee.php
+│           │   ├── branch.php
+│           │   ├── branch_shift_type.php
+│           │   ├── break_type.php
+│           │   ├── employee.php
+│           │   ├── expense.php
+│           │   ├── expense_type.php
+│           │   ├── fullShifts.php
+│           │   ├── holiday.php
+│           │   ├── holiday_type.php
+│           │   ├── open_shifts.php
+│           │   ├── optimisation.php
+│           │   ├── organisation.php
+│           │   ├── positions.php
+│           │   ├── profile.php
+│           │   ├── shift_type.php
+│           │   └── timeoff.php
+│           ├── navbar
+│           │   ├── account-pane.php
+│           │   ├── footer.php
+│           │   ├── leftPane.php
+│           │   ├── optimisation.php
+│           │   ├── top-pane.php
+│           │   └── topPane.php
+│           ├── qr
+│           │   └── full_shifts.php
+│           ├── show
+│           │   ├── branch.php
+│           │   ├── employee.php
+│           │   ├── organisation.php
+│           │   └── shifts.php
+│           └── update
+│               ├── branch.php
+│               ├── employee.php
+│               ├── organisation.php
+│               └── user.php
+├── artisan
+├── bootstrap
+│   ├── app.php
+│   └── cache
+│       ├── packages.php
+│       └── services.php
+├── composer.json
+├── composer.lock
+├── config
+│   ├── app.php
+│   ├── auth.php
+│   ├── broadcasting.php
+│   ├── cache.php
+│   ├── chatify.php
+│   ├── cors.php
+│   ├── database.php
+│   ├── debugbar.php
+│   ├── filesystems.php
+│   ├── hashing.php
+│   ├── logging.php
+│   ├── mail.php
+│   ├── queue.php
+│   ├── services.php
+│   ├── session.php
+│   └── view.php
+├── database
+│   ├── factories
+│   │   └── UserFactory.php
+│   ├── migrations
+│   │   ├── 2014_10_12_100000_create_password_resets_table.php
+│   │   ├── 2019_08_19_000000_create_failed_jobs_table.php
+│   │   ├── 2019_09_22_192348_create_messages_table.php
+│   │   ├── 2019_10_16_211433_create_favorites_table.php
+│   │   ├── 2019_10_18_223259_add_avatar_to_users.php
+│   │   ├── 2019_10_20_211056_add_messenger_color_to_users.php
+│   │   ├── 2019_10_22_000539_add_dark_mode_to_users.php
+│   │   ├── 2019_10_25_214038_add_active_status_to_users.php
+│   │   ├── 2021_07_09_192155_create_positions_table.php
+│   │   ├── 2021_07_09_192221_create_organisations_table.php
+│   │   ├── 2021_07_09_192234_create_roles_table.php
+│   │   ├── 2021_07_09_192250_create_users_table.php
+│   │   ├── 2021_07_09_192304_create_branches_table.php
+│   │   ├── 2021_07_09_192326_create_branch_managers_table.php
+│   │   ├── 2021_07_09_192406_create_shift_types_table.php
+│   │   ├── 2021_07_09_192515_create_branch_shifts_table.php
+│   │   ├── 2021_07_09_192549_create_shifts_table.php
+│   │   ├── 2021_07_09_192606_create_break_types_table.php
+│   │   ├── 2021_07_09_192627_create_shift_break_table.php
+│   │   ├── 2021_07_09_192736_create_expense_types_table.php
+│   │   ├── 2021_07_09_192750_create_shift_expenses_table.php
+│   │   ├── 2021_07_09_192805_create_holiday_types_table.php
+│   │   ├── 2021_07_09_192825_create_user_holidays_table.php
+│   │   ├── 2021_07_29_093238_create_branch_users_table.php
+│   │   └── world.sql
+│   └── seeders
+│       └── DatabaseSeeder.php
+├── env.dusk.local
+├── package.json
+├── phpunit.xml
+├── public
+│   ├── assets
+│   │   ├── css
+│   │   │   ├── app.css
+│   │   │   ├── bootstrap.min.css
+│   │   │   ├── custom.css
+│   │   │   ├── custom.min.css
+│   │   │   ├── email.css
+│   │   │   ├── error.scss
+│   │   │   └── mycustom.css
+│   │   ├── images
+│   │   │   ├── american-express.png
+│   │   │   ├── back_disabled.png
+│   │   │   ├── back_enabled.png
+│   │   │   ├── back_enabled_hover.png
+│   │   │   ├── cropper.jpg
+│   │   │   ├── custom.css
+│   │   │   ├── favicon.ico
+│   │   │   ├── forward_disabled.png
+│   │   │   ├── forward_enabled.png
+│   │   │   ├── forward_enabled_hover.png
+│   │   │   ├── img.jpg
+│   │   │   ├── inbox.png
+│   │   │   ├── loading.gif
+│   │   │   ├── mastercard.png
+│   │   │   ├── media.jpg
+│   │   │   ├── paypal.png
+│   │   │   ├── picture.jpg
+│   │   │   ├── prod-1.jpg
+│   │   │   ├── prod-2.jpg
+│   │   │   ├── prod-3.jpg
+│   │   │   ├── prod-4.jpg
+│   │   │   ├── prod-5.jpg
+│   │   │   ├── signature.png
+│   │   │   ├── user.png
+│   │   │   └── visa.png
+│   │   ├── js
+│   │   │   ├── custom.js
+│   │   │   ├── custom.min.js
+│   │   │   ├── datepicker
+│   │   │   │   └── daterangepicker.js
+│   │   │   ├── loadCity.js
+│   │   │   ├── moment
+│   │   │   │   └── moment.min.js
+│   │   │   └── registerValidation.js
+├── python_scripts
+│   ├── DB_Scripts
+│   │   ├── database_connector.py
+│   │   ├── faker_organisations.py
+│   │   ├── faker_poistions.py
+│   │   ├── faker_users.py
+│   │   ├── insert_roles.py
+│   │   ├── insert_shifts.py
+│   │   └── test.py
+│   ├── Optmisation
+│   │   ├── Cost\ optimization.py
+│   │   ├── Optimized_Scheduling.lp
+│   │   ├── shifts.csv
+│   │   └── staff_sheduling.py
+│   ├── __pycache__
+│   │   ├── app.cpython-39.pyc
+│   │   └── database_connector.cpython-39.pyc
+│   ├── app.py
+│   ├── database_connector.py
+│   ├── public
+│   │   ├── index.html
+│   │   └── index.js
+│   ├── qr_classes.py
+│   ├── qr_login.py
+│   ├── resources
+│   │   ├── css
+│   │   │   ├── bootstrap.min.css
+│   │   │   ├── custom.css
+│   │   │   ├── home.css
+│   │   │   ├── stylesheet.css
+│   │   │   └── wechat.css
+│   │   └── js
+│   │       ├── ajax.js
+│   │       └── gui.js
+│   ├── run_app.py
+│   ├── static
+│   │   ├── images
+│   │   │   └── favicon.ico
+│   │   ├── js
+│   │   │   ├── application.js
+│   │   │   └── index.js
+│   │   └── styles
+│   │       ├── bootstrap.bundle.js
+│   │       ├── bootstrap.min.css
+│   │       ├── custom.css
+│   │       ├── custom.js
+│   │       ├── font-awesome.min.css
+│   │       ├── jquery.js
+│   │       ├── nprogress.css
+│   │       ├── nprogress.js
+│   │       └── socket.js
+│   ├── templates
+│   │   ├── layout.html
+│   │   ├── login.html
+│   │   ├── qr.html
+│   │   └── test.html
+│   └── test.py
+├── qr
+│   ├── __pycache__
+│   │   └── database_connector.cpython-39.pyc
+│   ├── app.py
+│   ├── database_connector.py
+│   ├── qr_classes.py
+│   ├── qr_login.py
+│   ├── simplex.py
+│   ├── static
+│   │   ├── images
+│   │   │   └── favicon.ico
+│   │   ├── scripts
+│   │   │   ├── qr.js
+│   │   │   └── socketio.js
+│   │   └── styles
+│   │       ├── bootstrap.bundle.js
+│   │       ├── bootstrap.min.css
+│   │       ├── custom.css
+│   │       ├── custom.js
+│   │       ├── font-awesome.min.css
+│   │       ├── jquery.js
+│   │       ├── nprogress.css
+│   │       └── nprogress.js
+│   └── templates
+│       ├── login.html
+│       ├── qr.html
+│       └── test.html
+├── resources
+│   ├── css
+│   │   └── app.css
+│   ├── js
+│   │   ├── app.js
+│   │   └── bootstrap.js
+│   ├── lang
+│   │   └── en
+│   │       ├── auth.php
+│   │       ├── pagination.php
+│   │       ├── passwords.php
+│   │       └── validation.php
+│   └── views
+│       ├── auth
+│       │   ├── login.blade.php
+│       │   ├── passwords
+│       │   │   ├── confirm.blade.php
+│       │   │   ├── email.blade.php
+│       │   │   └── reset.blade.php
+│       │   └── register.blade.php
+│       ├── branch
+│       │   ├── create.blade.php
+│       │   ├── edit.blade.php
+│       │   ├── index.blade.php
+│       │   └── show.blade.php
+│       ├── components
+│       │   ├── button
+│       │   │   ├── edit.blade.php
+│       │   │   ├── remove.blade.php
+│       │   │   └── view.blade.php
+│       │   ├── code
+│       │   │   ├── branch_shift.blade.php
+│       │   │   ├── breaks.blade.php
+│       │   │   ├── expense.blade.php
+│       │   │   ├── holiday.blade.php
+│       │   │   ├── position.blade.php
+│       │   │   └── shift.blade.php
+│       │   ├── create
+│       │   │   ├── branch.blade.php
+│       │   │   ├── employee.blade.php
+│       │   │   ├── organisation.blade.php
+│       │   │   └── positions.blade.php
+│       │   ├── dashboard
+│       │   │   └── account.blade.php
+│       │   ├── form
+│       │   │   ├── login.blade.php
+│       │   │   ├── register.blade.php
+│       │   │   └── select-country.blade.php
+│       │   ├── index
+│       │   │   ├── branch.blade.php
+│       │   │   ├── branch_shift_type.blade.php
+│       │   │   ├── break_type.blade.php
+│       │   │   ├── employee.blade.php
+│       │   │   ├── expense.blade.php
+│       │   │   ├── expense_type.blade.php
+│       │   │   ├── full-shifts.blade.php
+│       │   │   ├── holiday.blade.php
+│       │   │   ├── holiday_type.blade.php
+│       │   │   ├── open_shifts.blade.php
+│       │   │   ├── optimisation.blade.php
+│       │   │   ├── organisation.blade.php
+│       │   │   ├── positions.blade.php
+│       │   │   ├── profile.blade.php
+│       │   │   └── shift_type.blade.php
+│       │   ├── navbar
+│       │   │   ├── account-pane.blade.php
+│       │   │   ├── footer.blade.php
+│       │   │   ├── left-pane.blade.php
+│       │   │   ├── optimisation.blade.php
+│       │   │   ├── reports.blade.php
+│       │   │   ├── top-pane.blade.php
+│       │   │   └── track.blade.php
+│       │   ├── qr
+│       │   │   └── full_shifts.blade.php
+│       │   ├── show
+│       │   │   ├── branch.blade.php
+│       │   │   ├── employee.blade.php
+│       │   │   ├── organisation.blade.php
+│       │   │   └── shifts.blade.php
+│       │   └── update
+│       │       ├── branch.blade.php
+│       │       ├── employee.blade.php
+│       │       ├── organisation.blade.php
+│       │       └── user.blade.php
+│       ├── dashboard
+│       │   ├── account.blade.php
+│       │   ├── dashboard.blade.php
+│       │   ├── organisation.blade.php
+│       │   └── super_admin.blade.php
+│       ├── email
+│       │   ├── employee_created.blade.php
+│       │   ├── organisation_created.blade.php
+│       │   ├── profile_updated.blade.php
+│       │   ├── user_create.blade.php
+│       │   └── welcome.blade.php
+│       ├── employee
+│       │   ├── create.blade.php
+│       │   ├── edit.blade.php
+│       │   ├── employee_dashboard.blade.php
+│       │   ├── employee_edit_profile.blade.php
+│       │   ├── employee_profile.blade.php
+│       │   ├── index.blade.php
+│       │   ├── profile.blade.php
+│       │   └── show.blade.php
+│       ├── errors
+│       │   └── 404.blade.php
+│       ├── expense
+│       │   ├── expense_type.blade.php
+│       │   └── index.blade.php
+│       ├── holiday
+│       │   ├── holiday_type.blade.php
+│       │   └── index.blade.php
+│       ├── html_div.blade.php
+│       ├── job
+│       │   ├── branch_shift_type.blade.php
+│       │   ├── break_type.blade.php
+│       │   ├── positions.blade.php
+│       │   └── shift_type.blade.php
+│       ├── layouts
+│       │   ├── app.blade.php
+│       │   ├── dashboard.blade.php
+│       │   ├── email.blade.php
+│       │   ├── guest.blade.php
+│       │   ├── login-reg.blade.php
+│       │   ├── navigation.blade.php
+│       │   └── shift_app.blade.php
+│       ├── optimisation
+│       │   └── index.blade.php
+│       ├── organisation
+│       │   ├── create.blade.php
+│       │   ├── edit.blade.php
+│       │   ├── index.blade.php
+│       │   └── show.blade.php
+│       ├── shifts
+│       │   ├── full_shifts_index.blade.php
+│       │   ├── open_shifts_index.blade.php
+│       │   ├── qr_full_shifts_select.blade.php
+│       │   └── show.blade.php
+│       ├── test.blade.php
+│       ├── top_nav.blade.php
+│       ├── user
+│       │   ├── create.blade.php
+│       │   ├── edit.blade.php
+│       │   ├── index.blade.php
+│       │   └── profile.blade.php
+│       ├── vendor
+│       │   └── Chatify
+│       │       ├── layouts
+│       │       │   ├── favorite.blade.php
+│       │       │   ├── footerLinks.blade.php
+│       │       │   ├── headLinks.blade.php
+│       │       │   ├── info.blade.php
+│       │       │   ├── listItem.blade.php
+│       │       │   ├── messageCard.blade.php
+│       │       │   ├── messengerColor.blade.php
+│       │       │   ├── modals.blade.php
+│       │       │   └── sendForm.blade.php
+│       │       └── pages
+│       │           └── app.blade.php
+│       └── welcome.blade.php
+├── routes
+│   ├── api.php
+│   ├── channels.php
+│   ├── console.php
+│   └── web.php
+├── server.php
+├── tests
+│   ├── Browser
+│   │   ├── AuthenticationTest.php
+│   │   ├── Components
+│   │   ├── ExampleTest.php
+│   │   ├── Pages
+│   │   │   ├── HomePage.php
+│   │   │   └── Page.php
+│   │   ├── RegistrationTest.php
+│   │   ├── console
+│   │   │   ├── Tests_Browser_AuthenticationTest_it_asserts_that_employer_can_login-0.log
+│   │   │   └── Tests_Browser_RegistrationTest_it_asserts_that_employer_can_register-0.log
+│   │   └── screenshots
+│   │       └── register.png
+│   ├── CreatesApplication.php
+│   ├── DuskTestCase.php
+│   ├── Feature
+│   │   └── ExampleTest.php
+│   ├── TestCase.php
+│   └── Unit
+│       └── ExampleTest.php

@@ -26,13 +26,13 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                     <li><a href="{{url('/dashboard')}}"><i class="fa fa-home"></i>Launchpad</a></li>
-                    <li><a href="http://localhost/chatter/public"><i class="fa fa-wechat"></i>We Chat</a></li>
+                    <li><a href="{{url('/chat')}}"><i class="fa fa-wechat"></i>We Chat</a></li>
                 </ul>
             </div>
             <x-navbar.track/>
             @if ((Session::get('role_id') == 1 or Session::get('role_id') == 2) and Session::has('org_id'))
                 <x-navbar.optimisation/>
-                <x-navbar.reports/>
+{{--                <x-navbar.reports/>--}}
             @endif
         </div>
         <!-- /sidebar menu -->
@@ -57,3 +57,4 @@
 </div>
 
 {{--<x-navbar.top-pane/>--}}
+{{--select shifts.* from shifts, branches,users where shifts.user_id = users.id and shifts.branch_shift_id=branches.id and shifts.status=1;--}}
