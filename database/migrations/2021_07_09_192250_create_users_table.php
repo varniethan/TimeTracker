@@ -36,6 +36,7 @@ class CreateUsersTable extends Migration
             $table->foreign('role_id')->references('id')->on('roles'); #role is app specific
             $table->float('basic_salary')->nullable();
             $table->float('hourly_rate')->nullable();
+            $table->float('contracted_hours')->nullable();
             $table->integer('organisation_id')->nullable();
 //            $table->foreign('organisation_id')->references('id')->on('organisations');
             $table->tinyInteger('status')->default('1');

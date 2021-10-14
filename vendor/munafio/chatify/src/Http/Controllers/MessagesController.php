@@ -248,13 +248,13 @@ class MessagesController extends Controller
             $join->on('ch_messages.from_id', '=', 'users.id')
                 ->orOn('ch_messages.to_id', '=', 'users.id');
         })
-        ->where(function ($q) {
-            $q->where('ch_messages.from_id', Auth::user()->id)
-              ->orWhere('ch_messages.to_id', Auth::user()->id);
-        })
-        ->orderBy('ch_messages.created_at', 'desc')
-        ->get()
-        ->unique('id');
+            ->where(function ($q) {
+                $q->where('ch_messages.from_id', Auth::user()->id)
+                    ->orWhere('ch_messages.to_id', Auth::user()->id);
+            })
+            ->orderBy('ch_messages.created_at', 'desc')
+            ->get()
+            ->unique('id');
 
         $contacts = '<p class="message-hint center-el"><span>Your contact list is empty</span></p>';
         $users = $users->where('id','!=',Auth::user()->id);

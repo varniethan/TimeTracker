@@ -136,15 +136,15 @@
                                 <div class="x_content">
                                     <div class="dashboard-widget-content">
                                         <ul class="quick-list">
-                                            <a href="#" class="btn btn-outline-primary btn-lg" id="break-btn" role="button" aria-disabled="true">Take break</a>
+                                            <a href="#" class="btn btn-outline-primary btn-sm" id="break-btn" role="button" aria-disabled="true">Take break</a>
                                             <div id="shift_types">
                                                 @foreach($breakTypeData as $breakType)
-                                                <button class="break_type" id="break" value={{$breakType->id}}>{{$breakType->name}}</button>
+                                                <button id="break" class="break_type btn btn-outline-primary btn-sm" value={{$breakType->id}}>{{$breakType->name}}</button>
                                                 @endforeach
                                             </div>
-                                            <a href="{{url('/chat')}}" class="btn btn-outline-success btn-lg" role="button" aria-disabled="true">Go to Chat</a>
-                                            <a href="#" class="btn change_task_btn btn-outline-info btn-lg" id="change_task_btn" role="button" aria-disabled="true">Chanage Shift Tasks</a>
-                                            <a href="#" class="btn end_shift_btn btn-outline-warning btn-lg" id="end_shift_btn" role="button" aria-disabled="true">End Shift Earley</a>
+                                            <a href="{{url('/chat')}}" class="btn btn-outline-success btn-sm" role="button" aria-disabled="true">Go to Chat</a>
+                                            <a href="#" class="btn change_task_btn btn-outline-info btn-sm" id="change_task_btn" role="button" aria-disabled="true">Chanage Shift Tasks</a>
+                                            <a href="#" class="btn end_shift_btn btn-outline-warning btn-sm" id="end_shift_btn" role="button" aria-disabled="true">End Shift Earley</a>
                                         </ul>
                                     </div>
                                 </div>

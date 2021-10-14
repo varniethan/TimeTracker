@@ -24,6 +24,29 @@
 @endsection
 
 @section('scripts')
+    <script type='text/javascript'>
+        $(document).ready(function(){
+            $("#clock_in_button").click( function()
+                {
+                    let shift_id = $('#shift_id').text();
+                    console.log(shift_id);
+                    // AJAX request
+                    $.ajax({
+                        url: {{route('full_shifts.qrclockin')}},
+                        type: 'post',
+                        dataType: 'json',
+                        data:{
+                            _token:$("input[name=_token]").val(),
+                            'shift_id':shift_id,
+                        },
+                        success: function(response) {
 
+                        }
+
+                    });
+                }
+            );
+        });
+    </script>
 @endsection
 

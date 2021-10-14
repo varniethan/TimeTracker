@@ -41,7 +41,7 @@ class RegisterController extends Controller
             'city' => 'required',
             'ni_number' => 'required|max:32|',
             'basic_salary' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            'user_name' => 'required|string|max:32|',
+            'name' => 'required|string|max:32|',
             'password' => 'required_with:password_confirmation|same:password_confirmation|max:256|',
         ]);
         $request->merge(['password' => Hash::make($request->password)]);

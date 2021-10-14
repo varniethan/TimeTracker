@@ -50,6 +50,24 @@ class Shift extends Model
         return $fullShifts;
     }
 
+    public static function pushGeneratedShift($employee, $branch_id, $shift_id, $date, $shift_clock_in, $shift_clock_out)
+    {
+        $fullShifts = DB::table('shifts')->insert([
+               'user_id' =>  $employee,
+               'organisation_id' =>  session('org_id'),
+               'branch_shift_id' =>  $branch_id,
+               'shift_type_id' =>  $shift_id,
+               'date' => $date,
+               'scheduled_from' =>  $shift_clock_in,
+               'scheduled_to' =>  $shift_clock_out,
+               'clock_in' =>  0,
+               'approved' => 1,
+               'status' =>  1,
+           ]);
+        return $fullShifts;
+    }
+
+
 
 //    public static function getFullShiftOfOrganisations($org_id, $from_date, $to_date, $branch, $user_id, $role, $position)
 //    {

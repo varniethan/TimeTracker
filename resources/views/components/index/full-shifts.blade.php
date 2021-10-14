@@ -26,15 +26,14 @@
                     <div class="col-md-2 form-group">
                         <div class="col-sm emphasis">
                             <!-- show the shark (uses the show method found at GET /sharks/{id} -->
-                            <a href="{{url('/employee/create')}}"><button type="button" class="btn btn-secondary btn-sm"><i class="fa fa-refresh"></i></button></a>
+                            <a href="{{url('/full_shifts')}}"><button type="button" class="btn btn-secondary btn-sm"><i class="fa fa-refresh"></i></button></a>
                         </div>
                     </div>
                 </div>
             </div>
-            <form class="" method="get" action="{{ route('full-shifts-filter') }}">
+            <form class="" method="post" action="{{ route('full-shifts-filter') }}">
                 @csrf
     {{--            From Row--}}
-
                 <style>.row-margin-05 { margin-top: 2.5em; }</style>
                 <div class="row  row-margin-05">
                     <div class="col-md-2">
@@ -61,7 +60,7 @@
                         <label class="col-form-label text-left"><b>Branch</b></label>
                     </div>
                     <div class="col-md-10">
-                        <select class="form-select" name='branch_id' aria-label=".form-select-sm example">
+                        <select class="form-select" name='branch_id' aria-label=".form-select-sm example" value="{{old('branch_id')}}">
                             <option value='0'>{{"All Branches"}}</option>
                             @foreach($branchData as $branch)
                                 <option value='{{$branch['id']}}'>{{$branch['name']}}</option>
@@ -69,6 +68,7 @@
                         </select>
                     </div>
                 </div>
+                @if ((Session::get('role_id') == 1 or Session::get('role_id') == 2) and Session::has('org_id'))
     {{--            Employee Row--}}
                 <div class="row row-margin-01">
                     <h2>Select Employee - <small>Employee name?</small></h2>
@@ -76,7 +76,7 @@
                         <label class="col-form-label text-left"><b>Name </b></label>
                     </div>
                     <div class="col-md-10">
-                        <select class="form-select" name='user_id' aria-label=".form-select-sm example">
+                        <select class="form-select" name='user_id' aria-label=".form-select-sm example" value="{{old('user_id')}}">
                             <option value='0'>{{"All Employees"}}</option>
                             @foreach($employeeData as $employee)
                                 <option value='{{$employee->id}}'>{{$employee->first_name}} {{$employee->last_name}}</option>
@@ -91,7 +91,7 @@
                         <label class="col-form-label text-left"><b>Role </b></label>
                     </div>
                     <div class="col-md-10">
-                        <select class="form-select" name='role_id' aria-label=".form-select-sm example">
+                        <select class="form-select" name='role_id' aria-label=".form-select-sm example" value="{{old('role_id')}}">
                             <option value='0'>{{"All Roles"}}</option>
                             @if (Session::get('role_id') == 1 or Session::get('role_id') == 2)
                                 <option value="3">Managing Director</option>
@@ -124,7 +124,7 @@
                                     <p class="mb-0">Got to <code>Job Codes</code> to add all the employee Positions</p>
                                 </div>
                             @else
-                                <select class="form-select" name='position_id' aria-label=".form-select-sm example">
+                                <select class="form-select" name='position_id' aria-label=".form-select-sm example" value="{{old('position_id')}}">
                                     <option value='0'>{{"All Position Type"}}</option>
                                     @foreach($positionData as $position)
                                         <option value='{{$position['id']}}'>{{$position['name']}}</option>
@@ -133,14 +133,15 @@
                             @endif
                     </div>
                 </div>
-    {{--            Employee Row--}}
+                @endif
+    {{--            Employee Did Row--}}
                 <div class="row row-margin-01">
                     <h2>Select Shift Type - <small>What employee did?</small></h2>
                     <div class="col-md-2">
                         <label class="col-form-label text-left"><b>Shift Type </b></label>
                     </div>
                     <div class="col-md-10">
-                        <select class="form-select" name='shift_type_id' aria-label=".form-select-sm example">
+                        <select class="form-select" name='shift_type_id' aria-label=".form-select-sm example" value="{{old('shift_type_id')}}">
                             <option value='0'>{{"All Shift Type"}}</option>
                             @foreach($shiftTypeData as $shiftType)
                                 <option value="{{$shiftType->id}}">{{$shiftType->name}}</option>
@@ -160,6 +161,7 @@
     <div class="col-md-10">
         <div class="x_panel">
             <div class="x_title">
+                @if ((Session::get('role_id') == 1 or Session::get('role_id') == 2) and Session::has('org_id'))
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add_shift" data-whatever="@getbootstrap">Add New Shift</button>
                 <div class="modal fade" id="add_shift" tabindex="-1" role="dialog" aria-labelledby="addShiftLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
@@ -261,7 +263,7 @@
                                                         <div class="col-md-10">
                                                             <div class="form-group">
                                                                 <div class='input-group date' id='myDatepicker3'>
-                                                                    <input type='text' class="form-control" name="clock_in"/>
+                                                                    <input type='text' class="form-control" name="scheduled_from"/>
                                                                     <span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
                                                                 </div>
                                                             </div>
@@ -274,7 +276,7 @@
                                                         <div class="col-md-10">
                                                             <div class="form-group">
                                                                 <div class='input-group date' id='myDatepicker4'>
-                                                                    <input type='text' class="form-control" name="clock_out"/>
+                                                                    <input type='text' class="form-control" name="scheduled_to"/>
                                                                     <span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
                                                                 </div>
                                                             </div>
@@ -392,7 +394,7 @@
                 <a href="#" class="btn btn-primary" id="approveAllSelectedRecord">Approve Shifts</a>
                 <a href="#" class="btn btn-warning" id="unapproveAllSelectedRecord">Unapprove Shifts</a>
                 <a href="#" class="btn btn-danger" id="deleteAllSelectedRecord"><i class="fa fa-trash-o"></i></a>
-
+                @endif
             </div>
             <table class="table table-striped">
                 <thead>
@@ -419,69 +421,43 @@
                         <td>{{$loop->iteration}}</td>
                         <td><input type="checkbox" id="checkbox" name="ids" class="checkBox_class" value={{$fullShift->id}}></td>
                         <td>{{$fullShift->date}}</td>
-                        <td>{{$fullShift->shift_type_id}}</td>
-                        <td>{{$fullShift->user_id}}</td>
-                        <td>{{$fullShift->branch_shift_id}}</td>
-                        <td>{{$fullShift->clock_in}}</td>
-                        <td>{{$fullShift->clock_out}}</td>
-                        <td>{{"Duration"}}</td>
-                        <td>{{"Duration"}}</td>
-                        <td>{{"Duration"}}</td>
-                        <td>{{"Duration"}}</td>
-                        <td>{{"Duration"}}</td>
+                        @if($fullShift->clock_in ==' ')
+                            <td><i class="fa fa-ban"></i></td>
+                        @else
+                            <td>{{$fullShift->shift_type_name}}</td>
+                        @endif
+                        <td>{{$fullShift->user_name}}</td>
+                        <td>{{$fullShift->branch_name}}</td>
+                        @if($fullShift->clock_in == '00:00:00' or $fullShift->clock_in == '')
+                            <td><i class="fa fa-bell-slash"></i></td>
+                        @else
+                            <td>{{$fullShift->clock_in}}</td>
+                        @endif
+                        @if($fullShift->clock_out == '')
+                            <td><i class="fa fa-hourglass-end"></i></td>
+                        @else
+                            <td>{{$fullShift->clock_out}}</td>
+                        @endif
+                        <td>{{$fullShift->duration}}</td>
+                        <td>{{$fullShift->shift_break}}</td>
+                        <td>{{$fullShift->duration}}</td>
+                        @if($fullShift->rate == '')
+                            <td><i class="fa fa-ban"></i></td>
+                        @else
+                            <td>{{"£"}}{{$fullShift->rate}}</td>
+                        @endif
+                        @if($fullShift->total_pay == '')
+                            <td><i class="fa fa-ban"></i></td>
+                        @else
+                            <td>{{'£'}}{{$fullShift->total_pay}}</td>
+                        @endif
                         <td>
                             <div class="col-sm emphasis">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <button type="button" class="btn-sm btn-success" data-toggle="modal" data-target="#view_shifts" data-whatever="@getbootstrap"><i class="fa fa-eye"></i></button>
-                                        <div class="modal fade" id="view_shifts" tabindex="-1" role="dialog" aria-labelledby="viewShiftsLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="viewShiftsLabel">Add Time Off Category</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form>
-                                                            <div class="form-group">
-                                                                <label class="col-form-label col-md-3 col-sm-3" for="recipient-name">Employee</label>
-                                                                <input type="text" class="form-control col-md-6 col-sm-6" id="recipient-name">
-                                                            </div>
-                                                            <br>
-                                                            <br>
-                                                            <br>
-                                                            <div class="form-group">
-                                                                <label class="col-form-label col-md-3 col-sm-3" for="message-text">Description</label>
-                                                                <textarea class="form-control col-md-9 col-sm-9" id="message-text"></textarea>
-                                                            </div>
-                                                            <br>
-                                                            <br>
-                                                            <br>
-                                                            <div class="form-group">
-                                                                <label for="message-text" class="col-form-label col-form-label col-md-3 col-sm-3">Type</label>
-                                                                <div class="form-control col-md-6 col-sm-6">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
-                                                                        <label class="form-check-label" for="inlineRadio1">Paid</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="0">
-                                                                        <label class="form-check-label" for="inlineRadio2">Unpaid</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
-                                                        <button type="button" class="btn btn-success">Save and Add New</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <a href="{{ URL::to('/full_shifts/' .$fullShift->id) }}"><button type="button" class="btn btn-success btn-sm" disabled><i class="fa fa-eye"></i></button></a>
                                     </div>
+                                    @if ((Session::get('role_id') == 1 or Session::get('role_id') == 2) and Session::has('org_id'))
                                     <div class="col-md-2">
                                         @if ($fullShift->approved == 1)
                                             <a href="{{ URL::to('/full_shifts/approve/' .$fullShift->id) }}"><button type="button" class="btn btn-primary btn-sm" disabled><i class="fa fa-thumbs-o-up"></i></button></a>
@@ -504,6 +480,7 @@
                                             <button type="submit" name="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
                                         </form>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </td>

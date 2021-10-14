@@ -1,204 +1,133 @@
-import numpy
-import math
-epsilon = 1.0e-8
-counter = 0
-"""
-Input: { m, n, Mat[m x n] }, where:
-    b = mat[1..m,0] .. column 0 is b >= 0, so x=0 is a basic feasible solution.
-    c = mat[0,1..n] .. row 0 is z to maximize, note c is negated in input.
-    A = mat[1..m,1..n] .. constraints.
-    x = [x1..xm] are the named variables in the problem.
-    Slack variables are in columns [m+1..m+n]
+def simplex_method():
+    # Parsing
+    sol = []
+    i_file = open('simplex_input.txt', 'r')
+    lines = [x.strip() for x in i_file.readlines()]
+    eqn = lines[1]
+    constraints = lines[3:]
 
-    e.g.:
-    Tableau tab  = { 4, 5, {                     // Size of tableau [4 rows x 5 columns ]
-        {  0.0 , -0.5 , -3.0 ,-1.0 , -4.0,   },  // Max: z = 0.5*x + 3*y + z + 4*w,
-        { 40.0 ,  1.0 ,  1.0 , 1.0 ,  1.0,   },  //    x + y + z + w <= 40 .. b1
-        { 10.0 , -2.0 , -1.0 , 1.0 ,  1.0,   },  //  -2x - y + z + w <= 10 .. b2
-        { 10.0 ,  0.0 ,  1.0 , 0.0 , -1.0,   },  //        y     - w <= 10 .. b3
-        }
-        };
+    print("Maximising " + str(eqn))
+    print("Subject to:")
+    for i in range(len(constraints)):
+        con_split = constraints[i].split("<=")
+        print(con_split[0] + "(+ s" + str(i + 1) + ") <=" + con_split[1])
+    print()
 
-    Tableau tab  = { 4, 5,
-                        {
-                            {  ...}, => MAX
-                            { .... },  => b1
-                            { ....},  => b2
-                            {... }, => b3
-                        }
-                    };
-"""
+    params = set()
 
+    eqn_dict = {}
+    eqn_terms = [x.strip() for x in eqn.split("=")[1].split("+")]
+    for term in eqn_terms:
+        coeff = -float(term.split("x")[0]) if term.split("x")[0] != '' else -1
+        params.add(int(term.split("x")[1]))
+        eqn_dict[int(term.split("x")[1])] = coeff
 
-# make Tableua as object
-class Tableau:
-    def __init__(self, m, n, mat):
-        self.m = m
-        self.n = n
-        self.mat = mat
+    con_dicts = []
+    for constraint in constraints:
+        ineq_split = constraint.split("<=")
+        ineq_terms = [x.strip() for x in ineq_split[0].split("+")]
 
-    def np(self, k):
-        for j in range(0, k):
-            print("-", end='')
-        print("")
+        ineq_dict = {}
+        ineq_dict["rhs"] = int(ineq_split[1].strip())
+        for term in ineq_terms:
+            coeff = float(term.split("x")[0]) if term.split("x")[0] != '' else 1
+            params.add(int(term.split("x")[1]))
+            ineq_dict[int(term.split("x")[1])] = coeff
+        con_dicts.append(ineq_dict)
 
-    def check_equal(self, a, b):
-        return True if math.fabs(a - b) < constants.epsilon else False
+    # Constructing Initial Tableau
+    t = []
 
-    def print_tableau(self, message):
-        constants.counter += 1
-        print(f"\n {constants.counter}. Tableau: {message}")
-        self.np(70)
-        print("col:", "\tb[i]", end='')
-        for j in range(1, self.n):
-            # print(f" \tx{j},", end='')
-            print("   x%d," % j, end='')
-        print("")
-        for i in range(0, self.m):
-            if (i == 0):
-                print("max:", end='')
+    obj_row = []
+    obj_row.append(1.0)
+    for i in range(1, max(params) + 1):
+        try:
+            obj_row.append(float(eqn_dict[i]))
+        except:
+            obj_row.append(0.0)
+    for i in range(len(constraints) + 1):
+        obj_row.append(0.0)
+    t.append(obj_row)
+
+    for i in range(len(con_dicts)):
+        con_row = []
+        con_row.append(0.0)
+        for j in range(1, max(params) + 1):
+            try:
+                con_row.append(float(con_dicts[i][j]))
+            except:
+                con_row.append(0.0)
+        for j in range(1, len(constraints) + 1):
+            if i + 1 == j:
+                con_row.append(1.0)
             else:
-                print(f"b{i}: ", end='')
-            for j in range(0, self.n):
-                if (self.check_equal(int(self.mat.item(i, j)), self.mat.item(i, j))):
-                    # print(f" {''* 6} {self.mat.item(i,j)}", end='')
-                    print("%6d" % int(self.mat.item(i, j)), end='')
-                    # print(f" \t{int(self.mat.item(i,j))}", end='')
-                else:
-                    print("%6.2lf" % self.mat.item(i, j), end='')
-            print("")
-        self.np(70)
+                con_row.append(0.0)
+        con_row.append(float(con_dicts[i]["rhs"]))
+        t.append(con_row)
 
-    def add_slack_variables(self):
-        for i in range(1, self.m):
-            for j in range(1, self.m):
-                if (i == j):
-                    self.mat = numpy.insert(self.mat, j + self.n - 1, 0, axis=1)
-                    self.mat[i, j + self.n - 1] = (i == j)
-        self.n += (self.m - 1)
+    def print_tableau():
+        for row in t:
+            print([round(x, 4) for x in row])
 
-    def check_b_positive(self):
-        for i in range(1, self.m):
-            assert self.mat[i, 0] >= 0, "Unfortunately, Simplex method cannot be ran on these variables"
+    print("----- Initial Simplex Tableau -----")
+    print_tableau()
+    print()
 
-    def find_pivot_column(self):
-        pivot_col = 1
-        lowest = self.mat[0][pivot_col]
-        for j in range(1, self.n):
-            if (self.mat[0, j] < lowest):
-                lowest = self.mat[0, j]
-                pivot_col = j
-        print(f"Most negative column in row[0] us col {pivot_col} = {lowest}.")
-        if (lowest >= 0):
-            return -1
-        return pivot_col
+    # Algorithm
+    def div_handle_zero(n, d):
+        return n / d if d else 0
 
-    def print_optimal_vector(self, message):
-        print(f"{message} at ", end='')
-        for j in range(1, self.n):
-            xi = self.find_basic_variable(j)  # 1 or -1
-            # print(xi)
-            if (xi != -1):
-                # print("x%d=%3.2lf, " %j %self.mat[xi, 0], end='')
-                print(f"x{j}={self.mat[xi, 0]}", end='')
-            else:
-                print(f"x{j}=0 ", end='')
+    def simplex_iter():
+        _, pcol_idx = min((val, idx) for (idx, val) in enumerate(t[0][:-1]))
+        rhs_div_pivots = [div_handle_zero(t[i][len(t[0]) - 1], t[i][pcol_idx]) for i in range(1, len(t))]
+        prow_idx = rhs_div_pivots.index(min([i for i in rhs_div_pivots if i > 0])) + 1
+        pivot = t[prow_idx][pcol_idx]
+
+        for i in range(len(t[0])):
+            t[prow_idx][i] = t[prow_idx][i] / pivot
+
+        coeffs = [t[i][pcol_idx] for i in range(len(t))]
+
+        for i in range(len(t)):
+            if i != prow_idx:
+                for j in range(len(t[i])):
+                    t[i][j] = t[i][j] - coeffs[i] * t[prow_idx][j]
+
+    iteration = 0
+    while all(x >= 0 for x in t[0]) != True:
+        simplex_iter()
+        iteration += 1
+        print("----- Iteration " + str(iteration) + " -----")
+        print_tableau()
         print()
 
-    def find_basic_variable(self, col):
-        xi = -1
-        for i in range(1, self.m):
-            if (self.check_equal(self.mat[i, col], 1)):
-                if (xi == 1):
-                    xi = i
-                else:
-                    return -1
-            elif not (self.check_equal(self.mat[i, col], 0)):
-                return -1
-        return xi
+    cols = list(map(list, zip(*t)))
+    n_p = len(t[0]) - len(t) - 1
 
-    def find_pivot_row(self, pivot_col):
-        pivot_row = 0
-        min_ratio = -1
-        print(f"Rations A[row_i,0]/A[row_i,{pivot_col}] = [", end='')
-        for i in range(1, self.m):
-            ratio = self.mat[i, 0] / self.mat[i, pivot_col]
-            print("%3.2lf, " % ratio, end='')
-            if ((ratio > 0 and (ratio < min_ratio)) or (min_ratio < 0)):
-                min_ratio = ratio
-                pivot_row = i
-        print("].")
-        if (min_ratio == -1):
-            return -1
-        print(f"Found pivot A[{pivot_row},{pivot_col}], min positive ratio={min_ratio} in row={pivot_row}.")
-        return pivot_row
+    print("----- Final Results -----")
+    print("P = " + str(t[0][len(t[0]) - 1]))
+    print()
+    for i in range(1, 1 + n_p):
+        if 1.0 in cols[i]:
+            oneidx = cols[i].index(1)
+            cols[i].remove(1.0)
+            if len(set(cols[i])) == 1:
+                sol.append(round(t[oneidx][len(t[0]) - 1], 4))
+                print("x" + str(i) + " = " + str(round(t[oneidx][len(t[0]) - 1], 4)))
+            else:
+                print("x" + str(i) + " = 0")
+        else:
+            print("x" + str(i) + " = 0")
+    print()
+    for i in range(1 + n_p, len(t[0]) - 1):
+        if 1.0 in cols[i]:
+            oneidx = cols[i].index(1)
+            cols[i].remove(1.0)
+            if len(set(cols[i])) == 1:
+                print("s" + str(i - n_p) + " = " + str(round(t[oneidx][len(t[0]) - 1], 4)))
+            else:
+                print("s" + str(i - n_p) + " = 0")
+        else:
+            print("s" + str(i - n_p) + " = 0")
+    return sol
 
-    def pivot_on(self, pivot_row, pivot_col):
-        pivot = self.mat[pivot_row, pivot_col]
-        assert pivot > 0, "Pivot is less than 0"
-        for j in range(0, self.n):
-            self.mat[pivot_row, j] /= pivot
-        assert self.check_equal(self.mat[pivot_row, pivot_col], 1.), "No 1"
-        for i in range(0, self.m):
-            multiplier = self.mat[i, pivot_col]
-            if (i == pivot_row):
-                continue
-            for j in range(0, self.n):
-                self.mat[i, j] -= multiplier * self.mat[pivot_row, j]
-
-    def simplex(self):
-        loop = 0
-        # pivot_row
-        self.add_slack_variables()
-        self.check_b_positive()
-        self.print_tableau("Padded with slack variables")
-        while True:
-            loop += 1
-            pivot_col = self.find_pivot_column()
-            if (pivot_col < 0):
-                print("Found optimal value = A[0,0] = %3.2lf (no negative interges in row 0)." % self.mat[0, 0])
-                self.print_optimal_vector('Optimal Vector')
-                break
-            print(f"Entering variable {pivot_col} to be made basic, so pivot_col={pivot_col}.")
-            pivot_row = self.find_pivot_row(pivot_col)
-            if (pivot_row < 0):
-                print("unbounded (no pivot_row).")
-                break
-            print(f"Leaving variable x{pivot_row}, so pivot_row={pivot_row}")
-            self.pivot_on(pivot_row, pivot_col)
-            self.print_tableau("After Pivoting")
-            self.print_optimal_vector("Basic feasible solution")
-
-            if (loop > 20):
-                print(f"Too many iterations > {loop}")
-                break
-
-
-tab = Tableau(4, 5,
-              numpy.array([[0.0, -0.5, -3.0, -1.0, -4.0],
-                           [40.0, 1.0, 1.0, 1.0, 1.0],
-                           [10.0, -2.0, -1.0, 1.0, 1.0],
-                           [10.0, 0.0, 1.0, 0.0, -1.0]], dtype=object))
-
-tab.print_tableau("Initial")
-tab.simplex()
-
-# print_tableau
-
-# read_tableau
-
-# pivot_on
-
-# find_pivot_column
-
-# find_pivot_row
-
-# add_slack_variables
-
-# check_b_positive
-
-# find_basis_variable
-
-# print_optimal_vector
-
-# simplex

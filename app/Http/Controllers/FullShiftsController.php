@@ -9,6 +9,7 @@ use App\Models\Position;
 use App\Models\User;
 use App\Models\ShiftType;
 use App\Models\Shift;
+use App\Models\OrganisationShifts;
 use Illuminate\Support\Facades\DB;
 use Session;
 class FullShiftsController extends Controller
@@ -20,73 +21,167 @@ class FullShiftsController extends Controller
      */
     public function index(Request $request)
     {
+        if (session('role_id') == 1 or session('role_id') == 2)
+        {
+            $fullShiftData = DB::select( DB::raw("SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name, sb.id as shift_break, b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
+                                                    FROM  shifts s
+                                                              LEFT JOIN shift_breaks sb on sb.shift_id = s.id
+                                                              LEFT JOIN shift_types st on st.id = s.shift_type_id
+                                                              JOIN users u on u.id = s.user_id
+                                                              JOIN branches b on b.id = s.branch_shift_id
+                                                              JOIN roles r on r.id = u.role_id
+                                                              JOIN positions p on p.id = u.position_id
+                                                    where s.status =1 and u.status =1 and b.status=1
+                                                    order by s.date desc"));
+        }
+        else
+        {
+            $user_id = session('user_id');
+            $fullShiftData = DB::select( DB::raw("SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name, sb.id as shift_break, b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
+                                                    FROM  shifts s
+                                                              LEFT JOIN shift_breaks sb on sb.shift_id = s.id
+                                                              LEFT JOIN shift_types st on st.id = s.shift_type_id
+                                                              JOIN users u on u.id = s.user_id
+                                                              JOIN branches b on b.id = s.branch_shift_id
+                                                              JOIN roles r on r.id = u.role_id
+                                                              JOIN positions p on p.id = u.position_id
+                                                    where s.status =1 and u.status =1 and b.status=1 and u.id=".$user_id.
+                                                    " order by s.date desc"));
+        }
+        $organisationdata = Organisation::where('id','=', session('org_id'))->first();
+        $branchData = Branch::getBrachesOfOrganisations($organisationdata['id']);
+        $employeeData = User::getAllEmployeesByOrgId($organisationdata['id']);
+        $shiftTypeData = ShiftType::getShiftTypeOrganisations(session('org_id'));
+        $positionData = Position::getPositionOrganisations($organisationdata['id']);
+        return view('shifts.full_shifts_index',compact('branchData', 'positionData','employeeData', 'shiftTypeData','organisationdata','fullShiftData'));
+    }
+
+    public function filter_shift(Request $request)
+    {
         $date = "";
         $branch_id = "";
         $user_id = "";
         $role_id = "";
         $position_id = "";
         $shift_type_id= "";
-//        $branch_id = " AND branches.id=";
-//        $user_id = "  AND users.id= ";
-//        $role_id = " AND roles.id=";
-//        $position_id = " AND positions.id=";
-//        $shift_type_id= " AND shifts_types.id=";
 
-        if ($request->has('from_date') and $request->has('to_date'))
+        if (($request->from_date != null) or ($request->to_date != null))
         {
-            $date = ' AND between shifts.date ='.$request->from_date.' AND '.$request->to_date;
+            $date = ' AND s.date BETWEEN \''.$request->from_date.'\' AND \''.$request->to_date.'\'';
         }
 
         if ($request->has('branch_id') and $request->branch_id != '0')
         {
-            $branch_id = ' AND branches.id ='.$request->branch_id;
+            $branch_id = ' AND b.id ='.$request->branch_id;
         }
 
         if ($request->has('user_id') and $request->user_id != '0')
         {
-            $user_id = ' AND users.id ='.$request->user_id;
+            $user_id = ' AND u.id ='.$request->user_id;
         }
 
         if ($request->has('role_id') and $request->role_id != '0')
         {
-            $role_id = ' AND between roles.id ='.$request->role_id;
+            $role_id = ' AND r.id ='.$request->role_id;
         }
 
         if ($request->has('position_id') and $request->position_id != '0')
         {
-            $position_id = ' AND between positions.id ='.$request->position_id;
+            $position_id = ' AND p.id ='.$request->position_id;
         }
 
         if ($request->has('shift_type_id') and $request->shift_type_id != '0')
         {
-            $shift_type_id = ' AND between shif_types.id ='.$request->shift_type_id;
+            $shift_type_id = ' AND st.id ='.$request->shift_type_id;
         }
+        $sql = "SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name, sb.id as shift_break, b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
+                                                    FROM  shifts s
+                                                              LEFT JOIN shift_breaks sb on sb.shift_id = s.id
+                                                              JOIN users u on u.id = s.user_id
+                                                              JOIN branches b on b.id = s.branch_shift_id
+                                                              JOIN shift_types st on st.id = s.shift_type_id
+                                                              JOIN roles r on r.id = u.role_id
+                                                              JOIN positions p on p.id = u.position_id
+                                                    WHERE s.status =1 and u.status =1 and b.status=1".$user_id.$date.$branch_id.$role_id.$position_id.$shift_type_id.
+                                                    " order by s.date desc";
+//        echo $sql;
+//        exit();
 
-        $fullShiftData = DB::select( DB::raw("SELECT * FROM shifts WHERE shifts.status = 1 =:date =:branch_id =:user_id =:role_id =:position_id =:shift_type_id"), array(
-//        $fullShiftData = DB::select( DB::raw(" select shifts.* from shifts, branches, users, roles, positions, shift_types, organisations
-//                                where shifts.user_id = users.id and shifts.branch_shift_id=branches.id and shifts.shift_type_id=shift_types.id
-//                                and shift_types.id = 3 and shifts.status=1 and shifts.organisation_id=11 and users.id = 175 and branches.id = 1 and shifts.full_or_open=1;"),
-//            array(
-            'date' => $date,
-            'branch_id' => $branch_id,
-            'user_id' => $user_id,
-            'role_id' => $role_id,
-            'position_id' => $position_id,
-            'shift_type_id' => $shift_type_id,
-        ));
+
+        if (session('role_id') == 1 or session('role_id') == 2)
+        {
+            $fullShiftData = DB::select( DB::raw("SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name, sb.id as shift_break, b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
+                                                    FROM  shifts s
+                                                              LEFT JOIN shift_breaks sb on sb.shift_id = s.id
+                                                              JOIN users u on u.id = s.user_id
+                                                              JOIN branches b on b.id = s.branch_shift_id
+                                                              JOIN shift_types st on st.id = s.shift_type_id
+                                                              JOIN roles r on r.id = u.role_id
+                                                              JOIN positions p on p.id = u.position_id
+                                                    WHERE s.status =1 and u.status =1 and b.status=1".$date.$branch_id.$user_id.$role_id.$position_id.$shift_type_id.
+                " order by s.date desc"));
+        }
+        else
+        {
+            $user_id = session('user_id');
+            $fullShiftData = DB::select( DB::raw("SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name, sb.id as shift_break, b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
+                                                    FROM  shifts s
+                                                              LEFT JOIN shift_breaks sb on sb.shift_id = s.id
+                                                              JOIN users u on u.id = s.user_id
+                                                              JOIN branches b on b.id = s.branch_shift_id
+                                                              JOIN shift_types st on st.id = s.shift_type_id
+                                                              JOIN roles r on r.id = u.role_id
+                                                              JOIN positions p on p.id = u.position_id
+                                                    WHERE s.status =1 and u.status =1 and b.status=1 and u.id=".$user_id.$date.$branch_id.$shift_type_id.
+                " order by s.date desc"));
+        }
 //        echo '<pre>';
-//        var_dump($data);
+//        var_dump($fullShiftData);
 //        echo '</pre>';
 //        exit();
-        $Organisationdata = Organisation::where('id','=', session('org_id'))->first();
-        $branchData = Branch::getBrachesOfOrganisations($Organisationdata['id']);
-        $employeeData = User::getAllEmployeesByOrgId($Organisationdata['id']);
+        $organisationdata = Organisation::where('id','=', session('org_id'))->first();
+        $branchData = Branch::getBrachesOfOrganisations($organisationdata['id']);
+        $employeeData = User::getAllEmployeesByOrgId($organisationdata['id']);
         $shiftTypeData = ShiftType::getShiftTypeOrganisations(session('org_id'));
-        $positionData = Position::getPositionOrganisations($Organisationdata['id']);
-//        $fullShiftData = Shift::getFullShiftOfOrganisations(session('org_id'), $from_date, $to_date, $branch_id, $user_id, $role_id, $position_id);
-        return view('shifts.full_shifts_index',compact('branchData', 'positionData','employeeData', 'shiftTypeData', 'fullShiftData'));
-//        return view('shifts.full_shifts_index', compact('data'));
+        $positionData = Position::getPositionOrganisations($organisationdata['id']);
+        return view('shifts.full_shifts_index',compact('branchData', 'positionData','employeeData', 'shiftTypeData','organisationdata','fullShiftData'));
     }
+
+    /**
+     * Show the form for creating an automatic shifts.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function automaticShiftsIndex()
+    {
+        $branchData = Branch::getBrachesOfOrganisations(session('org_id'));
+        $shiftData = OrganisationShifts::getOrganisationShifts(session('org_id'));
+        return view('shifts.automatic_shifts', compact('shiftData', 'branchData'));
+    }
+
+    /**
+     * Show the form for creating an automatic shifts.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pushGeneratedShifts(Request $request)
+    {
+        $ids = $request->ids;
+        $shift_clock_in = DB::table('organisation_shifts')
+            ->where('id', '=', $request->shift_id)
+            ->pluck('start_time');
+        $shift_clock_out = DB::table('organisation_shifts')
+            ->where('id', '=', $request->shift_id)
+            ->pluck('end_time');
+        Session::flash('message', 'All '.count($ids).' are pushed to the database and approved :)');
+        Session::flash('alert-class', 'alert-success');
+        foreach ($ids as $employee)
+        {
+            Shift::pushGeneratedShift($employee, $request->branch_id, $request->shift_id, $request->date, $shift_clock_in[0], $shift_clock_out[0]);
+        }
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -106,25 +201,25 @@ class FullShiftsController extends Controller
      */
     public function store(Request $request)
     {
-        if (substr($request->clock_in, -2) == 'PM')
+        if (substr($request->scheduled_from, -2) == 'PM')
         {
-            $hour = substr($request->clock_in, 0, 2);
+            $hour = substr($request->scheduled_from, 0, 2);
             $hour_24 = $hour + 12;
-            $request->merge(['clock_in' => str_replace($hour, $hour_24, $request->clock_in)]);
+            $request->merge(['scheduled_from' => str_replace($hour, $hour_24, $request->scheduled_from)]);
         }
 
-        if (substr($request->clock_out, -2) == 'PM')
+        if (substr($request->scheduled_to, -2) == 'PM')
         {
-            $hour = substr($request->clock_out, 0, 2);
+            $hour = substr($request->scheduled_to, 0, 2);
             $hour_24 = $hour + 12;
-            $request->merge(['clock_out' => str_replace($hour, $hour_24, $request->clock_out)]);
+            $request->merge(['scheduled_to' => str_replace($hour, $hour_24, $request->scheduled_to)]);
         }
 //        $clock_in = substr($request->clock_in, 0, -2);
 //        $clock_out = substr($request->clock_out, 0, -2);
-        $request->merge(['clock_in' => substr($request->clock_in, 0, -2)]);
-        $request->merge(['clock_out' => substr($request->clock_out, 0, -2)]);
+        $request->merge(['scheduled_from' => substr($request->scheduled_to, 0, -2)]);
+        $request->merge(['scheduled_to' => substr($request->scheduled_to, 0, -2)]);
         //Full = 0 & Open = 1
-        Shift::create($request->all() + ['organisation_id'=>session('org_id')] +['full_or_open'=> 0] + ['created_by'=>session('user_id')]);
+        Shift::create($request->all() + ['organisation_id'=>session('org_id')] +['full_or_open'=> 0] + ['created_by'=>session('user_id')] + ['status'=>1]);
         return redirect('/full_shifts');
     }
 
@@ -177,7 +272,6 @@ class FullShiftsController extends Controller
             return redirect('/full_shifts');
         }
     }
-
 
     /**
      * Display the specified resource.

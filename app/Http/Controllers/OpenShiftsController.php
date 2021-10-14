@@ -9,6 +9,7 @@ use App\Models\Position;
 use App\Models\ShiftType;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Session;
 use Illuminate\Http\Request;
 
@@ -21,14 +22,39 @@ class OpenShiftsController extends Controller
      */
     public function index()
     {
-        $Organisationdata = Organisation::where('id','=', session('org_id'))->first();
-        $branchData = Branch::getBrachesOfOrganisations($Organisationdata['id']);
-        $employeeData = User::getAllEmployeesByOrgId($Organisationdata['id']);
+        if (session('role_id') == 1 or session('role_id') == 2)
+        {
+            $openShiftData = DB::select( DB::raw("SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name, sb.id as shift_break, b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
+                                                    FROM  shifts s
+                                                              LEFT JOIN shift_breaks sb on sb.shift_id = s.id
+                                                              LEFT JOIN shift_types st on st.id = s.shift_type_id
+                                                              JOIN users u on u.id = s.user_id
+                                                              JOIN branches b on b.id = s.branch_shift_id
+                                                              JOIN roles r on r.id = u.role_id
+                                                              JOIN positions p on p.id = u.position_id
+                                                    where s.status =1 and u.status =1 and b.status=1 and s.clock_out IS NULL
+                                                    order by s.date desc"));
+        }
+        else
+        {
+            $user_id = session('user_id');
+            $openShiftData = DB::select( DB::raw("SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name, sb.id as shift_break, b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
+                                                    FROM  shifts s
+                                                              LEFT JOIN shift_breaks sb on sb.shift_id = s.id
+                                                              LEFT JOIN shift_types st on st.id = s.shift_type_id
+                                                              JOIN users u on u.id = s.user_id
+                                                              JOIN branches b on b.id = s.branch_shift_id
+                                                              JOIN roles r on r.id = u.role_id
+                                                              JOIN positions p on p.id = u.position_id
+                                                    where s.status =1 and u.status =1 and b.status=1 and s.clock_out IS NULL and u.id=".$user_id.
+                " order by s.date desc"));
+        }
+        $organisationdata = Organisation::where('id','=', session('org_id'))->first();
+        $branchData = Branch::getBrachesOfOrganisations($organisationdata['id']);
+        $employeeData = User::getAllEmployeesByOrgId($organisationdata['id']);
         $shiftTypeData = ShiftType::getShiftTypeOrganisations(session('org_id'));
-        //Sending Positions that the organisation has to the view
-        $positionData = Position::getPositionOrganisations($Organisationdata['id']);
-        $openShiftData = Shift::getOpenShiftOfOrganisations(session('org_id'));
-        return view('shifts.open_shifts_index',compact('branchData', 'positionData','employeeData', 'shiftTypeData', 'openShiftData'));
+        $positionData = Position::getPositionOrganisations($organisationdata['id']);
+        return view('shifts.open_shifts_index',compact('branchData', 'positionData','employeeData', 'shiftTypeData','organisationdata','openShiftData'));
     }
 
     /**

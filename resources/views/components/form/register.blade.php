@@ -156,7 +156,7 @@
                 <label class="col-form-label col-3 col-md-2 text-left">User Name</label>
             </div>
             <div class="col-10">
-                <input type="text" name="user_name"   class="form-control col-9 col-md-10" placeholder="User Name"  value="{{old('user_name')}}">
+                <input type="text" name="name"   class="form-control col-9 col-md-10" placeholder="User Name"  value="{{old('name')}}">
             </div>
         </div>
         <span class="color: red" >@error("username"){{$message}}@enderror</span>

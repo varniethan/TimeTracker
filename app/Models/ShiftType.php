@@ -29,6 +29,12 @@ class ShiftType extends Model
         return $shiftTypeData;
     }
 
+    public static function getShiftTypeName($id)
+    {
+        $shiftTypeName = shiftType::where('id','=',$id)->pluck('name');
+        return $shiftTypeName[0];
+    }
+
     public static function getBranchShiftTypeOrganisations($org_id)
     {
         $branchData = Branch::getBrachesOfOrganisations($org_id);

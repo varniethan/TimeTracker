@@ -32,6 +32,12 @@ class Branch extends Model
         return $branches;
     }
 
+    public static function getBrancheName($id)
+    {
+        $branch = Branch::where('id','=',$id)->pluck('name');
+        return $branch[0];
+    }
+
     public static function getBranchOfUserByBranchId($branch_id)
     {
         $branch = Branch::where('id','=',$branch_id)->first();
@@ -41,7 +47,7 @@ class Branch extends Model
     public static function checkBranchInOrganisation($qr_token, $org_id)
     {
         $branch = Branch::where('qr_token','=',$qr_token)->first();
-        if ($branch->organisation_id == $org_id)
+        if ($branch['organisation_id'] == $org_id)
         {
             return $branch;
         }

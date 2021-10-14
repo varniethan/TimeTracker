@@ -18,7 +18,7 @@ class QrCodeController extends Controller
 {
     public function fullshift_store($id)
     {
-        $branchData = Branch::checkBranchInOrganisation($id, Session('org_id'));
+        $branchData = Branch::checkBranchInOrganisation($id, session('org_id'));
         if ($branchData != false)
         {
             Branch::updateQrToken($id);
@@ -53,4 +53,24 @@ class QrCodeController extends Controller
         Shift::create($request->all() + ['organisation_id'=>session('org_id')] + ['full_or_open'=> 1] + ['date'=> $current_time->toDateString()] +['clock_in'=> $current_time->format('H:i:s')] +['approved'=> 0] + ['created_by'=>session('user_id')]);
         return redirect('/open_shifts');
     }
+
+    /**
+     * Clock In the qr code employee
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function qrClockIn(Request $request)
+    {
+        $current_time = Carbon::now();
+            DB::table('shifts')
+            ->where('id', $request->shift_id)
+            ->update(['clock_in'=> $current_time->format('H:i:s')]);
+        Session::flash('message', 'You have clocked in to the shift');
+        Session::flash('alert-class', 'alert-success');
+        return response()->json(['success'=>"all approved!"]);
+    }
+
+
 }

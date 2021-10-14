@@ -38,7 +38,7 @@ class User extends Authenticatable
         'basic_salary',
         'hourly_rate',
         'branch',
-        'user_name',
+        'name',
         'password'
     ];
     /**
@@ -66,11 +66,21 @@ class User extends Authenticatable
         return $user;
     }
 
+    public static function getUserName($user_id)
+    {
+        $username = DB::table('users')
+            ->where('id', '=', $user_id)
+            ->pluck('name');
+        return $username[0];
+    }
+
     public static function getUser($user)
     {
         $user = User::where('id','=',$user)->first();
         return $user;
     }
+
+
 
     public static function getCountry($city)
     {
@@ -84,6 +94,15 @@ class User extends Authenticatable
             ->whereIn('role_id', [4,5,6])
             ->where('organisation_id', '=', $org_id)
             ->paginate(9);
+        return $employees;
+    }
+
+    public static function getEmployeesByOrgId($org_id)
+    {
+        $employees = DB::table('users')
+            ->whereIn('role_id', [4,5,6])
+            ->where('organisation_id', '=', $org_id)
+            ->get();
         return $employees;
     }
 
@@ -102,5 +121,14 @@ class User extends Authenticatable
         //TODO:: Have to get managers from a particular branch
         $manager = User::with('role_id','=',4 or 6);
         return $manager;
+    }
+
+    public static function getHourlyRate($user_id)
+    {
+        $hourly_rate = DB::table('users')
+            ->whereIn('role_id', [4,5,6])
+            ->where('id', '=', $user_id)
+            ->pluck('hourly_rate');
+        return $hourly_rate[0];
     }
 }

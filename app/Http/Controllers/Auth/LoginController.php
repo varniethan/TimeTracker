@@ -24,7 +24,9 @@ class LoginController extends Controller
         $userData = User::getUserByEmail($request->email);
         $request->session()->put('user_id', $userData['id']);
         $request->session()->put('email', $userData['email']);
-        $request->session()->put('user_name', $userData['user_name']);
+        $request->session()->put('user_name', $userData['name']);
+        $request->session()->put('first_name', $userData['first_name']);
+        $request->session()->put('last_name', $userData['last_name']);
         $request->session()->put('role_id', $userData['role_id']);
         $request->session()->put('org_id', $userData['organisation_id']);
         return redirect()->intended(RouteServiceProvider::HOME);

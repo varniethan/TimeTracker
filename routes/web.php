@@ -19,6 +19,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\BreakController;
 use App\Http\Controllers\OptimisationController;
+use App\Http\Controllers\PaySlipController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,7 +51,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/shift_designations',[ShiftTypeController::class, 'store']);
 
 //Full Shifts
-    Route::get('full-shifts-filter',[FullShiftsController::class, 'index'])->name('full-shifts-filter');
+    Route::post('full-shifts-filter',[FullShiftsController::class, 'filter_shift'])->name('full-shifts-filter');
     Route::get('/full_shifts/approve/{id}',[FullShiftsController::class, 'approve']);
     Route::get('/full_shifts/unapprove/{id}',[FullShiftsController::class, 'unapprove']);
     Route::delete('/full_shifts/delete-selected-shifts',[FullShiftsController::class, 'destroyCheckedShifts'])->name('full_shifts.deleteSelected');
@@ -58,9 +59,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::put('/full_shifts/unapprove-selected-shifts',[FullShiftsController::class, 'unapproveCheckedShifts'])->name('full_shifts.unapproveSelected');
     Route::post('/full_shifts/shifts-break',[BreakController::class, 'addShiftBreak'])->name('full_shifts.addShiftBreak');
     Route::put('/full_shifts/end-shifts-earley',[BreakController::class, 'endShiftsEarley'])->name('full_shifts.endShiftsEarley');
-
-
-
+    Route::put('/full_shifts/qrclockin',[FullShiftsController::class, 'qrClockIn'])->name('full_shifts.qrclockin');
+//Pay Slip
+    Route::get('/pay_slip/',[PaySlipController::class, 'index']);
+    Route::post('/pay_slip_generate/',[PaySlipController::class, 'generatePaySlip'])->name('generate_pay_slip');
+//Automatic Shifts
+    Route::get('/automatic_shifts/',[FullShiftsController::class, 'automaticShiftsIndex']);
+    Route::post('/full_shifts/approve-selected-shifts',[FullShiftsController::class, 'pushGeneratedShifts'])->name('full_shifts.pushGeneratedShifts');
 
 //Open Shifts
     Route::post('/open_shifts_filter',[OpenShiftsController::class, 'index']);

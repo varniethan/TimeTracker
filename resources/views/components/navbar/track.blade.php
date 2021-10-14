@@ -5,6 +5,7 @@
             <ul class="nav child_menu">
                 <li><a href="{{url('/full_shifts')}}">Full Shifts</a></li>
                 <li><a href="{{url('/open_shifts')}}">Open Shift</a></li>
+                <li><a href="{{url('/pay_slip')}}">Pay Slip</a></li>
             </ul>
         </li>
         <li><a href="{{url('/holiday')}}"><i class="fa fa-rocket"></i>Time Off</a></li>

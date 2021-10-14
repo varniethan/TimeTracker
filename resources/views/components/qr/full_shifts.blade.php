@@ -12,26 +12,29 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-
-                <div class="row">
-                    @foreach($todayShiftData as $todayShift)
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-header">
-                                Full Shift @ {{$branchData->name}}
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{{$todayShift->id}}</h5>
-                                {{$todayShift->date}}
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                <div class="">
-                                    <iframe src="https://free.timeanddate.com/clock/i7xt82e6/n297/tluk/fn7/fs20/tct/pct/ftb/th2" frameborder="0" width="130" height="28" allowtransparency="true"></iframe>
+                <form>
+                    @csrf
+                    <div class="row">
+                        @foreach($todayShiftData as $todayShift)
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Full Shift @ {{$branchData->name}}
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title" id="shift_id">{{$todayShift->id}}</h5>
+                                        {{$todayShift->date}}
+                                        <p class="card-text">Click the 'Clock in' button to start Time Tracking!.</p>
+                                        <div class="">
+                                            <iframe src="https://free.timeanddate.com/clock/i7xt82e6/n297/tluk/fn7/fs20/tct/pct/ftb/th2" frameborder="0" width="130" height="28" allowtransparency="true"></iframe>
+                                        </div>
+                                        <a href="#" id="clock_in_button" class="btn btn-primary">Clock In</a>
+                                    </div>
                                 </div>
-                                <a href="#" class="btn btn-primary">Clock In</a>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
-                    @endforeach
+                </form>
             </div>
         </div>
     </div>
