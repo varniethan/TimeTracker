@@ -7,7 +7,7 @@
             <x-navbar.top_pane/>
             <!-- page content -->
             <div class="right_col" role="main">
-                <x-index.shift_type :shiftTypeData="$shiftTypeData"/>
+                <x-code.shift :shiftTypeData="$shiftTypeData"/>
             </div>
             <!-- /page content -->
 

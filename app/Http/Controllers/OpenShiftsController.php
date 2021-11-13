@@ -32,7 +32,7 @@ class OpenShiftsController extends Controller
                                                               JOIN branches b on b.id = s.branch_shift_id
                                                               JOIN roles r on r.id = u.role_id
                                                               JOIN positions p on p.id = u.position_id
-                                                    where s.status =1 and u.status =1 and b.status=1 and s.clock_out IS NULL
+                                                    where s.status =1 and u.status =1 and b.status=1 and s.full_or_open = 1 and s.clock_out IS NULL
                                                     order by s.date desc"));
         }
         else
@@ -46,7 +46,7 @@ class OpenShiftsController extends Controller
                                                               JOIN branches b on b.id = s.branch_shift_id
                                                               JOIN roles r on r.id = u.role_id
                                                               JOIN positions p on p.id = u.position_id
-                                                    where s.status =1 and u.status =1 and b.status=1 and s.clock_out IS NULL and u.id=".$user_id.
+                                                    where s.status =1 and u.status =1 and b.status=1  and s.full_or_open = 1 and s.clock_out IS NULL and u.id=".$user_id.
                 " order by s.date desc"));
         }
         $organisationdata = Organisation::where('id','=', session('org_id'))->first();

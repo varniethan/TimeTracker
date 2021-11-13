@@ -13,6 +13,7 @@
                             :cityData="$cityData"
                             :branchData="$branchData"
                             :positionData="$positionData"
+                            :shiftTypeData="$shiftTypeData"
                             :invitationId="$invitationId"/>
                     </div>
                 </div>

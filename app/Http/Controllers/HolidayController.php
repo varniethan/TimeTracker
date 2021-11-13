@@ -28,7 +28,13 @@ class HolidayController extends Controller
         //Sending Positions that the organisation has to the view
         $positionData = Position::getPositionOrganisations($Organisationdata['id']);
         $holidayTypeData = Holiday::getHolidayTypesOfOrganisations($Organisationdata['id']);
-        $holidayData = Holiday::getHolidayOfOrganisations($Organisationdata['id']);
+        if (session('role_id') == 1 or session('role_id') == 2) {
+            $holidayData = Holiday::getHolidayOfOrganisations($Organisationdata['id']);
+        }
+        else
+        {
+            $holidayData = Holiday::getEmployeeHoliday(session('user_id'));
+        }
 //        $holidayData = Holiday::getholidayOfOrganisations(session('org_id'));
         return view('holiday.index',compact('branchData', 'positionData','employeeData', 'holidayTypeData', 'holidayData'));
     }
@@ -39,7 +45,7 @@ class HolidayController extends Controller
         return view('holiday.holiday_type',compact('holidayTypeData'));
     }
 
-    public function holiday_type_store(Request $request)
+    public function holiday_type_stodre(Request $request)
     {
 //        $this->validate($request, [
 //            'name' =>  'required|string|max:64',
@@ -76,7 +82,6 @@ class HolidayController extends Controller
             'no_of_hours' => 'required|integer',
             'no_of_mins' => 'required|integer',
             'holiday_type_id' => 'required',
-            'notes' => 'required|min:3|max:1000',
         ]);
 
         DB::table('user_holidays')->insert([

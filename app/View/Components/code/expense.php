@@ -6,14 +6,15 @@ use Illuminate\View\Component;
 
 class expense extends Component
 {
+    public $expenseTypeData;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($expenseTypeData)
     {
-        //
+        $this->expenseTypeData = $expenseTypeData;
     }
 
     /**

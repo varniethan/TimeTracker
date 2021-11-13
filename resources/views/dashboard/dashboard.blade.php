@@ -8,19 +8,19 @@
             <!-- page content -->
             <div class="right_col" role="main">
                 <style>.row-margin-05 { margin-top: 5em; }</style>
-                <div class="top_tiles row-margin-05">
-                    @if((Session('$role_id') == 1 or Session('$role_id') == 2)and !Session::has('org_id'))
-                        <div class="alert alert-danger" role="alert">
-                            <h4 class="alert-heading">Add your Organisations!</h4>
-                            <p>Aww no, you have to add your organisations to countinue using TimeTracker!</p>
-                            <hr>
-                            <p class="mb-0">Got to <code>Manage Companies</code> in your profile - Manage Accounts section to add all of your Organisations</p>
-                        </div>
-                    @endif
-                    @if(Session::has('message'))
-                        <p class="alert {{ Session::get('alert-class', 'alert-sucess') }}">{{ Session::get('message') }}</p>
-                    @endif
-                </div>
+                @if((Session('$role_id') == 1 or Session('$role_id') == 2) and !Session::has('org_id'))
+                    <div class="top_tiles row-margin-05">
+                            <div class="alert alert-danger" role="alert">
+                                <h4 class="alert-heading">Add your Organisations!</h4>
+                                <p>Aww no, you have to add your organisations to countinue using TimeTracker!</p>
+                                <hr>
+                                <p class="mb-0">Got to <code>Manage Companies</code> in your profile - Manage Accounts section to add all of your Organisations</p>
+                            </div>
+                    </div>
+                @endif
+                @if(Session::has('message'))
+                    <p class="alert {{ Session::get('alert-class', 'alert-sucess') }}">{{ Session::get('message') }}</p>
+                @endif
                 @if(Session::has('org_id'))
                 <div>
                     <!-- top tiles -->

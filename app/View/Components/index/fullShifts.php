@@ -11,18 +11,20 @@ class fullShifts extends Component
     public $employeeData;
     public $shiftTypeData;
     public $fullShiftData;
+    public $breakTypeData;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($branchData, $positionData, $employeeData, $shiftTypeData, $fullShiftData)
+    public function __construct($branchData, $positionData, $employeeData, $shiftTypeData, $fullShiftData, $breakTypeData)
     {
         $this->branchData = $branchData;
         $this->positionData = $positionData;
         $this->employeeData = $employeeData;
         $this->shiftTypeData = $shiftTypeData;
         $this->fullShiftData = $fullShiftData;
+        $this->breakTypeData = $breakTypeData;
     }
 
     /**

@@ -10,17 +10,19 @@ class employee extends Component
     public $branchData;
     public $positionData;
     public $invitationId;
+    public $shiftTypeData;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($cityData, $branchData, $positionData, $invitationId)
+    public function __construct($cityData, $branchData, $positionData, $invitationId, $shiftTypeData)
     {
         $this->cityData = $cityData;
         $this->branchData = $branchData;
         $this->positionData = $positionData;
         $this->invitationId = $invitationId;
+        $this->shiftTypeData = $shiftTypeData;
     }
 
     /**

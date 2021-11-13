@@ -68,7 +68,8 @@
                             <ul class="nav child_menu">
                                 @if (Session::has('org_id'))
                                     <li><a href="{{url('/dashboard/account/positions')}}">Position Codes</a></li>
-                                    <li><a href="{{url('/dashboard/account/shift_designations')}}">Shift Codes</a></li>
+                                    <li><a href="{{url('/organisation_shifts')}}">Organisation Shifts</a></li>
+                                    <li><a href="{{url('/dashboard/account/shift_designations')}}">Shift Tasks</a></li>
                                     <li><a href="{{url('/dashboard/account/branch_shift_designations')}}">Branch Shift Codes</a></li>
                                     <li><a href="{{url('/dashboard/account/expense_type')}}">Expense Codes</a></li>
                                 @endif

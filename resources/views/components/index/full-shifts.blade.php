@@ -6,6 +6,15 @@
         @if(Session::has('message'))
             <p class="alert {{ Session::get('alert-class', 'alert-sucess') }}">{{ Session::get('message') }}</p>
         @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
     </div>
 </div>
 
@@ -172,65 +181,206 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <div role="tabpanel">
-                                    <!-- Nav tabs -->
-                                    <ul class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" class="active"><a href="#uploadTab" aria-controls="uploadTab" role="tab" data-toggle="tab">Summary</a>
+                            <form method="POST" action="{{url('/full_shifts')}}" class="form-horizontal form-label-left" id="openTab">
+                                @csrf
+                                <div class="modal-body">
+                                    <div role="tabpanel">
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#uploadTab" aria-controls="uploadTab" role="tab" data-toggle="tab">Summary</a></li>
+                                            <li role="presentation"><a href="#browseTab" aria-controls="browseTab" role="tab" data-toggle="tab">Breaks</a></li>
+                                        </ul>
+                                        <script>
+                                            $(document).ready(function() {
+                                                $("#uploadTab a").click(function() {
+                                                    $("#uploadTab").tab('show');
+                                                });
+                                                $("#browseTab a").click(function() {
+                                                    $("#browseTab").tab('show');
+                                                });
+                                            });
+                                        </script>
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+    {{--                                       Shift Tab--}}
+                                            <div role="tabpanel" class="tab-pane active" id="uploadTab">
+                                                    <div class="row form-group row-margin-05">
+                                                        <div class="col-md-2">
+                                                            <label class="col-form-label text-left"><b>Location</b></label>
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                            <select class="form-select" name='branch_shift_id' aria-label=".form-select-sm example">
+                                                                @foreach($branchData as $branch)
+                                                                    <option value='{{$branch['id']}}'>{{$branch['name']}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
 
-                                        </li>
-                                        <li role="presentation"><a href="#browseTab" aria-controls="browseTab" role="tab" data-toggle="tab">Breaks</a>
+                                                    <div class="row form-group row-margin-05">
+                                                        <div class="col-md-2">
+                                                            <label class="col-form-label text-left"><b>Shift Type</b></label>
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                            <select class="form-select" name='shift_type_id' aria-label=".form-select-sm example">
+                                                                @foreach($shiftTypeData as $shiftType)
+                                                                    <option value="{{$shiftType->id}}">{{$shiftType->name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
 
-                                        </li>
-                                    </ul>
-                                    <!-- Tab panes -->
-                                    <div class="tab-content">
-{{--                                        Summary Tab--}}
-                                        @if (count($errors) > 0)
-                                            <script type="text/javascript">
-                                                $( document ).ready(function() {
-                                                    $('#openTab').modal('show');
+                                                    <div class="row form-group row-margin-05">
+                                                        <div class="col-md-2">
+                                                            <label class="col-form-label text-left"><b>Employee</b></label>
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                            <select class="form-select" name='user_id' aria-label=".form-select-sm example">
+                                                                @foreach($employeeData as $employee)
+                                                                    <option value="{{$employee->id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row form-group row-margin-05">
+                                                        <div class="col-md-6">
+                                                            <div class="col-md-2">
+                                                                <label class="col-form-label text-left"><b>Date</b></label>
+                                                            </div>
+                                                            <div class="col-md-10">
+                                                                <input type="date" name="date"   class="form-control date" value="{{old('dob')}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="col-md-2">
+                                                                <label class="col-form-label text-left"><b>End Date</b></label>
+                                                            </div>
+                                                            <div class="col-md-10">
+                                                                <input type="date" name="dob"   class="form-control date" value="{{old('dob')}}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row form-group row-margin-05">
+                                                        <div class="col-md-6">
+                                                            <div class="col-md-2">
+                                                                <label class="col-form-label text-left"><b>From</b></label>
+                                                            </div>
+                                                            <div class="col-md-10">
+                                                                <div class="form-group">
+                                                                    <div class='input-group date' id='myDatepicker3'>
+                                                                        <input type='text' class="form-control" name="scheduled_from"/>
+                                                                        <span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="col-md-2">
+                                                                <label class="col-form-label text-left"><b>To</b></label>
+                                                            </div>
+                                                            <div class="col-md-10">
+                                                                <div class="form-group">
+                                                                    <div class='input-group date' id='myDatepicker4'>
+                                                                        <input type='text' class="form-control" name="scheduled_to"/>
+                                                                        <span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row form-group row-margin-05">
+                                                        <div class="col-md-2">
+                                                            <label class="col-form-label text-left" name="shift_note"><b>Notes</b></label>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <div class="form-group">
+                                                                <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                                <label for="exampleFormControlTextarea1">Add Note for the employee working on the shift....etc</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+    {{--                                                <div class="row form-group row-margin-05">--}}
+    {{--                                                    <div class="col-md-2">--}}
+    {{--                                                        <label class="col-form-label text-left"><b>No. of breaks</b></label>--}}
+    {{--                                                    </div>--}}
+    {{--                                                    <div class="col-md-10">--}}
+    {{--                                                        <select class="form-select" name='position_id' aria-label=".form-select-sm example">--}}
+    {{--                                                            @foreach($branchData as $branch)--}}
+    {{--                                                                <option value='{{$branch['id']}}'>{{$branch['name']}}</option>--}}
+    {{--                                                            @endforeach--}}
+    {{--                                                        </select>--}}
+    {{--                                                    </div>--}}
+    {{--                                                </div>--}}
+
+
+                                                    <div class="row row-margin-05">
+                                                        <div class="col-md-3">
+                                                            <label class="col-form-label text-left"><b>Break Time</b></label>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <a href="#"><button type="button" class="add_break btn btn-primary btn-sm" id="add_break"><i class="fa fa-plus"></i> Add Break</button></a>
+                                                        </div>
+                                                    </div>
+
+    {{--                                                <div class="row form-group row-margin-05">--}}
+    {{--                                                    <div class="col-md-6">--}}
+    {{--                                                        <div class="col-md-2">--}}
+    {{--                                                            <label class="col-form-label text-left"><b>Duration</b></label>--}}
+    {{--                                                        </div>--}}
+    {{--                                                        <div class="col-md-10">--}}
+    {{--                                                            <input type="text" class="form-control" placeholder="e.g. 10 hours" name="duration" value="{{old('duration')}}" disabled>--}}
+    {{--                                                        </div>--}}
+    {{--                                                    </div>--}}
+    {{--                                                    <div class="col-md-6">--}}
+    {{--                                                        <div class="col-md-2">--}}
+    {{--                                                            <label class="col-form-label text-left"><b>Paid Time</b></label>--}}
+    {{--                                                        </div>--}}
+    {{--                                                        <div class="col-md-10">--}}
+    {{--                                                            <input type="text" class="form-control" placeholder="e.g. 10 hours" name="paid_time" value="{{old('paid_time')}}" disabled>--}}
+    {{--                                                        </div>--}}
+    {{--                                                    </div>--}}
+    {{--                                                </div>--}}
+
+    {{--                                                <div class="row form-group row-margin-05">--}}
+    {{--                                                    <div class="col-md-2">--}}
+    {{--                                                        <label class="col-form-label text-left"><b>Pay Rate</b></label>--}}
+    {{--                                                    </div>--}}
+    {{--                                                    <div class="col-md-10">--}}
+    {{--                                                        <input type="text" class="form-control" placeholder="e.g. 8£ per hour" name="pay_rate" value="{{old('pay_rate')}}" disabled>--}}
+    {{--                                                    </div>--}}
+    {{--                                                </div>--}}
+
+    {{--                                                <div class="row form-group row-margin-05">--}}
+    {{--                                                    <div class="col-md-2">--}}
+    {{--                                                        <label class="col-form-label text-left"><b>Total</b></label>--}}
+    {{--                                                    </div>--}}
+    {{--                                                    <div class="col-md-10">--}}
+    {{--                                                        <input type="text" class="form-control" placeholder="Email" name="total" value="{{old('total')}}" disabled>--}}
+    {{--                                                    </div>--}}
+    {{--                                                </div>--}}
+                                            </div>
+
+                                            <script>
+                                                $(document).ready(function(){
+                                                    $("#add_break").click(function(){
+                                                        $("#browseTab").tab('show');
+                                                    });
                                                 });
                                             </script>
-                                        @endif
-
-                                        <div role="tabpanel" class="tab-pane active" id="uploadTab">
-                                            <form method="POST" action="{{url('/full_shifts')}}" class="form-horizontal form-label-left" id="openTab">
-                                                @csrf
+    {{--                                        Browse Tab--}}
+                                            <div role="tabpanel" class="tab-pane" id="browseTab">
                                                 <div class="row form-group row-margin-05">
                                                     <div class="col-md-2">
-                                                        <label class="col-form-label text-left"><b>Location</b></label>
+                                                        <label class="col-form-label text-left"><b>Break Type</b></label>
                                                     </div>
                                                     <div class="col-md-10">
-                                                        <select class="form-select" name='position_id' aria-label=".form-select-sm example">
-                                                            @foreach($branchData as $branch)
-                                                                <option value='{{$branch['id']}}'>{{$branch['name']}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row form-group row-margin-05">
-                                                    <div class="col-md-2">
-                                                        <label class="col-form-label text-left"><b>Shift Type</b></label>
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <select class="form-select" name='branch_shift_id' aria-label=".form-select-sm example">
-                                                            @foreach($shiftTypeData as $shiftType)
-                                                                <option value="{{$shiftType->id}}">{{$shiftType->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row form-group row-margin-05">
-                                                    <div class="col-md-2">
-                                                        <label class="col-form-label text-left"><b>Employee</b></label>
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <select class="form-select" name='user_id' aria-label=".form-select-sm example">
-                                                            @foreach($employeeData as $employee)
-                                                                <option value="{{$employee->id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
+                                                        <select class="form-select" name='break_type_id' aria-label=".form-select-sm example">
+                                                            @foreach($breakTypeData as $breakType)
+                                                                <option value='{{$breakType->id}}'>{{$breakType->name}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -239,31 +389,12 @@
                                                 <div class="row form-group row-margin-05">
                                                     <div class="col-md-6">
                                                         <div class="col-md-2">
-                                                            <label class="col-form-label text-left"><b>Date</b></label>
-                                                        </div>
-                                                        <div class="col-md-10">
-                                                            <input type="date" name="date"   class="form-control date" value="{{old('dob')}}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="col-md-2">
-                                                            <label class="col-form-label text-left"><b>End Date</b></label>
-                                                        </div>
-                                                        <div class="col-md-10">
-                                                            <input type="date" name="dob"   class="form-control date" value="{{old('dob')}}">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row form-group row-margin-05">
-                                                    <div class="col-md-6">
-                                                        <div class="col-md-2">
-                                                            <label class="col-form-label text-left"><b>From</b></label>
+                                                            <label class="col-form-label text-left"><b>Break From</b></label>
                                                         </div>
                                                         <div class="col-md-10">
                                                             <div class="form-group">
                                                                 <div class='input-group date' id='myDatepicker3'>
-                                                                    <input type='text' class="form-control" name="scheduled_from"/>
+                                                                    <input type='text' class="form-control" name="break_scheduled_from"/>
                                                                     <span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
                                                                 </div>
                                                             </div>
@@ -276,118 +407,52 @@
                                                         <div class="col-md-10">
                                                             <div class="form-group">
                                                                 <div class='input-group date' id='myDatepicker4'>
-                                                                    <input type='text' class="form-control" name="scheduled_to"/>
+                                                                    <input type='text' class="form-control" name="break_scheduled_to"/>
                                                                     <span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="row form-group row-margin-05">
-                                                    <div class="col-md-2">
-                                                        <label class="col-form-label text-left" name="shift_note"><b>Notes</b></label>
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <div class="form-group">
-                                                            <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                                            <label for="exampleFormControlTextarea1">Add Note for the employee working on the shift....etc</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row row-margin-05">
-                                                    <div class="col-md-3">
-                                                        <label class="col-form-label text-left"><b>Break Time</b></label>
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <a href="{{url('/employee/create')}}"><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add Break</button></a>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row form-group row-margin-05">
-                                                    <div class="col-md-6">
-                                                        <div class="col-md-2">
-                                                            <label class="col-form-label text-left"><b>Duration</b></label>
-                                                        </div>
-                                                        <div class="col-md-10">
-                                                            <input type="text" class="form-control" placeholder="e.g. 10 hours" name="duration" value="{{old('duration')}}" disabled>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="col-md-2">
-                                                            <label class="col-form-label text-left"><b>Paid Time</b></label>
-                                                        </div>
-                                                        <div class="col-md-10">
-                                                            <input type="text" class="form-control" placeholder="e.g. 10 hours" name="paid_time" value="{{old('paid_time')}}" disabled>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row form-group row-margin-05">
-                                                    <div class="col-md-2">
-                                                        <label class="col-form-label text-left"><b>Pay Rate</b></label>
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <input type="text" class="form-control" placeholder="e.g. 8£ per hour" name="pay_rate" value="{{old('pay_rate')}}" disabled>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row form-group row-margin-05">
-                                                    <div class="col-md-2">
-                                                        <label class="col-form-label text-left"><b>Total</b></label>
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <input type="text" class="form-control" placeholder="Email" name="total" value="{{old('total')}}" disabled>
-                                                    </div>
-                                                </div>
-                                                <input type="submit" value="Submit" class="btn btn-primary">
-                                            </form>
-                                        </div>
-
-
-{{--                                        Browse Tab--}}
-                                        <div role="tabpanel" class="tab-pane" id="browseTab">
-                                            <a href="{{url('/employee/create')}}"><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></button></a>
-                                            <table class="table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">Break Rule</th>
-                                                    <th scope="col">Start</th>
-                                                    <th scope="col">End</th>
-                                                    <th scope="col">Duration</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td>@mdo</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Jacob</td>
-                                                    <td>Thornton</td>
-                                                    <td>@fat</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Larry</td>
-                                                    <td>the Bird</td>
-                                                    <td>@twitter</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-
+                                                {{--                                            <table class="table table-striped">--}}
+    {{--                                                <thead>--}}
+    {{--                                                <tr>--}}
+    {{--                                                    <th scope="col">Break Rule</th>--}}
+    {{--                                                    <th scope="col">Start</th>--}}
+    {{--                                                    <th scope="col">End</th>--}}
+    {{--                                                    <th scope="col">Duration</th>--}}
+    {{--                                                </tr>--}}
+    {{--                                                </thead>--}}
+    {{--                                                <tbody>--}}
+    {{--                                                <tr>--}}
+    {{--                                                    <th scope="row">1</th>--}}
+    {{--                                                    <td>Mark</td>--}}
+    {{--                                                    <td>Otto</td>--}}
+    {{--                                                    <td>@mdo</td>--}}
+    {{--                                                </tr>--}}
+    {{--                                                <tr>--}}
+    {{--                                                    <th scope="row">2</th>--}}
+    {{--                                                    <td>Jacob</td>--}}
+    {{--                                                    <td>Thornton</td>--}}
+    {{--                                                    <td>@fat</td>--}}
+    {{--                                                </tr>--}}
+    {{--                                                <tr>--}}
+    {{--                                                    <th scope="row">3</th>--}}
+    {{--                                                    <td>Larry</td>--}}
+    {{--                                                    <td>the Bird</td>--}}
+    {{--                                                    <td>@twitter</td>--}}
+    {{--                                                </tr>--}}
+    {{--                                                </tbody>--}}
+    {{--                                            </table>--}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn-l btn-primary" data-dismiss="modal">Save</button>
-                                <button type="button" class="btn-l btn-success">Save and Add New</button>
-                            </div>
+                                <div class="modal-footer">
+                                    <input type="submit" value="Save" class="btn btn-success">
+                                    <input type="submit" value="Save and Add New" class="btn btn-primary">
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

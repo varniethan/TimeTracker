@@ -12,6 +12,7 @@
                     :employeeData="$employeeData"
                     :positionData="$positionData"
                     :shiftTypeData="$shiftTypeData"
+                    :breakTypeData="$breakTypeData"
                     :fullShiftData="$fullShiftData"/>
             </div>
             <!-- /page content -->

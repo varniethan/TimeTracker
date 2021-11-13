@@ -7,7 +7,7 @@
             <x-navbar.top_pane/>
             <!-- page content -->
             <div class="right_col" role="main">
-                <x-index.holiday_type :holidayTypeData="$holidayTypeData"/>
+                <x-code.holiday :holidayTypeData="$holidayTypeData"/>
             </div>
             <!-- /page content -->
 

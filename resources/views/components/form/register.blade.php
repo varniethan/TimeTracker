@@ -29,7 +29,7 @@
                 <input type="date" name="dob"   class="form-control col-9 col-md-10 date" value="{{old('dob')}}">
             </div>
         </div>
-        <span class="color: red" >@error("last_name"){{$message}}@enderror</span>
+        <span class="color: red" >@error("dob"){{$message}}@enderror</span>
         <div class="form-group row">
             <div class="col-2">
                 <label class="col-form-label col-md-2 col-sm-4 label-align">Gender</label>

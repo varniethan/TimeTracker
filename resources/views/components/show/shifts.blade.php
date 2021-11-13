@@ -83,17 +83,16 @@
                                     <h4>Progress so far......</h4>
                                     <div class="widget_summary">
                                         <div class="w_left w_25">
-                                            <span>0.1.5.2</span>
+                                            <span>{{$shiftData['scheduled_from']}}</span>
                                         </div>
                                         <div class="w_center w_55">
                                             <div class="progress">
-                                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
-                                                    <span class="sr-only">60% Complete</span>
+                                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{(45/60*100)}}%;">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="w_right w_20">
-                                            <span>123k</span>
+                                        <div class="w_right w_25">
+                                            <span>{{$shiftData['scheduled_to']}}</span>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -293,12 +292,12 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="panel-body">
-                            <h3 class="green"><i class="fa fa-clock-o"></i> {{$shiftData['shift_type_id']}}</h3>
+                            <h3 class="green"><i class="fa fa-clock-o"></i>@if($shiftData['shift_type_id'] != null){{\App\Models\ShiftType::getShiftTypeName($shiftData['shift_type_id'])}} @else {{"General Shift"}} @endif</h3>
                             <p>Here are the details we have.....</p>
                             <form class="form-label-left input_mask">
                                 <div>
                                     <div class="col-md-3 col-sm-3">
-                                        <b>ID</b>
+                                        <b>Shift ID</b>
                                     </div>
                                     <div class="col-md-9 col-sm-9 form-group has-feedback">
                                         <input type="text" class="form-control shift_id" id="inputSuccess3, shift_id" readonly="readonly" placeholder="{{$shiftData['id']}}">
@@ -310,7 +309,7 @@
                                         <b>Name</b>
                                     </div>
                                     <div class="col-md-9 col-sm-9 form-group has-feedback">
-                                        <input type="text" class="form-control" id="inputSuccess3" readonly="readonly" placeholder="{{$shiftData['user_id']}}">
+                                        <input type="text" class="form-control" id="inputSuccess3" readonly="readonly" placeholder="{{\App\Models\User::getUserName($shiftData['user_id'])}}">
                                         <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                                     </div>
                                 </div>
@@ -321,7 +320,7 @@
 
                                 </div>
                                 <div class="col-md-9 col-sm-9 form-group has-feedback">
-                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{$shiftData['branch_shift_id']}}">
+                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{\App\Models\Branch::getBranchName($shiftData['branch_shift_id'])}}">
                                     <span class="fa fa-building form-control-feedback right" aria-hidden="true"></span>
                                 </div>
                                 <div>
@@ -330,7 +329,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-9 col-sm-9 form-group has-feedback">
-                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{$shiftData['organisation_id']}}">
+                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{\App\Models\Organisation::getOrganisationName($shiftData['organisation_id'])}}">
                                     <span class="fa fa-bank form-control-feedback right" aria-hidden="true"></span>
                                 </div>
                                 <div>
@@ -339,7 +338,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-9 col-sm-9 form-group has-feedback">
-                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{$shiftData['full_or_open']}}">
+                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="@if($shiftData['full_or_open'] == 0){{"Full Shift"}} @else {{"Open Shift"}} @endif">
                                     <span class="fa fa-clock-o form-control-feedback right" aria-hidden="true"></span>
                                 </div>
                                 <div>
@@ -348,7 +347,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-9 col-sm-9 form-group has-feedback">
-                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{$shiftData['approved']}}">
+                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="@if($shiftData['approved'] == 1){{"Approved"}}@else{{"Unapproved"}} @endif">
                                     <span class="fa fa-check form-control-feedback right" aria-hidden="true"></span>
                                 </div>
                                 <div>
@@ -357,7 +356,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-9 col-sm-9 form-group has-feedback">
-                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{$shiftData['branch_shift_id']}}">
+                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{\App\Models\Branch::getBranchAddress_1($shiftData['branch_shift_id'])}}">
                                     <span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>
                                 </div>
                                 <div>
@@ -366,7 +365,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-9 col-sm-9 form-group has-feedback">
-                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{$shiftData['branch_shift_id']}}">
+                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{\App\Models\Branch::getBranchAddress_2($shiftData['branch_shift_id'])}}">
                                     <span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>
 
                                 </div>
@@ -376,7 +375,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-9 col-sm-9 form-group has-feedback">
-                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{$shiftData['branch_shift_id']}}">
+                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{\App\Models\Branch::getBranchPostCode($shiftData['branch_shift_id'])}}">
                                     <span class="fa fa-road form-control-feedback right" aria-hidden="true"></span>
                                 </div>
                                 <div>
@@ -385,7 +384,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-9 col-sm-9 form-group has-feedback">
-                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{$shiftData['branch_shift_id']}}">
+                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{\App\Models\City::getCityName(\App\Models\Branch::getBranchCity($shiftData['branch_shift_id']))}}">
                                     {{--                                    <input type="tel" class="form-control" id="inputSuccess5" readonly="readonly" placeholder="{{\App\Models\City::getCityName($shiftData['city'])}}">--}}
                                     <span class="fa fa-map form-control-feedback right" aria-hidden="true"></span>
                                 </div>

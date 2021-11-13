@@ -6,14 +6,15 @@ use Illuminate\View\Component;
 
 class shift extends Component
 {
+    public $shiftTypeData;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($shiftTypeData)
     {
-        //
+        $this->shiftTypeData = $shiftTypeData;
     }
 
     /**

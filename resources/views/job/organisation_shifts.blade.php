@@ -7,7 +7,7 @@
             <x-navbar.top_pane/>
             <!-- page content -->
             <div class="right_col" role="main">
-                <x-code.expense :expenseTypeData="$expenseTypeData"/>
+                <x-code.organisation_shifts :organisationShiftsData="$organisationShiftsData"/>
             </div>
             <!-- /page content -->
 

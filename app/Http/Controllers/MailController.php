@@ -30,9 +30,9 @@ class MailController extends Controller
         Mail::to($email)->send(new OrganisationCreatedMail($details));
     }
 
-    public function sendEmployeeCreatedEmail($first_name, $last_name, $email, $password)
+    public function sendEmployeeCreatedEmail($first_name, $last_name, $password, $email)
     {
-        $details = ['first_name'=>$first_name, 'last_name'=>$last_name, 'password'=>$password];
+        $details = ['first_name'=>$first_name, 'last_name'=>$last_name, 'password'=>$password, 'email'=>$email];
         Mail::to($email)->send(new EmployeeCreatedMail($details));
     }
 

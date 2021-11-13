@@ -20,6 +20,7 @@ use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\BreakController;
 use App\Http\Controllers\OptimisationController;
 use App\Http\Controllers\PaySlipController;
+use App\Http\Controllers\OrganisationShiftsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -126,15 +127,16 @@ Route::group(['middleware' => ['auth']], function() {
         'open_shifts' => OpenShiftsController::class,
         'holiday' => HolidayController::class,
         'expense' => ExpenseController::class,
+        'organisation_shifts' => OrganisationShiftsController::class,
     ]);
 });
 
 //Guest for all
 Route::group(['middleware' => ['guest']], function() {
-    Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
-    Route::post('/register', [RegisterController::class, 'Register']);
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'Register']);
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'authenticate']);
 });
 
 //APIs and AJAX Calls

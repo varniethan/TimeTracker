@@ -23,4 +23,9 @@ class OrganisationShifts extends Model
         $shifts = OrganisationShifts::where('organisation_id','=',$org_id)->get();
         return $shifts;
     }
+    public static function getOrganisationShift($id)
+    {
+        $shift_name = OrganisationShifts::where('id','=',$id)->value('shift_name');
+        return $shift_name;
+    }
 }

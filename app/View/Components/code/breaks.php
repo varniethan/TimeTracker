@@ -6,14 +6,15 @@ use Illuminate\View\Component;
 
 class breaks extends Component
 {
+    public $breakTypeData;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($breakTypeData)
     {
-        //
+        $this->breakTypeData = $breakTypeData;
     }
 
     /**

@@ -7,7 +7,7 @@
             <x-navbar.top_pane/>
             <!-- page content -->
             <div class="right_col" role="main">
-                <x-index.break_type :breakTypeData="$breakTypeData"/>
+                <x-code.breaks :breakTypeData="$breakTypeData"/>
             </div>
             <!-- /page content -->
 

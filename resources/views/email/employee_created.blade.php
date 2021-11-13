@@ -289,7 +289,7 @@
                                 <tr>
                                     <td class="header center" width="100%">
                                         <a href="#">
-                                            Company Name
+                                            {{\App\Models\Organisation::getOrganisationName(session()->get('org_id'))}}
                                         </a>
                                     </td>
                                 </tr>
@@ -313,7 +313,7 @@
                                             <table class="soapbox" cellpadding="0" cellspacing="0" width="100%">
                                                 <tr>
                                                     <td class="soapbox-title">
-                                                        Check out my stuff on Awesome Co!
+                                                        Your Time Tracker Account has been created!
                                                     </td>
                                                 </tr>
                                             </table>
@@ -325,7 +325,10 @@
                                                             <table class="status" bgcolor="#fffeea" cellspacing="0">
                                                                 <tr>
                                                                     <td class="status-cell">
-                                                                        Coupon code: <b>13448278949</b>
+                                                                        Email address: <b>{{$details['email']}}</b>
+                                                                    </td>
+                                                                    <td class="status-cell">
+                                                                        Password: <b>{{$details['password']}}</b>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -362,16 +365,18 @@
                                                                     </table>
                                                                 </td>
                                                                 <td class="body-text-cell" width="300" style="padding-bottom:4px;">
-                                                                    <b>Hi Bob,</b><br>
+                                                                    <b>Hi {{$details['first_name']}} {{$details['last_name']}},</b><br>
                                                                     <br>
-                                                                    I set up an Awesome Co profile where I can do tons of really awesome stuff! I want you to follow me so you can see it all. Once you join Awesome Co, you'll be able to do all sorts of Awesome stuff too!<br>
+                                                                    We have set up an Time Tracker Account where I can track time and mange all our employees!
+                                                                    Please login to your Time Tracker Account with the login details sent above.
+                                                                    Please contact admin@timtracker.com for any login issues.<br>
                                                                 </td>
                                                             </tr>
                                                         </table>
                                                         <table class="body-text" cellspacing="0" cellpadding="0" width="100%">
                                                             <tr>
                                                                 <td class="body-text-cell" style="text-align:left; padding-bottom:30px;" >
-                                                                    Because I've invited you, you can also use the above coupon code to receive a 50% discount on you first months subscription!
+                                                                    Because we have invited you, you can start using Time Tracker for free!
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -380,15 +385,15 @@
                                                             <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="#" style="height:38px;v-text-anchor:middle;width:190px;" arcsize="11%" strokecolor="#407429" fill="t">
                                                                 <v:fill type="tile" src="https://www.filepicker.io/api/file/N8GiNGsmT6mK6ORk00S7" color="#41CC00" />
                                                                 <w:anchorlock/>
-                                                                <center style="color:#ffffff;font-family:sans-serif;font-size:17px;font-weight:bold;">Sign up now!</center>
+                                                                <center style="color:#ffffff;font-family:sans-serif;font-size:17px;font-weight:bold;">Login now!</center>
                                                             </v:roundrect>
                                                             <![endif]--><a href="#"
-                                                                           style="background-color:#41CC00;background-image:url(https://www.filepicker.io/api/file/N8GiNGsmT6mK6ORk00S7);border:1px solid #407429;border-radius:4px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:17px;font-weight:bold;text-shadow: -1px -1px #47A54B;line-height:36px;text-align:center;text-decoration:none;width:190px;-webkit-text-size-adjust:none;mso-hide:all;">Sign up now!</a></div>
+                                                                           style="background-color:#41CC00;background-image:url(https://www.filepicker.io/api/file/N8GiNGsmT6mK6ORk00S7);border:1px solid #407429;border-radius:4px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:17px;font-weight:bold;text-shadow: -1px -1px #47A54B;line-height:36px;text-align:center;text-decoration:none;width:190px;-webkit-text-size-adjust:none;mso-hide:all;">Login now!</a></div>
 
                                                         <table class="body-signature-block">
                                                             <tr>
                                                                 <td class="body-thanks-cell">
-                                                                    Thanks so much,
+                                                                    Thanks so much for your support.
                                                                 </td>
                                                             </tr>
                                                             <tr>

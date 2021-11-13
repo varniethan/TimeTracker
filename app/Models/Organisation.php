@@ -33,6 +33,12 @@ class Organisation extends Model
         return $organisationsData;
     }
 
+    public static function getOrganisationName($id)
+    {
+        $organisation = Organisation::where('id','=',$id)->pluck('name');
+        return $organisation[0];
+    }
+
     public static function getMDOrganisation($user)
     {
         $organisationData = Organisation::where('MD','=',$user)->first();

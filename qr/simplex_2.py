@@ -185,8 +185,8 @@ tab = Tableau(4, 5,
 #2x - y + z + w <= 10
 tab = Tableau(r, c,
               numpy.array([[z, x, y, z, w],
-                           [b1, x1, y2, z3, w],
-                           [b2, x, y, z, w],
+                           [b1, x1, y1, z1, w1],
+                           [b2, x, y2, z2, w2],
                            [10.0, 0.0, 1.0, 0.0, -1.0]], dtype=object))
 tab.print_tableau("Initial")
 tab.simplex()

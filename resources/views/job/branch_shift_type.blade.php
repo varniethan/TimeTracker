@@ -7,7 +7,7 @@
             <x-navbar.top_pane/>
             <!-- page content -->
             <div class="right_col" role="main">
-                <x-index.shift_type :branchShiftTypeData="$branchShiftTypeData"/>
+                <x-code.branch_shift :branchShiftTypeData="$branchShiftTypeData"/>
             </div>
             <!-- /page content -->
 

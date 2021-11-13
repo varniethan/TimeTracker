@@ -32,9 +32,33 @@ class Branch extends Model
         return $branches;
     }
 
-    public static function getBrancheName($id)
+    public static function getBranchName($id)
     {
         $branch = Branch::where('id','=',$id)->pluck('name');
+        return $branch[0];
+    }
+
+    public static function getBranchAddress_1($id)
+    {
+        $branch = Branch::where('id','=',$id)->pluck('address_1');
+        return $branch[0];
+    }
+
+    public static function getBranchAddress_2($id)
+    {
+        $branch = Branch::where('id','=',$id)->pluck('address_2');
+        return $branch[0];
+    }
+
+    public static function getBranchPostCode($id)
+    {
+        $branch = Branch::where('id','=',$id)->pluck('postal_code');
+        return $branch[0];
+    }
+
+    public static function getBranchCity($id)
+    {
+        $branch = Branch::where('id','=',$id)->pluck('city');
         return $branch[0];
     }
 

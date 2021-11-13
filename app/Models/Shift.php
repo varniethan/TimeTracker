@@ -64,6 +64,7 @@ class Shift extends Model
                'approved' => 1,
                'status' =>  1,
            ]);
+        $sql = dd(\DB::getQueryLog());
         return $fullShifts;
     }
 

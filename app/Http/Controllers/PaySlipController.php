@@ -61,7 +61,6 @@ class PaySlipController extends Controller
 //
         //       $pdf = PDF::loadView('pdf.pay_slip_pdf');
 //        return $pdf->download('employees.pdf');
-//        $payData = '43434';
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         return view('pdf.pay_slip', compact('payData', 'holidayData', 'start_date', 'end_date'));

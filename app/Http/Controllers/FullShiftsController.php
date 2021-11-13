@@ -9,6 +9,7 @@ use App\Models\Position;
 use App\Models\User;
 use App\Models\ShiftType;
 use App\Models\Shift;
+use App\Models\ShiftBreak;
 use App\Models\OrganisationShifts;
 use Illuminate\Support\Facades\DB;
 use Session;
@@ -23,7 +24,7 @@ class FullShiftsController extends Controller
     {
         if (session('role_id') == 1 or session('role_id') == 2)
         {
-            $fullShiftData = DB::select( DB::raw("SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name, sb.id as shift_break, b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
+            $fullShiftData = DB::select( DB::raw("SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name,CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,sb.break_scheduled_to, sb.break_scheduled_from)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,sb.break_scheduled_to, sb.break_scheduled_from),60)),'m') AS shift_break,b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
                                                     FROM  shifts s
                                                               LEFT JOIN shift_breaks sb on sb.shift_id = s.id
                                                               LEFT JOIN shift_types st on st.id = s.shift_type_id
@@ -37,7 +38,7 @@ class FullShiftsController extends Controller
         else
         {
             $user_id = session('user_id');
-            $fullShiftData = DB::select( DB::raw("SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name, sb.id as shift_break, b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
+            $fullShiftData = DB::select( DB::raw("SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,sb.break_scheduled_to, sb.break_scheduled_from)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,sb.break_scheduled_to, sb.break_scheduled_from),60)),'m') AS shift_break, b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
                                                     FROM  shifts s
                                                               LEFT JOIN shift_breaks sb on sb.shift_id = s.id
                                                               LEFT JOIN shift_types st on st.id = s.shift_type_id
@@ -53,7 +54,8 @@ class FullShiftsController extends Controller
         $employeeData = User::getAllEmployeesByOrgId($organisationdata['id']);
         $shiftTypeData = ShiftType::getShiftTypeOrganisations(session('org_id'));
         $positionData = Position::getPositionOrganisations($organisationdata['id']);
-        return view('shifts.full_shifts_index',compact('branchData', 'positionData','employeeData', 'shiftTypeData','organisationdata','fullShiftData'));
+        $breakTypeData = ShiftBreak::getBreakTypesOfOrganisations($organisationdata['id']);
+        return view('shifts.full_shifts_index',compact('branchData', 'positionData','employeeData', 'shiftTypeData','organisationdata','fullShiftData', 'breakTypeData'));
     }
 
     public function filter_shift(Request $request)
@@ -94,7 +96,7 @@ class FullShiftsController extends Controller
         {
             $shift_type_id = ' AND st.id ='.$request->shift_type_id;
         }
-        $sql = "SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name, sb.id as shift_break, b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
+        $sql = "SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,sb.break_scheduled_to, sb.break_scheduled_from)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,sb.break_scheduled_to, sb.break_scheduled_from),60)),'m') AS shift_break, b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
                                                     FROM  shifts s
                                                               LEFT JOIN shift_breaks sb on sb.shift_id = s.id
                                                               JOIN users u on u.id = s.user_id
@@ -110,7 +112,7 @@ class FullShiftsController extends Controller
 
         if (session('role_id') == 1 or session('role_id') == 2)
         {
-            $fullShiftData = DB::select( DB::raw("SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name, sb.id as shift_break, b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
+            $fullShiftData = DB::select( DB::raw("SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name,CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,sb.break_scheduled_to, sb.break_scheduled_from)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,sb.break_scheduled_to, sb.break_scheduled_from),60)),'m') AS shift_break, b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
                                                     FROM  shifts s
                                                               LEFT JOIN shift_breaks sb on sb.shift_id = s.id
                                                               JOIN users u on u.id = s.user_id
@@ -124,7 +126,7 @@ class FullShiftsController extends Controller
         else
         {
             $user_id = session('user_id');
-            $fullShiftData = DB::select( DB::raw("SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name, sb.id as shift_break, b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
+            $fullShiftData = DB::select( DB::raw("SELECT s.id AS id, s.date, st.name AS shift_type_name, u.name AS user_name,CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,sb.break_scheduled_to, sb.break_scheduled_from)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,sb.break_scheduled_to, sb.break_scheduled_from),60)),'m') AS shift_break, b.name AS branch_name, s.clock_in, s.clock_out, s.approved,r.name, p.name, u.hourly_rate AS rate, CONCAT(FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60)),'h ',ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60)),'m') AS duration, TRUNCATE((FLOOR(ABS(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in)/60))* u.hourly_rate) + (ABS(MOD(TIMESTAMPDIFF(minute,s.clock_out, s.clock_in),60))*(u.hourly_rate/60)), 2) AS total_pay
                                                     FROM  shifts s
                                                               LEFT JOIN shift_breaks sb on sb.shift_id = s.id
                                                               JOIN users u on u.id = s.user_id
@@ -144,7 +146,8 @@ class FullShiftsController extends Controller
         $employeeData = User::getAllEmployeesByOrgId($organisationdata['id']);
         $shiftTypeData = ShiftType::getShiftTypeOrganisations(session('org_id'));
         $positionData = Position::getPositionOrganisations($organisationdata['id']);
-        return view('shifts.full_shifts_index',compact('branchData', 'positionData','employeeData', 'shiftTypeData','organisationdata','fullShiftData'));
+        $breakTypeData = ShiftBreak::getBreakTypesOfOrganisations($organisationdata['id']);
+        return view('shifts.full_shifts_index',compact('branchData', 'positionData','employeeData', 'shiftTypeData','organisationdata','fullShiftData', 'breakTypeData'));
     }
 
     /**
@@ -201,6 +204,14 @@ class FullShiftsController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'branch_shift_id' => 'required',
+            'shift_type_id' => 'required',
+            'user_id' => 'required',
+            'date' => 'required',
+            'scheduled_from' => 'required',
+            'scheduled_to' => 'required',
+        ]);
         if (substr($request->scheduled_from, -2) == 'PM')
         {
             $hour = substr($request->scheduled_from, 0, 2);
@@ -220,6 +231,8 @@ class FullShiftsController extends Controller
         $request->merge(['scheduled_to' => substr($request->scheduled_to, 0, -2)]);
         //Full = 0 & Open = 1
         Shift::create($request->all() + ['organisation_id'=>session('org_id')] +['full_or_open'=> 0] + ['created_by'=>session('user_id')] + ['status'=>1]);
+        $dbid = DB::getPdo()->lastInsertId();
+        ShiftBreak::create(['shift_id'=>$dbid] + ['break_type_id'=>$request->break_type_id] + ['scheduled_from'=>$request->scheduled_from] + ['scheduled_to'=>$request->scheduled_to]);
         return redirect('/full_shifts');
     }
 

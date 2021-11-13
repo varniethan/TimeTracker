@@ -6,6 +6,15 @@
         @if(Session::has('message'))
             <p class="alert {{ Session::get('alert-class', 'alert-sucess') }}">{{ Session::get('message') }}</p>
         @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     </div>
 </div>
 <div class="clearfix"></div>
@@ -163,18 +172,27 @@
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane active" id="uploadTab">
-                                        <form method="POST" action="{{url('/holiday  ')}}" class="form-horizontal form-label-left" id="openTab">
+                                        <form method="POST" action="{{url('/holiday')}}" class="form-horizontal form-label-left" id="openTab">
                                             @csrf
                                             <div class="row form-group row-margin-05">
                                                 <div class="col-md-3">
                                                     <label class="col-form-label text-left"><b>Employee</b></label>
                                                 </div>
                                                 <div class="col-md-7">
-                                                    <select class="form-select" name='user_id' aria-label=".form-select-sm example">
+                                                    @if ((Session::get('role_id') == 1 or Session::get('role_id') == 2) and Session::has('org_id'))
+                                                        <select class="form-select" name='user_id' aria-label=".form-select-sm example">
+                                                            @foreach($employeeData as $employee)
+                                                                <option value='{{$employee->id}}'>{{$employee->first_name}} {{$employee->last_name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    @else
                                                         @foreach($employeeData as $employee)
-                                                            <option value='{{$employee->id}}'>{{$employee->first_name}} {{$employee->last_name}}</option>
+                                                            @if($employee->id == Session::get('user_id'))
+                                                                <input type="text" class="form-control" placeholder="{{$employee->first_name}} {{$employee->last_name}}" value="{{$employee->first_name}} {{$employee->last_name}}" readonly>
+                                                                <input type="hidden" name="user_id" value="{{$employee->id}}">
+                                                            @endif
                                                         @endforeach
-                                                    </select>
+                                                    @endif
                                                 </div>
                                             </div>
 
@@ -234,7 +252,6 @@
                                                 </div>
                                             </div>
 
-
                                             <div class="modal-footer">
                                                 <input type="submit" value="Save" class="btn btn-primary ">
                                             </div>
@@ -259,8 +276,7 @@
                     <th scope="col">Date</th>
                     <th scope="col">Employee</th>
                     <th scope="col">Holiday Code</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Hours</th>
+                    <th scope="col">Duration</th>
                     <th scope="col">Pay Rate</th>
                     <th scope="col">Total</th>
                     <th scope="col"><b>Actions</b></th>
@@ -272,12 +288,11 @@
                         <td>{{$loop->iteration}}</td>
                         <td><input type="checkbox" id="checkbox" name="ids" class="checkBox_class" value={{$holiday->id}}></td>
                         <td>{{$holiday->date}}</td>
-                        <td>{{$holiday->user_id}}</td>
-                        <td>{{$holiday->holiday_type_id}}</td>
-                        <td>{{$holiday->status}}</td>
-                        <td>{{$holiday->no_of_hours}} {{$holiday->no_of_mins}}</td>
-                        <td>{{'payrate'}}</td>
-                        <td>{{'Total'}}</td>
+                        <td>{{\App\Models\User::getUserName($holiday->user_id)}}</td>
+                        <td>{{\App\Models\Holiday::getHolidayTypeName($holiday->holiday_type_id)}}</td>
+                        <td>{{$holiday->no_of_hours}}h {{$holiday->no_of_mins}}m</td>
+                        <td>£{{\App\Models\Holiday::getHolidayPayRate($holiday->holiday_type_id)}}</td>
+                        <td>£{{\App\Models\Holiday::getHolidayPayRate($holiday->holiday_type_id) * ($holiday->no_of_hours + ($holiday->no_of_mins)/60)}}</td>
                         <td>
                             <div class="col-sm emphasis">
                                 <div class="row">

@@ -187,6 +187,19 @@
                                     <div class="col-md-6 col-sm-6 "><input type="text" name="ni_number"  class="form-control col-9 col-md-10" placeholder="e.g. QQ 12 34 56 A"  value="{{old('ni_number')}}"><br></div>
                                     <span class="text-center color: red" >@error("ni_number"){{$message}}@enderror</span>
                                 </div>
+                                <div class="col-md-3 offset-2">
+                                    <h2>Select Available Shifts</h2>
+                                    <p>Which Shifts the employee works?</p>
+                                    <label><strong>Shifts :</strong></label><br>
+                                    @foreach($shiftTypeData as $shiftType)
+                                        {{--                                    <label><input type="checkbox" name="branch[]" value="{{$branch['id']}}">{{$branch['name']}}</label>--}}
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="category[]" value="{{$shiftType['id']}}" id="defaultCheck1">
+                                            <label class="form-check-label" for="defaultCheck1">{{$shiftType['shift_name']}}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <span class="text-center color: red" >@error("category"){{$message}}@enderror</span>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
@@ -222,6 +235,9 @@
                                     <span class="text-center color: red" >@error("user_name"){{$message}}@enderror</span>
                                 </div>
                             </div>
+
+                            <input type="hidden" id="organisation_id" name="organisation_id" value="{{session()->get('org_id')}}">
+                            <input type="hidden" id="created_by" name="created_by" value="{{session()->get('user_id')}}">
 {{--                            <div class="col-md-6">--}}
 {{--                                <div class="form-group">--}}
 {{--                                    <a class="btn btn-primary" href="#" type="submit">Send Invitation Now</a>--}}

@@ -1,14 +1,10 @@
 import json
 from flask import Flask, request, render_template, session, redirect, url_for, abort
 from database_connector import cnx
-import random
-import time
-from itertools import count
 import secrets
 import  qrcode
 import base64
 import io
-import sys
 from flask_cors import CORS, cross_origin
 import automatic_shifts
 from simplex import simplex_method

@@ -7,7 +7,10 @@
             <x-navbar.top_pane/>
             <!-- page content -->
             <div class="right_col" role="main">
-                <x-code.expense :expenseTypeData="$expenseTypeData"/>
+                <div>
+                    {{--               The CORECT ONE!!!     <x-index.employee :employeeData="$employeeData" :positionData="$positionData" :branchData="$branchData"/>--}}
+                    <x-show.organisation_shifts_employees :employeeData="$employeeData" :shiftData="$shiftData"/>
+                </div>
             </div>
             <!-- /page content -->
 
@@ -16,15 +19,4 @@
             <!-- /footer content -->
         </div>
     </div>
-@endsection
-
-
-@section('scripts')
-    @if (count($errors) > 0)
-        <script type="text/javascript">
-            $( document ).ready(function() {
-                $('#openTab').modal('show');
-            });
-        </script>
-    @endif
 @endsection

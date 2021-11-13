@@ -36,4 +36,30 @@ class Holiday extends Model
             ->get();
         return $holidayData;
     }
+
+    public static function getEmployeeHoliday($user_id)
+    {
+        $holidayData = DB::table('user_holidays')
+            ->where('user_id', '=', $user_id)
+            ->where('status', '=', 1)
+            ->get();
+        return $holidayData;
+    }
+
+
+    public static function getHolidayTypeName($holiday_id)
+    {
+        $holidayTypeName = DB::table('holiday_types')
+            ->where('id', '=', $holiday_id)
+            ->pluck('name');
+        return $holidayTypeName[0];
+    }
+
+    public static function getHolidayPayRate($holiday_id)
+    {
+        $holidayPayRate = DB::table('holiday_types')
+            ->where('id', '=', $holiday_id)
+            ->pluck('pay_rate');
+        return $holidayPayRate[0];
+    }
 }

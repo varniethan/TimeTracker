@@ -1,20 +1,20 @@
 <?php
 
-namespace App\View\Components\index;
+namespace App\View\Components\code;
 
 use Illuminate\View\Component;
 
-class holiday_type extends Component
+class organisation_shifts extends Component
 {
-    public $holidayTypeData;
+    public $organisationShiftsData;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($holidayTypeData)
+    public function __construct($organisationShiftsData)
     {
-        $this->holidayTypeData = $holidayTypeData;
+        $this->organisationShiftsData = $organisationShiftsData;
     }
 
     /**
@@ -24,6 +24,6 @@ class holiday_type extends Component
      */
     public function render()
     {
-        return view('components.index.holiday_type');
+        return view('components.code.organisation_shifts');
     }
 }
