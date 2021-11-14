@@ -4,7 +4,7 @@ namespace App\View\Components\navbar;
 
 use Illuminate\View\Component;
 
-class top-pane extends Component
+class top_pane extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class top-pane extends Component
      */
     public function render()
     {
-        return view('components.navbar.top-pane');
+        return view('components.navbar.top_pane');
     }
 }
