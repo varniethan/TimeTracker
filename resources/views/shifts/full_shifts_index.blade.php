@@ -7,7 +7,7 @@
             <x-navbar.top_pane/>
             <!-- page content -->
             <div class="right_col" role="main">
-                <x-index.full_shifts
+                <x-index.fullShifts
                     :branchData="$branchData"
                     :employeeData="$employeeData"
                     :positionData="$positionData"

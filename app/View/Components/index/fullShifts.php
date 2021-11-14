@@ -34,6 +34,6 @@ class fullShifts extends Component
      */
     public function render()
     {
-        return view('components.index.full-shifts');
+        return view('components.index.fullShifts');
     }
 }
