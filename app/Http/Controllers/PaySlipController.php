@@ -13,7 +13,7 @@ class PaySlipController extends Controller
     public function index()
     {
         $employeeData = User::getEmployeesByOrgId(session('org_id'));
-        return view('shifts.paySlip', compact('employeeData'));
+        return view('shifts.payslip', compact('employeeData'));
     }
 
     public function generatePaySlip(request $request)
